@@ -90,7 +90,7 @@
                     }
                 };
                 selectedEvent = newEvent;
-                $('#calendar_month').pagescalendar('addEvent', newEvent);
+                $('#myCalendar_month').pagescalendar('addEvent', newEvent);
                 setEventDetailsToForm(selectedEvent);
             }
         });
@@ -118,7 +118,7 @@
             $('#txtEventLocation').val(event.other.location);
         }
 
-        $('#eventSave').on('click', function() {
+        $('#eventSave_month').on('click', function() {
             selectedEvent.title = $('#txtEventName').val();
 
             //You can add Any thing inside "other" object and it will get save inside the plugin.
@@ -127,13 +127,13 @@
             selectedEvent.other.code = $('#txtEventCode').val();
             selectedEvent.other.location = $('#txtEventLocation').val();
 
-            $('#calendar_month').pagescalendar('updateEvent',selectedEvent);
+            $('#myCalendar_month').pagescalendar('updateEvent',selectedEvent);
 
             $('#calendar-event').removeClass('open');
         });
 
-        $('#eventDelete').on('click', function() {
-            $('#calendar_month').pagescalendar('removeEvent', $('#eventIndex').val());
+        $('#eventDelete_month').on('click', function() {
+            $('#myCalendar_month').pagescalendar('removeEvent', $('#eventIndex').val());
             $('#calendar-event').removeClass('open');
         });
     });

@@ -132,8 +132,8 @@
             $('#calendar-event').removeClass('open');
         });
 
-        $('#eventDelete').on('click', function() {
-            $('#myCalendar').pagescalendar('removeEvent', $('#eventIndex').val());
+        $('#eventDelete_week').on('click', function() {
+            $('#myCalendar_week').pagescalendar('removeEvent', $('#eventIndex').val());
             $('#calendar-event').removeClass('open');
         });
     });

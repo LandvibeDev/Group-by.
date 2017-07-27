@@ -17,8 +17,12 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'home/calendar_week'
-  get 'home/calendar_month'
+  get 'home/calendar'
+
+  post 'home/load_event' => 'home#load_event'
+  post 'home/create_event' => 'home#create_event'
+  post 'home/edit_event' => 'home#edit_event'
+  post 'home/delete_event' => 'home#delete_event'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

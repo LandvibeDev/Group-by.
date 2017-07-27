@@ -1762,6 +1762,7 @@
             },
             _changeView :function(view){
                 this.gridLayout.layout = view
+                this.settings.view = view
                 this.gridLayout.rebuild();
             },
 

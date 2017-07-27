@@ -12,8 +12,8 @@
     $(document).ready(function() {
 
         var selectedEvent;
-        $('#myCalendar_month').pagescalendar({
-            //Loading Dummy EVENTS for demo Purposes, you can feed the events attribute from 
+        $('#myCalendar_week').pagescalendar({
+            //Loading Dummy EVENTS for demo Purposes, you can feed the events attribute from
             //Web Service
             events: [{
                 title: 'Call Dave',
@@ -53,9 +53,9 @@
                     note: 'test'
                 }
             }, ],
-            view:"month",
+            view:"week",
             onViewRenderComplete: function() {
-                //You can Do a Simple AJAX here and update 
+                //You can Do a Simple AJAX here and update
             },
             onEventClick: function(event) {
                 //Open Pages Custom Quick View
@@ -76,8 +76,8 @@
                 setEventDetailsToForm(selectedEvent);
             },
             onTimeSlotDblClick: function(timeSlot) {
-                //Adding a new Event on Slot Double Click
                 $('#calendar-event').removeClass('open');
+                //Adding a new Event on Slot Double Click
                 var newEvent = {
                     title: 'my new event',
                     class: 'bg-success-lighter',
@@ -90,7 +90,7 @@
                     }
                 };
                 selectedEvent = newEvent;
-                $('#calendar_month').pagescalendar('addEvent', newEvent);
+                $('#myCalendar').pagescalendar('addEvent', newEvent);
                 setEventDetailsToForm(selectedEvent);
             }
         });
@@ -127,13 +127,13 @@
             selectedEvent.other.code = $('#txtEventCode').val();
             selectedEvent.other.location = $('#txtEventLocation').val();
 
-            $('#calendar_month').pagescalendar('updateEvent',selectedEvent);
+            $('#myCalendar').pagescalendar('updateEvent',selectedEvent);
 
             $('#calendar-event').removeClass('open');
         });
 
         $('#eventDelete').on('click', function() {
-            $('#calendar_month').pagescalendar('removeEvent', $('#eventIndex').val());
+            $('#myCalendar').pagescalendar('removeEvent', $('#eventIndex').val());
             $('#calendar-event').removeClass('open');
         });
     });

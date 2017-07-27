@@ -1,0 +1,2 @@
+module UsermailsHelper
+end

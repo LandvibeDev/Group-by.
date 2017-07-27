@@ -2,10 +2,11 @@
 <!-- START SECONDARY SIDEBAR MENU-->
 <nav class="secondary-sidebar padding-30">
   <!--<a href="" class="btn btn-complete btn-block btn-compose m-b-30">Compose</a>-->
-  <form action="/usermail/insertmail/<%= current_user.id %>" method="get">
+  <form action="/usermail/insertmail/<%= current_user.id %>" method="get" data-remote="true">
 
     <button class="btn btn-complete btn-block btn-compose m-b-30" type="submit">받아오기</button>
   </form>
+
   <p class="menu-title">BROWSE</p>
   <ul class="main-menu">
     <li class="active">
@@ -81,7 +82,7 @@
             </div>
             <ul class="no-padding">
               <% @emails.each do |m| %>
-                  <li class="item padding-15 active" data-email-id=<%= m.id %> >
+                  <li class="item padding-15 active" , data-remote="true" , data-email-id=<%= m.id %> >
                     <div class="thumbnail-wrapper d32 circular bordered b-success">
                     </div>
                     <div class="checkbox  no-margin p-l-10">

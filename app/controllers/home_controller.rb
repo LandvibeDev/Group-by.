@@ -7,6 +7,7 @@ class HomeController < ApplicationController
   def email
     pop = Userpop3.find(current_user.id)
     @emails = pop.usermails.all
+
     respond_to do |format|
       format.html
       format.js

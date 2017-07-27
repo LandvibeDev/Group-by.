@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170721074838) do
+ActiveRecord::Schema.define(version: 20170726101301) do
 
   create_table "usermails", force: :cascade do |t|
     t.integer "userpop3_id"

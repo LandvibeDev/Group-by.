@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
+  resources :contents
+  resources :groups
+  resources :events
   devise_for :users
+  resources :usermails
 
   get 'home/email'
   get 'home/index'

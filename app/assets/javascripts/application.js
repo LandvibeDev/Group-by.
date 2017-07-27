@@ -33,6 +33,3 @@
 // BEGIN CORE TEMPLATE JS FOR PAGES
 //= require pages-core/pages
 //= require pages-core/pages.email
-
-// BEGIN SITE SCRIPTS
-//= require turbolinks

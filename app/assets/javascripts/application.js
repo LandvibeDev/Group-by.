@@ -29,10 +29,12 @@
 //= require pages-plugins/jquery-scrollbar/jquery.scrollbar.min
 //= require pages-plugins/jquery-menuclipper/jquery.menuclipper
 //= require pages-plugins/summernote/js/summernote.min
+//= require pages-plugins/interactjs/interact.min
 
 // BEGIN CORE TEMPLATE JS FOR PAGES
 //= require pages-core/pages
 //= require pages-core/pages.email
+//= require pages-core/pages.calendar
 
 // BEGIN SITE SCRIPTS
-//= require turbolinks
+//= require js/calendar.js

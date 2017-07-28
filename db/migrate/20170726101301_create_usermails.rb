@@ -2,6 +2,7 @@ class CreateUsermails < ActiveRecord::Migration[5.1]
   def change
     create_table :usermails do |t|
       t.belongs_to :userpop3
+      t.belongs_to :user
       t.string :subject
       t.text :content
       t.string :date

@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   resources :groups
   resources :events
   devise_for :users
-  resources :usermails
+  resources :userpop3s do
+    resources :usermails
+  end
 
   get 'home/email'
   get 'home/index'

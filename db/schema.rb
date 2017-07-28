@@ -10,10 +10,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170726101301) do
+ActiveRecord::Schema.define(version: 20170727070422) do
+
+  create_table "contents", force: :cascade do |t|
+    t.integer "group_id"
+    t.string "title"
+    t.text "content"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_contents_on_group_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "title"
+    t.text "content"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "usermails", force: :cascade do |t|
     t.integer "userpop3_id"
+    t.integer "user_id"
     t.string "subject"
     t.text "content"
     t.string "date"
@@ -21,11 +51,13 @@ ActiveRecord::Schema.define(version: 20170726101301) do
     t.string "to"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_usermails_on_user_id"
     t.index ["userpop3_id"], name: "index_usermails_on_userpop3_id"
   end
 
   create_table "userpop3s", force: :cascade do |t|
     t.integer "user_id"
+    t.string "title"
     t.string "email"
     t.string "password"
     t.integer "port"

@@ -1,29 +1,261 @@
-<p id="notice"><%= notice %></p>
+<!-- START APP -->
+<!-- START SECONDARY SIDEBAR MENU-->
+<nav class="secondary-sidebar padding-30">
+  <p class="menu-title">BROWSE</p>
+  <ul class="main-menu">
+    <li class="active">
+      <i class="pg-inbox"></i>
+      <%= link_to ' All Mail',userpop3_usermails_path(1), :class => 'title' %>
+    </li>
+  </ul>
+  <p class="menu-title m-t-20 all-caps">Quick view</p>
+  <ul class="sub-menu no-padding">
+    <% @userpop.each do |pop| %>
+        <li>
+          <div>
+            <a class="pg_folder"></a>
+            <%= link_to pop.title, userpop3_usermail_path(pop.id, 1), :style => 'color: #89929a;' %>
+          </div>
+        </li>
+    <% end %>
+  </ul>
 
-<p>
-  <strong>Subject:</strong>
-  <%= @usermail.subject %>
-</p>
+  <a href="#" class="menu-title" id="popBtn">
+    POP Setting
+  </a>
+</nav>
+<!-- END SECONDARY SIDEBAR MENU -->
+<div class="inner-content full-height">
+  <!-- popModal -->
+  <div class="modal fade stick-up" id="popModal" tabindex="-1" role="dialog" aria-labelledby="popModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="popModalLabel">POP3 SETTING</h4>
+        </div>
+        <form action="/userpop3/setpop/<%= current_user.id %>" method="get">
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group form-group-default">
+                  <label class="modal-label">title</label>
+                  <input name="title" id="title" class="form-control">
+                </div>
+              </div>
+            </div>
 
-<p>
-  <strong>Content:</strong>
-  <%= @usermail.content %>
-</p>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group form-group-default">
+                  <label class="modal-label">email</label>
+                  <input name="email" id="email" class="form-control">
+                </div>
+              </div>
+            </div>
 
-<p>
-  <strong>Date:</strong>
-  <%= @usermail.date %>
-</p>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group form-group-default">
+                  <label class="modal-label">password</label>
+                  <input name="password" id="password" class="form-control">
+                </div>
+              </div>
+            </div>
 
-<p>
-  <strong>From:</strong>
-  <%= @usermail.from %>
-</p>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group form-group-default">
+                  <label class="modal-label">port</label>
+                  <input name="port" id="port" class="form-control">
+                </div>
+              </div>
+            </div>
 
-<p>
-  <strong>To:</strong>
-  <%= @usermail.to %>
-</p>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group form-group-default">
+                  <label class="modal-label">pop3</label>
+                  <input name="pop3" id="pop3" class="form-control">
+                </div>
+              </div>
+            </div>
+          </div>
 
-<%= link_to 'Edit', edit_usermail_path(@usermail) %> |
-<%= link_to 'Back', usermails_path %>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="split-view">
+    <!-- START SPLIT LIST VIEW -->
+    <div class="split-list">
+      <div data-email="list" class="list-view">
+        <%= form_with(url: userpop3_usermails_path, local: true) do |form| %>
+            <%= form.submit '메일 불러오기',:class => 'list-refresh bold', :style => 'background-color: transparent;text-decoration: underline;border: none;' %>
+        <% end %>
+        <!-- START EMAIL LIST SORTED BY DATE -->
+        <!-- END EMAIL LIST SORTED BY DATE -->
+        <div class="list-view-wrapper" data-ios="false">
+          <div class="list-view-group-container">
+            <div class="list-view-group-header">
+              <span><%= @pop.title %> EMAIL LIST</span>
+            </div>
+            <ul class="no-padding">
+              <% @usermails.each do |m| %>
+                  <li class="item padding-15 active" data-email-id=<%= m.id %> >
+                    <div class="checkbox  no-margin p-l-10">
+                      <input type="checkbox" value="1" id="emailcheckbox-0-0">
+                      <label for="emailcheckbox-0-0"></label>
+                    </div>
+                    <div class="inline m-l-15">
+                      <p class="recipients no-margin hint-text small">From : <%= m.from %></p>
+                      <p class="subject no-margin" style="padding: 20px;display: block;white-space: inherit;">TITLE : <%= m.subject %></p>
+                    </div>
+                    <div class="bottom-right datetime"><%= m.date %></div>
+                    <div class="clearfix"></div>
+                  </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+        <!-- END SPLIT LIST VIEW -->
+      </div>
+    </div>
+    <!-- START SPLIT DETAILS -->
+    <div data-email="opened" class="split-details">
+      <div class="no-result">
+        <h1>No email has been selected</h1>
+      </div>
+      <div class="email-content-wrapper" style="display:none">
+        <div class="email-content">
+          <div class="email-content-header">
+            <div class="sender inline m-l-10">
+              <p class="name no-margin bold">
+              </p>
+              <p class="datetime no-margin"></p>
+            </div>
+            <div class="clearfix"></div>
+            <div class="subject m-t-20 m-b-20 semi-bold">
+            </div>
+            <div class="fromto">
+              <div class="pull-left">
+
+                <button type="button" class="btn btn-sm btn-rounded" data-toggle="modal" data-target="#eventModal">
+                  Add Event
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade slide-right" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="eventModalLabel">Modal title</h4>
+                      </div>
+                      <div class="modal-body">
+                        ...
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <label class="inline">
+                  <span class="muted">&nbsp;&nbsp;to</span>
+                  <span class=" small-text" id="to"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+          <div class="email-content-body m-t-20">
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END SPLIT DETAILS -->
+</div>
+<!-- END APP -->
+
+<style>
+  .email-content-body {
+    position: sticky;
+  }
+  .secondary-sidebar .menu-title {
+    color: rgb(0, 216, 255);
+  }
+  .modal-label {
+    text-align: center;
+  }
+  .form-control {
+    text-align: center;
+  }
+  .split-view .split-list .item .datetime {
+    right: 10px;
+    top: 80%;
+  }
+</style>
+
+<script>
+    var emailOpened = $('[data-email="opened"]');
+
+    $('.split-view').on('click', '.item .checkbox', function(e) {
+        e.stopPropagation();
+    });
+
+    $('.split-view').on('click', '.item', function(e) {
+        e.stopPropagation();
+
+        var id = $(this).attr('data-email-id');
+        var email = null;
+        <% @usermails.each do |mail| %>
+        var mail_id = <%= raw mail.id.to_json %>;
+
+        if ( mail_id == id )
+        {
+            var email_from = <%= raw mail.from.to_json %>;
+            var email_date = <%= raw mail.date.to_json %>;
+            var email_subject = <%= raw mail.subject.to_json %>;
+            var email_content = <%= raw mail.content.to_json %>;
+            var email_to = <%= raw mail.to.to_json %>
+        }
+        <% end %>
+        var thumbnailWrapper = $(this).find('.thumbnail-wrapper');
+
+        emailOpened.find('.sender .name').text(email_from);
+        emailOpened.find('.sender .datetime').text(email_date);
+        emailOpened.find('.subject').text(email_subject);
+        emailOpened.find('.email-content-body').html(email_content);
+        emailOpened.find('.inline #to').text(email_to);
+
+        // Initialize email action menu
+        $('.menuclipper').menuclipper({
+            bufferWidth: 20
+        });
+
+        $('.no-result').hide();
+        $('.actions-dropdown').toggle();
+        $('.actions, .email-content-wrapper').show();
+
+        if ($.Pages.isVisibleSm() || $.Pages.isVisibleXs()) {
+            $('.split-list').toggleClass('slideLeft');
+        }
+
+        $('.item').removeClass('active');
+        $(this).addClass('active');
+
+    });
+
+    $('#popBtn').click(function () {
+        $('#popModal').modal();
+    })
+</script>

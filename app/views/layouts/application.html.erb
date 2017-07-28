@@ -56,12 +56,10 @@
   <div class="sidebar-menu">
     <ul class="menu-items">
       <li class="m-t-30">
-        <a href="/home/email" class="detailed">
-          <span class="title">EMAIL</span>
-          <span class="details">234 notifications</span>
-        </a>
-        <span class="icon-thumbnail "><i class="fa fa-envelope-o"></i>
-                    </span>
+        <%= link_to 'EMAIL', userpop3_usermails_path(1), :class => 'title' %>
+        <span class="icon-thumbnail ">
+          <i class="fa fa-envelope-o"></i>
+        </span>
       </li>
       <li class="">
         <a href="#">
@@ -102,7 +100,7 @@
 <div class="page-container">
   <!-- START PAGE HEADER WRAPPER -->
   <!-- START HEADER -->
-  <div class="header ">
+  <div class="header">
     <!-- START MOBILE CONTROLS -->
     <!-- LEFT SIDE -->
     <div class="pull-left full-height visible-sm visible-xs">
@@ -224,7 +222,7 @@
   <!-- START PAGE CONTENT WRAPPER -->
   <div class="page-content-wrapper full-height">
     <!-- START PAGE CONTENT -->
-    <div class="content full-height">
+    <div class="content full-height" style="padding-bottom: 0px">
       <%= yield %>
     </div>
     <!-- END PAGE CONTENT -->

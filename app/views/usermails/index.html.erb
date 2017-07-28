@@ -1,99 +1,122 @@
 <!-- START APP -->
 <!-- START SECONDARY SIDEBAR MENU-->
 <nav class="secondary-sidebar padding-30">
-  <!--<a href="" class="btn btn-complete btn-block btn-compose m-b-30">Compose</a>-->
-  <%= render 'form', usermail: @usermail %>\
-
   <p class="menu-title">BROWSE</p>
   <ul class="main-menu">
     <li class="active">
-      <a href="#">
-        <span class="title"><i class="pg-inbox"></i> Inbox</span>
-        <span class="badge pull-right">5</span>
-      </a>
-    </li>
-    <li class="">
-      <a href="#">
-        <span class="title"><i class="pg-folder"></i> All mail</span>
-      </a>
-      <ul class="sub-menu no-padding">
-        <li>
-          <a href="#">
-            <span class="title">Important</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <span class="title">Labeled</span>
-          </a>
-        </li>
-      </ul>
-    </li>
-    <li>
-      <a href="#">
-        <span class="title"><i class="pg-sent"></i> Sent</span>
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <span class="title"><i class="pg-spam"></i> Spam</span>
-        <span class="badge pull-right">10</span>
-      </a>
+      <i class="pg-inbox"></i>
+      <%= link_to ' All Mail',userpop3_usermails_path(1), :class => 'title' %>
     </li>
   </ul>
   <p class="menu-title m-t-20 all-caps">Quick view</p>
   <ul class="sub-menu no-padding">
-    <li>
-      <a href="#">
-        <span class="title">Documents</span>
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <span class="title">Flagged</span>
-        <span class="badge pull-right">5</span>
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <span class="title">Images</span>
-      </a>
-    </li>
+    <% @userpop.each do |pop| %>
+        <li>
+          <div>
+            <a class="pg_folder"></a>
+            <%= link_to pop.title, userpop3_usermail_path(pop.id, 1), :style => 'color: #89929a;' %>
+          </div>
+        </li>
+    <% end %>
   </ul>
+
+  <a href="#" class="menu-title" id="popBtn">
+    POP Setting
+  </a>
 </nav>
 <!-- END SECONDARY SIDEBAR MENU -->
 <div class="inner-content full-height">
+  <!--popModal-->
+  <div class="modal fade stick-up" id="popModal" tabindex="-1" role="dialog" aria-labelledby="popModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="popModalLabel">POP3 SETTING</h4>
+        </div>
+        <form action="/userpop3/setpop/<%= current_user.id %>" method="get">
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group form-group-default">
+                  <label class="modal-label">title</label>
+                  <input name="title" id="title" class="form-control">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group form-group-default">
+                  <label class="modal-label">email</label>
+                  <input name="email" id="email" class="form-control">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group form-group-default">
+                  <label class="modal-label">password</label>
+                  <input name="password" id="password" class="form-control">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group form-group-default">
+                  <label class="modal-label">port</label>
+                  <input name="port" id="port" class="form-control">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group form-group-default">
+                  <label class="modal-label">pop3</label>
+                  <input name="pop3" id="pop3" class="form-control">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
   <div class="split-view">
     <!-- START SPLIT LIST VIEW -->
     <div class="split-list">
-      <a class="list-refresh" href="#">
-        <i class="fa fa-refresh"></i>
-      </a>
       <div data-email="list" class="list-view">
         <!-- START EMAIL LIST SORTED BY DATE -->
         <!-- END EMAIL LIST SORTED BY DATE -->
         <div class="list-view-wrapper" data-ios="false">
           <div class="list-view-group-container">
             <div class="list-view-group-header">
-              <span>Today April 23</span>
+              <span>EMAIL LIST</span>
             </div>
             <ul class="no-padding">
-                  <li class="item padding-15 active" data-email-id="1" >
-                    <div class="thumbnail-wrapper d32 circular bordered b-success">
-                    </div>
-                    <div class="checkbox  no-margin p-l-10">
-                      <input type="checkbox" value="1" id="emailcheckbox-0-0">
-                      <label for="emailcheckbox-0-0"></label>
-                    </div>
-                    <div class="inline m-l-15">
-                      <p class="recipients no-margin hint-text small"></p>
-                      <p class="subject no-margin"></p>
-                      <p class="body no-margin">
-                      </p>
-                    </div>
-                    <div class="datetime"></div>
-                    <div class="clearfix"></div>
-                  </li>
+                  <% @usermails.each do |m| %>
+                      <li class="item padding-15 active" data-email-id=<%= m.id %> >
+                        <div class="checkbox  no-margin p-l-10">
+                          <input type="checkbox" value="1" id="emailcheckbox-0-0">
+                          <label for="emailcheckbox-0-0"></label>
+                        </div>
+                        <div class="inline m-l-15">
+                          <p class="recipients no-margin hint-text small">From : <%= m.from %></p>
+                          <p class="subject no-margin" style="padding: 20px;display: block;white-space: inherit;">TITLE : <%= m.subject %></p>
+                        </div>
+                        <div class="datetime"><%= m.date %></div>
+                        <div class="clearfix"></div>
+                      </li>
+                  <% end %>
             </ul>
           </div>
         </div>
@@ -106,30 +129,8 @@
         <h1>No email has been selected</h1>
       </div>
       <div class="email-content-wrapper" style="display:none">
-        <div class="actions-wrapper menuclipper bg-master-lightest">
-          <ul class="actions menuclipper-menu no-margin p-l-20 ">
-            <li class="visible-sm-inline-block visible-xs-inline-block">
-              <a href="#" class="split-list-toggle"><i class="fa fa-angle-left"></i> All Inboxes
-              </a>
-            </li>
-            <li class="no-padding "><a href="#" class="text-info">Reply</a>
-            </li>
-            <li class="no-padding "><a href="#">Reply all</a>
-            </li>
-            <li class="no-padding "><a href="#">Forward</a>
-            </li>
-            <li class="no-padding "><a href="#">Mark as read</a>
-            </li>
-            <li class="no-padding "><a href="#" class="text-danger">Delete</a>
-            </li>
-          </ul>
-          <div class="clearfix"></div>
-        </div>
         <div class="email-content">
           <div class="email-content-header">
-            <div class="thumbnail-wrapper d48 circular bordered">
-              <%= image_tag('profiles/avatar2x.jpg') %>
-            </div>
             <div class="sender inline m-l-10">
               <p class="name no-margin bold">
               </p>
@@ -140,23 +141,33 @@
             </div>
             <div class="fromto">
               <div class="pull-left">
-                <div class="btn-group dropdown-default">
-                  <a class="btn dropdown-toggle btn-small btn-rounded" data-toggle="dropdown" href="#">
-                    David Nester
-                    <span class="caret"></span>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a href="#">Action</a>
-                    </li>
-                    <li><a href="#">Friend</a>
-                    </li>
-                    <li><a href="#">Report</a>
-                    </li>
-                  </ul>
+
+                <button type="button" class="btn btn-sm btn-rounded" data-toggle="modal" data-target="#myModal">
+                  Add Event
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade slide-right" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                      </div>
+                      <div class="modal-body">
+                        ...
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+
                 <label class="inline">
                   <span class="muted">&nbsp;&nbsp;to</span>
-                  <span class=" small-text">johnsmith@skyace.com</span>
+                  <span class=" small-text" id="to"></span>
                 </label>
               </div>
             </div>
@@ -179,233 +190,76 @@
 </div>
 <!-- END APP -->
 
+<style>
+  .email-content-body {
+    position: sticky;
+  }
+  .secondary-sidebar .menu-title {
+    color: rgb(0, 216, 255);
+  }
+  .modal-label {
+    text-align: center;
+  }
+  .form-control {
+    text-align: center;
+  }
+  .split-view .split-list .item .datetime {
+    right: 10px;
+    top: 80%;
+  }
+</style>
+
 <script>
-    (function($) {
-        'use strict';
+    var emailOpened = $('[data-email="opened"]');
 
-        var emailList = $('[data-email="list"]');
-        var emailOpened = $('[data-email="opened"]');
-        // Wysiwyg editor custom options
+    $('.split-view').on('click', '.item .checkbox', function(e) {
+        e.stopPropagation();
+    });
 
-        var editorTemplate = {
-            "font-styles": function(locale) {
-                return '<li class="dropdown dropup">' + '<a data-toggle="dropdown" class="btn btn-default dropdown-toggle ">    <span class="glyphicon glyphicon-font"></span>    <span class="current-font">Normal text</span>    <b class="caret"></b>  </a>' + '<ul class="dropdown-menu">    <li><a tabindex="-1" data-wysihtml5-command-value="p" data-wysihtml5-command="formatBlock" href="javascript:;" unselectable="on">Normal text</a></li>     <li><a tabindex="-1" data-wysihtml5-command-value="h1" data-wysihtml5-command="formatBlock" href="javascript:;" unselectable="on">Heading 1</a></li>    <li><a tabindex="-1" data-wysihtml5-command-value="h2" data-wysihtml5-command="formatBlock" href="javascript:;" unselectable="on">Heading 2</a></li>    <li><a tabindex="-1" data-wysihtml5-command-value="h3" data-wysihtml5-command="formatBlock" href="javascript:;" unselectable="on">Heading 3</a></li>    <li><a tabindex="-1" data-wysihtml5-command-value="h4" data-wysihtml5-command="formatBlock" href="javascript:;" unselectable="on">Heading 4</a></li>    <li><a tabindex="-1" data-wysihtml5-command-value="h5" data-wysihtml5-command="formatBlock" href="javascript:;" unselectable="on">Heading 5</a></li>    <li><a tabindex="-1" data-wysihtml5-command-value="h6" data-wysihtml5-command="formatBlock" href="javascript:;" unselectable="on">Heading 6</a></li>  </ul>' + '</li>';
-            },
-            emphasis: function(locale) {
-                return '<li>' + '<div class="btn-group">' + '<a tabindex="-1" title="CTRL+B" data-wysihtml5-command="bold" class="btn  btn-default" href="javascript:;" unselectable="on"><i class="editor-icon editor-icon-bold"></i></a>' + '<a tabindex="-1" title="CTRL+I" data-wysihtml5-command="italic" class="btn  btn-default" href="javascript:;" unselectable="on"><i class="editor-icon editor-icon-italic"></i></a>' + '<a tabindex="-1" title="CTRL+U" data-wysihtml5-command="underline" class="btn  btn-default" href="javascript:;" unselectable="on"><i class="editor-icon editor-icon-underline"></i></a>' + '</div>' + '</li>';
-            },
-            blockquote: function(locale) {
-                return '<li>' + '<a tabindex="-1" data-wysihtml5-display-format-name="false" data-wysihtml5-command-value="blockquote" data-wysihtml5-command="formatBlock" class="btn  btn-default" href="javascript:;" unselectable="on">' + '<i class="editor-icon editor-icon-quote"></i>' + '</a>' + '</li>'
-            },
-            lists: function(locale) {
-                return '<li>' + '<div class="btn-group">' + '<a tabindex="-1" title="Unordered list" data-wysihtml5-command="insertUnorderedList" class="btn  btn-default" href="javascript:;" unselectable="on"><i class="editor-icon editor-icon-ul"></i></a>' + '<a tabindex="-1" title="Ordered list" data-wysihtml5-command="insertOrderedList" class="btn  btn-default" href="javascript:;" unselectable="on"><i class="editor-icon editor-icon-ol"></i></a>' + '<a tabindex="-1" title="Outdent" data-wysihtml5-command="Outdent" class="btn  btn-default" href="javascript:;" unselectable="on"><i class="editor-icon editor-icon-outdent"></i></a>' + '<a tabindex="-1" title="Indent" data-wysihtml5-command="Indent" class="btn  btn-default" href="javascript:;" unselectable="on"><i class="editor-icon editor-icon-indent"></i></a>' + '</div>' + '</li>'
-            },
-            image: function(locale) {
-                return '<li>' + '<div class="bootstrap-wysihtml5-insert-image-modal modal fade">' + '<div class="modal-dialog ">' + '<div class="modal-content">' + '<div class="modal-header">' + '<a data-dismiss="modal" class="close">횞</a>' + '<h3>Insert image</h3>' + '</div>' + '<div class="modal-body">' + '<input class="bootstrap-wysihtml5-insert-image-url form-control" value="http://">' + '</div>' + '<div class="modal-footer">' + '<a data-dismiss="modal" class="btn btn-default">Cancel</a>' + '<a data-dismiss="modal" class="btn btn-primary">Insert image</a>' + '</div>' + '</div>' + '</div>' + '</div>' + '<a tabindex="-1" title="Insert image" data-wysihtml5-command="insertImage" class="btn  btn-default" href="javascript:;" unselectable="on">' + '<i class="editor-icon editor-icon-image"></i>' + '</a>' + '</li>'
-            },
-            link: function(locale) {
-                return '<li>' + '<div class="bootstrap-wysihtml5-insert-link-modal modal fade">' + '<div class="modal-dialog ">' + '<div class="modal-content">' + '<div class="modal-header">' + '<a data-dismiss="modal" class="close">횞</a>' + '<h3>Insert link</h3>' + '</div>' + '<div class="modal-body">' + '<input class="bootstrap-wysihtml5-insert-link-url form-control" value="http://">' + '<div class="checkbox check-success"> <input type="checkbox" class="bootstrap-wysihtml5-insert-link-target" checked="checked" value="1" id="link-checkbox"> <label for="link-checkbox">Open link in new window</label></div>' + '</div>' + '<div class="modal-footer">' + '<a data-dismiss="modal" class="btn btn-default">Cancel</a>' + '<a data-dismiss="modal" class="btn btn-primary" href="#">Insert link</a>' + '</div>' + '</div>' + '</div>' + '</div>' + '<a tabindex="-1" title="Insert link" data-wysihtml5-command="createLink" class="btn  btn-default" href="javascript:;" unselectable="on">' + '<i class="editor-icon editor-icon-link"></i>' + '</a>' + '</li>'
-            }
+    $('.split-view').on('click', '.item', function(e) {
+        e.stopPropagation();
+
+        var id = $(this).attr('data-email-id');
+        var email = null;
+        <% @usermails.each do |mail| %>
+        var mail_id = <%= raw mail.id.to_json %>;
+
+        if ( mail_id == id )
+        {
+            var email_from = <%= raw mail.from.to_json %>;
+            var email_date = <%= raw mail.date.to_json %>;
+            var email_subject = <%= raw mail.subject.to_json %>;
+            var email_content = <%= raw mail.content.to_json %>;
+            var email_to = <%= raw mail.to.to_json %>
         }
+        <% end %>
+        var thumbnailWrapper = $(this).find('.thumbnail-wrapper');
 
-        var editorOptions = {
-            "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
-            "emphasis": true, //Italics, bold, etc. Default true
-            "lists": false, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
-            "html": false, //Button which allows you to edit the generated HTML. Default false
-            "link": true, //Button to insert a link. Default true
-            "image": true, //Button to insert an image. Default true,
-            "color": false, //Button to change color of font
-            "blockquote": true, //Blockquote
-            stylesheets: ["pages/css/editor.css"],
-            customTemplates: editorTemplate
-        };
+        emailOpened.find('.sender .name').text(email_from);
+        emailOpened.find('.sender .datetime').text(email_date);
+        emailOpened.find('.subject').text(email_subject);
+        emailOpened.find('.email-content-body').html(email_content);
+        emailOpened.find('.inline #to').text(email_to);
 
-
-        $('#mark-email').click(function() {
-            $('.item .checkbox').toggle();
+        // Initialize email action menu
+        $('.menuclipper').menuclipper({
+            bufferWidth: 20
         });
 
-        // Load list of emails
-        emailList.length && $.ajax({
-            dataType: "json",
-            url: "/usermails.json",
-            success: function(data) {
+        $('.no-result').hide();
+        $('.actions-dropdown').toggle();
+        $('.actions, .email-content-wrapper').show();
 
-
-                $.each(data.emails, function(i) {
-                    var obj = data.emails[i];
-                    var group = obj.group;
-                    var list = obj.list;
-
-                    var listViewGroupCont = $('<div/>', {
-                        "class": "list-view-group-container"
-                    });
-                    listViewGroupCont.append('<div class="list-view-group-header"><span>' + group + '</span></div>');
-                    var ul = $('<ul/>', {
-                        "class": "no-padding"
-                    });
-
-                    $.each(list, function(j) {
-                        var $this = list[j];
-                        var id = $this.id;
-                        var dp = $this.dp;
-                        var dpRetina = $this.dpRetina;
-                        var to = $this.to.join();
-                        var subject = $this.subject;
-                        var body = $this.body.replace(/<(?:.|\n)*?>/gm, '');
-                        var time = $this.time;
-                        var colors = ['b-success', 'b-primary', 'b-warning', 'b-info', 'b-complete', 'b-danger'];
-                        var color = colors[Math.floor(Math.random() * (6))];
-                        var li = '<li class="item padding-15" data-email-id="' + id + '"> \
-                                <div class="thumbnail-wrapper d32 circular bordered ' + color + '"> \
-                                    <img width="40" height="40" alt="" data-src-retina="' + dpRetina + '" data-src="' + dp + '" src="' + dpRetina + '"> \
-                                </div> \
-                                <div class="checkbox  no-margin p-l-10"> \
-                                    <input type="checkbox" value="1" id="emailcheckbox-' + i + "-" + j + '"> \
-                                    <label for="emailcheckbox-' + i + "-" + j + '"></label> \
-                                </div> \
-                                <div class="inline m-l-15"> \
-                                    <p class="recipients no-margin hint-text small">' + to + '</p> \
-                                    <p class="subject no-margin">' + subject + '</p> \
-                                    <p class="body no-margin"> \
-                                     ' + body + ' \
-                                    </p> \
-                                </div> \
-                                <div class="datetime">' + time + '</div> \
-                                <div class="clearfix"></div> \
-                            </li>';
-                        ul.append(li);
-                    });
-
-                    listViewGroupCont.append(ul);
-                    emailList.append(listViewGroupCont);
-                });
-                emailList.ioslist();
-
-            }
-        });
-
-        $('body').on('click', '.item .checkbox', function(e) {
-            e.stopPropagation();
-        });
-
-        $('body').on('click', '.item', function(e) {
-            e.stopPropagation();
-
-            var id = $(this).attr('data-email-id');
-            var email = null;
-            var thumbnailWrapper = $(this).find('.thumbnail-wrapper');
-            $.ajax({
-                dataType: "json",
-                url: "http://revox.io/json/emails.json",
-                success: function(data) {
-                    $.each(data.emails, function(i) {
-                        var obj = data.emails[i];
-                        var list = obj.list;
-                        $.each(list, function(j) {
-                            if (list[j].id == id) {
-                                email = list[j];
-
-                                return;
-                            }
-                        });
-
-                        if (email != null) return;
-                    });
-
-                    emailOpened.find('.sender .name').text(email.from);
-                    emailOpened.find('.sender .datetime').text(email.datetime);
-                    emailOpened.find('.subject').text(email.subject);
-                    emailOpened.find('.email-content-body').html(email.body);
-
-                    var thumbnailClasses = thumbnailWrapper.attr('class').replace('d32', 'd48');
-                    emailOpened.find('.thumbnail-wrapper').html(thumbnailWrapper.html()).attr('class', thumbnailClasses);
-
-                    $('.no-result').hide();
-                    $('.actions-dropdown').toggle();
-                    $('.actions, .email-content-wrapper').show();
-                    if ($.Pages.isVisibleSm() || $.Pages.isVisibleXs()) {
-                        $('.split-list').toggleClass('slideLeft');
-                    }
-
-                    !$('.email-reply').data('wysihtml5') && $('.email-reply').wysihtml5(editorOptions);
-
-                    $(".email-content-wrapper").scrollTop(0);
-
-                    // Initialize email action menu
-                    $('.menuclipper').menuclipper({
-                        bufferWidth: 20
-                    });
-                }
-            });
-
-            $('.item').removeClass('active');
-            $(this).addClass('active');
-
-        });
-
-        // Toggle email sidebar on mobile view
-        $('.toggle-secondary-sidebar').click(function(e) {
-            e.stopPropagation();
-            $('.secondary-sidebar').toggle();
-        });
-
-        $('.split-list-toggle').click(function() {
+        if ($.Pages.isVisibleSm() || $.Pages.isVisibleXs()) {
             $('.split-list').toggleClass('slideLeft');
-        });
-
-        $('.secondary-sidebar').click(function(e) {
-            e.stopPropagation();
-        })
-
-        $(window).resize(function() {
-
-            if ($(window).width() <= 1024) {
-                $('.secondary-sidebar').hide();
-
-            } else {
-                $('.split-list').length && $('.split-list').removeClass('slideLeft');
-                $('.secondary-sidebar').show();
-            }
-        });
-
-
-        // Email composer
-        var emailComposerToolbarTemplate = {
-            "font-styles": function(locale) {
-                return '<li class="dropdown">' + '<a data-toggle="dropdown" class="btn btn-default dropdown-toggle ">' + '<span class="editor-icon editor-icon-headline"></span>' + '<span class="current-font">Normal</span>' + '<b class="caret"></b>' + '</a>' + '<ul class="dropdown-menu">' + '<li><a tabindex="-1" data-wysihtml5-command-value="p" data-wysihtml5-command="formatBlock" href="javascript:;" unselectable="on">Normal</a></li>' + '<li><a tabindex="-1" data-wysihtml5-command-value="h1" data-wysihtml5-command="formatBlock" href="javascript:;" unselectable="on">1</a></li>' + '<li><a tabindex="-1" data-wysihtml5-command-value="h2" data-wysihtml5-command="formatBlock" href="javascript:;" unselectable="on">2</a></li>' + '<li><a tabindex="-1" data-wysihtml5-command-value="h3" data-wysihtml5-command="formatBlock" href="javascript:;" unselectable="on">3</a></li>' + '<li><a tabindex="-1" data-wysihtml5-command-value="h4" data-wysihtml5-command="formatBlock" href="javascript:;" unselectable="on">4</a></li>' + '<li><a tabindex="-1" data-wysihtml5-command-value="h5" data-wysihtml5-command="formatBlock" href="javascript:;" unselectable="on">5</a></li>' + '<li><a tabindex="-1" data-wysihtml5-command-value="h6" data-wysihtml5-command="formatBlock" href="javascript:;" unselectable="on">6</a></li>' + '</ul>' + '</li>';
-            },
-            emphasis: function(locale) {
-                return '<li>' + '<div class="btn-group">' + '<a tabindex="-1" title="CTRL+B" data-wysihtml5-command="bold" class="btn  btn-default" href="javascript:;" unselectable="on"><i class="editor-icon editor-icon-bold"></i></a>' + '<a tabindex="-1" title="CTRL+I" data-wysihtml5-command="italic" class="btn  btn-default" href="javascript:;" unselectable="on"><i class="editor-icon editor-icon-italic"></i></a>' + '<a tabindex="-1" title="CTRL+U" data-wysihtml5-command="underline" class="btn  btn-default" href="javascript:;" unselectable="on"><i class="editor-icon editor-icon-underline"></i></a>' + '</div>' + '</li>';
-            },
-            blockquote: function(locale) {
-                return '<li>' + '<a tabindex="-1" data-wysihtml5-display-format-name="false" data-wysihtml5-command-value="blockquote" data-wysihtml5-command="formatBlock" class="btn  btn-default" href="javascript:;" unselectable="on">' + '<i class="editor-icon editor-icon-quote"></i>' + '</a>' + '</li>'
-            },
-            lists: function(locale) {
-                return '<li>' + '<div class="btn-group">' + '<a tabindex="-1" title="Unordered list" data-wysihtml5-command="insertUnorderedList" class="btn  btn-default" href="javascript:;" unselectable="on"><i class="editor-icon editor-icon-ul"></i></a>' + '<a tabindex="-1" title="Ordered list" data-wysihtml5-command="insertOrderedList" class="btn  btn-default" href="javascript:;" unselectable="on"><i class="editor-icon editor-icon-ol"></i></a>' + '<a tabindex="-1" title="Outdent" data-wysihtml5-command="Outdent" class="btn  btn-default" href="javascript:;" unselectable="on"><i class="editor-icon editor-icon-outdent"></i></a>' + '<a tabindex="-1" title="Indent" data-wysihtml5-command="Indent" class="btn  btn-default" href="javascript:;" unselectable="on"><i class="editor-icon editor-icon-indent"></i></a>' + '</div>' + '</li>'
-            },
-            image: function(locale) {
-                return '<li>' + '<div class="bootstrap-wysihtml5-insert-image-modal modal fade">' + '<div class="modal-dialog ">' + '<div class="modal-content">' + '<div class="modal-header">' + '<a data-dismiss="modal" class="close">횞</a>' + '<h3>Insert image</h3>' + '</div>' + '<div class="modal-body">' + '<input class="bootstrap-wysihtml5-insert-image-url form-control" value="http://">' + '</div>' + '<div class="modal-footer">' + '<a data-dismiss="modal" class="btn btn-default">Cancel</a>' + '<a data-dismiss="modal" class="btn btn-primary">Insert image</a>' + '</div>' + '</div>' + '</div>' + '</div>' + '<a tabindex="-1" title="Insert image" data-wysihtml5-command="insertImage" class="btn  btn-default" href="javascript:;" unselectable="on">' + '<i class="editor-icon editor-icon-image"></i>' + '</a>' + '</li>'
-            },
-            link: function(locale) {
-                return '<li>' + '<div class="bootstrap-wysihtml5-insert-link-modal modal fade">' + '<div class="modal-dialog ">' + '<div class="modal-content">' + '<div class="modal-header">' + '<a data-dismiss="modal" class="close">횞</a>' + '<h3>Insert link</h3>' + '</div>' + '<div class="modal-body">' + '<input class="bootstrap-wysihtml5-insert-link-url form-control" value="http://">' + '<label class="checkbox"> <input type="checkbox" checked="" class="bootstrap-wysihtml5-insert-link-target">Open link in new window</label>' + '</div>' + '<div class="modal-footer">' + '<a data-dismiss="modal" class="btn btn-default">Cancel</a>' + '<a data-dismiss="modal" class="btn btn-primary" href="#">Insert link</a>' + '</div>' + '</div>' + '</div>' + '</div>' + '<a tabindex="-1" title="Insert link" data-wysihtml5-command="createLink" class="btn  btn-default" href="javascript:;" unselectable="on">' + '<i class="editor-icon editor-icon-link"></i>' + '</a>' + '</li>'
-            },
-            html: function(locale) {
-                return '<li>' + '<div class="btn-group">' + '<a tabindex="-1" title="Edit HTML" data-wysihtml5-action="change_view" class="btn  btn-default" href="javascript:;" unselectable="on">' + '<i class="editor-icon editor-icon-html"></i>' + '</a>' + '</div>' + '</li>'
-            }
         }
 
-        setTimeout(function() {
-            $('.email-body').length && $('.email-body').wysihtml5({
-                html: true,
-                stylesheets: ["pages/css/editor.css"],
-                customTemplates: emailComposerToolbarTemplate
-            });
+        $('.item').removeClass('active');
+        $(this).addClass('active');
 
-            $('.email-composer .wysihtml5-toolbar').appendTo('.email-toolbar-wrapper');
-        }, 500);
+    });
 
-
-    })(window.jQuery);
+    $('#popBtn').click(function () {
+        $('#popModal').modal();
+    })
 </script>

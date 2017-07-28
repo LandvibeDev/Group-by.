@@ -6,4 +6,5 @@ class User < ApplicationRecord
 
   has_many :userpop3s
   has_many :events
+  has_many :usermails
 end

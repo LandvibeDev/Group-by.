@@ -4,13 +4,18 @@ class UsermailsController < ApplicationController
   # GET /usermails
   # GET /usermails.json
   def index
-    @userpop = Userpop3.find(current_user.id)
-    @usermails = @userpop.usermails.all
+    @user = User.find(current_user.id)
+    @userpop = @user.userpop3s.all
+    @usermails = @user.usermails.all
   end
 
   # GET /usermails/1
   # GET /usermails/1.json
   def show
+    @user = User.find(current_user.id)
+    @userpop = @user.userpop3s.all
+    @pop = @user.userpop3s.find_by(id: params[:userpop3_id])
+    @usermails = @pop.usermails.all
   end
 
   # GET /usermails/new
@@ -25,10 +30,11 @@ class UsermailsController < ApplicationController
   # POST /usermails
   # POST /usermails.json
   def create
-    @userpop = Userpop3.find(current_user.id)
+    @user = User.find(current_user.id)
+    @userpop = @user.userpop3s.find_by(id: params[:userpop3_id])
     #@usermail = @userpop.usermails.new(usermail_params)
 
-    pop = Userpop3.find(current_user.id)
+    pop = @user.userpop3s.find_by(id: params[:userpop3_id])
 
     Mail.defaults do
       retriever_method :pop3, :address    => pop.pop3,
@@ -41,32 +47,31 @@ class UsermailsController < ApplicationController
     mail = Mail.find(:what => :first, :count => 2)
 
     mail.each do |m|
-      part_to_use = m.html_part || m.text_part || m
-
-      encoding = part_to_use.content_type_parameters['charset'] if part_to_use.content_type_parameters
-
-      body = part_to_use.body.decoded
-
-      body = body.force_encoding(encoding).encode('UTF-8') if encoding
-
       @usermail = @userpop.usermails.new(usermail_params)
       @usermail.subject = m.subject
-      @usermail.content = m.body.to_s
-      @usermail.from = m.from.to_s
-      @usermail.to = m.to.to_s
+      part_to_use = m.html_part || m.text_part || m
+      encoding = part_to_use.content_type_parameters['charset'] if part_to_use.content_type_parameters
+      @usermail.content = part_to_use.body.decoded.force_encoding(encoding).encode('UTF-8')
+      @usermail.from = m.from[0]
+      @usermail.to = m.to[0]
       @usermail.date = m.date.to_s
+      @usermail.user = @user
 
-      respond_to do |format|
-        if @usermail.save
-          format.html { redirect_to '/usermails' and return }
-          format.json { render :show, status: :created, location: @usermail }
-        else
-          format.html { render :new }
-          format.json { render json: @usermail.errors, status: :unprocessable_entity }
-        end
-      end
+      @usermail.save
+
+      # respond_to do |format|
+      #   if @usermail.save
+      #     format.html { redirect_to '/usermails' and return }
+      #     format.json { render :show, status: :created, location: @usermail }
+      #   else
+      #     format.html { render :new }
+      #     format.json { render json: @usermail.errors, status: :unprocessable_entity }
+      #   end
+      # end
 
     end
+
+    redirect_to userpop3_usermail_path(params[:userpop3_id], 1)
   end
 
   # PATCH/PUT /usermails/1
@@ -97,7 +102,7 @@ class UsermailsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_usermail
     @userpop = Userpop3.find(current_user.id)
-    @usermail = @userpop.usermails.find(params[:id])
+    # @usermail = @userpop.usermails.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

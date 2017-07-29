@@ -1,0 +1,7 @@
+<% @users.each do |user| %>
+    <% if user.id != current_user.id %>
+        <%= user.email %>
+        <%= link_to 'Invite', user_group_inviteCreate_path(user.id, @group.id) %>
+    <% end %>
+    </br>
+<% end %>

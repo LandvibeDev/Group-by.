@@ -1,11 +1,22 @@
 Rails.application.routes.draw do
 
   resources :contents
-  resources :groups
+  resources :groups do
+    resource :users
+  end
   resources :events
   devise_for :users
   resources :userpop3s do
     resources :usermails
+  end
+  resources :users do
+    get 'inviteShow'
+
+    resources :groups do
+      get 'join'
+      get 'inviteCreate'
+      get 'invite'
+    end
   end
 
   get 'home/email'

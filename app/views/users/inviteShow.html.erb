@@ -1,0 +1,5 @@
+<% @invites.each do |invite| %>
+    <%= invite.invite_group %>
+    <td><%= link_to 'Join', user_group_join_path(invite.invite_user, invite.invite_group) %></td>
+    </br>
+<% end %>

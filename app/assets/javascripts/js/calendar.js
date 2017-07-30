@@ -11,31 +11,29 @@
 
     $(document).ready(function () {
 
-        //처음 이벤트 로드
+        //처음 이벤트 로드 데이터 불러오기 -> pagescalender에 저장
         $.ajax({
             url: '/home/load_event',
             type: 'post',
             success: function (data) {
                 for (var idx in data) {
                     var e = {};
-                    e.id = data[idx].id;
+                    e.other = {id: data[idx].id};
                     e.title = data[idx].title;
                     e.class = 'bg-success-lighter';
                     e.start = data[idx].start;
                     e.end = data[idx].end;
-                    e.other = {};
                     mycal.pagescalendar('addEvent', e);
-                    console.log(e);
                 }
             }
         });
 
-        function edit_event() {
+        function edit_event(event) {
             $.ajax({
                 url: '/home/edit_event',
                 type: 'post',
                 contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(selectedEvent),
+                data: JSON.stringify(event),
                 dataType: "json",
                 success: function () {
                     console.log("success edit");
@@ -44,7 +42,8 @@
         }
 
 
-        var selectedEvent;
+        var selectedEvent;//얘를 잘 활용해야 할듯.. 방법1. 일정한 폼을 만들어 놓고 안의 값만 계속 바꿔준다  방법2 선택된 event를 태그에 표시(좋은 방법은 아닌듯)
+
         var mycal = $('#myCalendar');
         mycal.pagescalendar({
             //Loading Dummy EVENTS for demo Purposes, you can feed the events attribute from
@@ -65,12 +64,13 @@
             },
             onEventDragComplete: function (event) {
                 selectedEvent = event;
-                edit_event();
+                edit_event(selectedEvent);
                 setEventDetailsToForm(selectedEvent);
             },
             onEventResizeComplete: function (event) {
+
                 selectedEvent = event;
-                edit_event();
+                edit_event(selectedEvent);
                 setEventDetailsToForm(selectedEvent);
             },
             onTimeSlotDblClick: function (timeSlot) {
@@ -84,21 +84,20 @@
                     allDay: false,
                     other: {
                         //You can have your custom list of attributes here
-                        note: 'test'
                     }
                 };
                 selectedEvent = newEvent;
-                mycal.pagescalendar('addEvent', newEvent);
+                mycal.pagescalendar('addEvent', selectedEvent);
 
                 //초기 이벤트 생성시 저장
                 $.ajax({
                     url: '/home/create_event',
                     type: 'post',
                     contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify(newEvent),
+                    data: JSON.stringify(selectedEvent),
                     dataType: "json",
-                    success: function () {
-                        console.log("success create");
+                    success: function (data) {
+                        selectedEvent.other.id = data.id;
                     }
                 });
 
@@ -135,7 +134,6 @@
         }
 
         $('#eventSave').on('click', function () {
-            console.log(selectedEvent);
             selectedEvent.title = $('#txtEventName').val();
 
             //You can add Any thing inside "other" object and it will get save inside the plugin.
@@ -146,8 +144,7 @@
 
             mycal.pagescalendar('updateEvent', selectedEvent);
 
-            //초기 이벤트 수정 -> id를 이용하여 수정할 event를 찾는것이 잘 안됨
-            edit_event();
+            edit_event(selectedEvent);
 
             $('#calendar-event').removeClass('open');
         });
@@ -159,8 +156,10 @@
             $.ajax({
                 url: '/home/delete_event',
                 type: 'post',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(selectedEvent),
+                dataType: "json",
                 success: function () {
-                    console.log("delete success");
                 }
             });
             $('#calendar-event').removeClass('open');

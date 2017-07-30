@@ -29,8 +29,8 @@ class HomeController < ApplicationController
 
   def edit_event
     #파라미터 넘어올때 계속 index로 몇번째 event인지만 넘어온다.(0부터 시작)
-    @idx = params[:index].to_i + 1;
-    @event = Event.find_by(id: @idx)
+    @idx = params[:other][:id]
+    @event = Event.find(@idx)
     @event.title = params[:title]
     @event.start = params[:start]
     @event.end = params[:end]
@@ -39,8 +39,8 @@ class HomeController < ApplicationController
 
   def delete_event
     #앞쪽의 event 삭제시 edit_event에서 활용한 방식이 문제가 된다
-    @idx = params[:index].to_i + 1;
-    @event = Event.find_by(id: @idx)
+    @idx = params[:other][:id];
+    @event = Event.find(@idx)
     @event.destroy
   end
 end

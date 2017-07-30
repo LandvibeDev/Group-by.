@@ -23,6 +23,10 @@
  *= require pages-plugins/bootstrap3-wysihtml5/bootstrap3-wysihtml5.min
  *= require pages-plugins/simple-line-icons/simple-line-icons
  *= require pages-plugins/summernote/css/summernote
+ *= require pages-plugins/codrops-stepsform/css/component
+ *= require pages-plugins/codrops-dialogFx/dialog.ie
+ *= require pages-plugins/select2/css/select2.min
+ *= require pages-plugins/bootstrap-datepicker/css/datepicker3
  *
  * BEGIN CORE TEMPLATE CSS FOR PAGES
  *= require pages-core/css/pages-icons

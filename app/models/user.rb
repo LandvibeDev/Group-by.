@@ -8,5 +8,5 @@ class User < ApplicationRecord
   has_many :events
   has_many :usermails
   has_many :invites
-  has_and_belongs_to_many :groups
+  has_and_belongs_to_many :groups, -> { distinct }
 end

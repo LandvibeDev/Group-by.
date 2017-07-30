@@ -11,6 +11,8 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
+    @group = Group.find(params[:id])
+    @contents = @group.contents.all
   end
 
   # GET /groups/new
@@ -53,7 +55,7 @@ class GroupsController < ApplicationController
     respond_to do |format|
       if @group.save
         @user.groups << @group
-        format.html { redirect_to @group, notice: 'Group was successfully created.' }
+        format.html { redirect_to user_groups_path(current_user.id) }
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new }
@@ -67,10 +69,11 @@ class GroupsController < ApplicationController
     @user = User.find(params[:user_id])
     @group = Group.find(params[:group_id])
 
+
     respond_to do |format|
       if @group.save
         @user.groups << @group
-        format.html { redirect_to @group, notice: 'Group was successfully created.' }
+        format.html { redirect_to user_groups_path(current_user.id)}
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new }

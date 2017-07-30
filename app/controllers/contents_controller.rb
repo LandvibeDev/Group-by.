@@ -24,11 +24,16 @@ class ContentsController < ApplicationController
   # POST /contents
   # POST /contents.json
   def create
-    @content = Content.new(content_params)
+    @group = Group.find(params[:group_id])
+    @content = @group.contents.new(content_params)
+    @content.title = params[:title]
+    @content.content = params[:content]
+    @content.start_date = params[:start_date]
+    @content.end_date = params[:end_date]
 
     respond_to do |format|
       if @content.save
-        format.html { redirect_to @content, notice: 'Content was successfully created.' }
+        format.html { redirect_to user_group_path(current_user.id, params[:group_id]) }
         format.json { render :show, status: :created, location: @content }
       else
         format.html { render :new }
@@ -69,6 +74,6 @@ class ContentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def content_params
-      params.fetch(:content, {})
+      # params.fetch(:content, {})
     end
 end

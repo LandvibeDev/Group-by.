@@ -11,8 +11,11 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
+    @users = User.all
     @group = Group.find(params[:id])
     @contents = @group.contents.all
+
+    @usergroups = GroupsUser.all
   end
 
   # GET /groups/new
@@ -37,6 +40,8 @@ class GroupsController < ApplicationController
   def invite
     @users = User.all
     @group = Group.find(params[:group_id])
+
+    @usergroups = GroupsUser.all
   end
 
   # GET /groups/1/edit
@@ -55,7 +60,7 @@ class GroupsController < ApplicationController
     respond_to do |format|
       if @group.save
         @user.groups << @group
-        format.html { redirect_to user_groups_path(current_user.id) }
+        format.html { redirect_to user_group_path(current_user.id, @group.id) }
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new }
@@ -69,11 +74,13 @@ class GroupsController < ApplicationController
     @user = User.find(params[:user_id])
     @group = Group.find(params[:group_id])
 
+    @invite = Invite.where(:invite_group => params[:group_id], :invite_user => params[:user_id])
+    @invite.delete_all
 
     respond_to do |format|
       if @group.save
         @user.groups << @group
-        format.html { redirect_to user_groups_path(current_user.id)}
+        format.html { redirect_to user_group_path(current_user.id, params[:group_id])}
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new }

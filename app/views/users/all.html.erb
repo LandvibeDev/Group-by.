@@ -1,4 +1,3 @@
-<div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
 <!-- START CATEGORY -->
 <div class="gallery">
   <div class="gallery-filters p-t-20 p-b-10">
@@ -24,7 +23,7 @@
         </div>
         <div class="modal-body">
 
-          <%= render 'form', group: @group %>
+          <%= render 'groups/form', group: @group %>
 
         </div>
       </div>
@@ -35,13 +34,26 @@
         FOR DEMO PURPOSES, FIRST GALLERY ITEM (.first) IS HIDDEN
         FOR SCREENS <920px. PLEASE REMOVE THE CLASS 'first' WHEN YOU IMPLEMENT
     --><% @groups.each do |group| %>
-      <div class="gallery-item " data-width="1" data-height="2">
+      <div class="gallery-item " data-width="2" data-height="2">
+        <%= image_tag('gallery/2_1.jpg', :class => 'image-responsive-height') %>
         <div class="top-right">
           <div class="dropdown">
             <a class="fa fa-bars fa-2x" type="button" data-toggle="dropdown" style="padding: 6px;color: white;"></a>
             <ul class="dropdown-menu dropdown-menu-right">
+              <% chk = false %>
+              <% @usergroups.each do |mygroup| %>
+                  <% if current_user.id == mygroup.user_id %>
+                      <% if mygroup.group_id == group.id %>
+                          <% chk = true %>
+                          <li><%= link_to 'Invite', user_group_invite_path(current_user.id, group.id) %></li>
+                          <% break %>
+                      <% end %>
+                  <% end %>
+              <% end %>
+              <% if chk == false %>
+                  <li><%= link_to 'Join', user_group_join_path(current_user.id, group.id) %></li>
+              <% end %>
               <li><%= link_to 'Show', user_group_path(current_user.id, group.id) %></li>
-              <li><%= link_to 'Invite', user_group_invite_path(current_user.id, group.id) %></li>
             </ul>
           </div>
         </div>
@@ -84,4 +96,3 @@
   <% end %>
 </div>
 <!-- END CATEGORY -->
-</div>

@@ -1,27 +1,15 @@
 <%= form_with(url: user_groups_path, local: true) do |form| %>
-  <% if group.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(group.errors.count, "error") %> prohibited this group from being saved:</h2>
-
-      <ul>
-      <% group.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <div class="form-group form-group-default">
+      <%= form.label :title %>
+      <%= form.text_field :title, id: :group_title, :class => 'form-control' %>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title, id: :group_title %>
-  </div>
+    <div class="form-group form-group-default">
+      <%= form.label :description %>
+      <%= form.text_area :description, id: :group_description, :class => 'form-control' %>
+    </div>
 
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description, id: :group_description %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+    <div class="actions">
+      <%= form.submit 'Save Changes', :class => 'btn btn-primary' %>
+    </div>
 <% end %>

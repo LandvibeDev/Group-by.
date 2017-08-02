@@ -27,201 +27,199 @@
                 <div class="col-md-4">
                   <div class="container-xs-height">
                     <div class="row-xs-height">
-                      <div class="social-user-profile col-xs-height text-center col-top">
-                        <div class="thumbnail-wrapper d48 circular bordered b-white">
-                          <%= image_tag('profiles/avatar_small2x.jpg') %>
-                        </div>
-                        <br>
-                        <i class="fa fa-check-circle text-success fs-16 m-t-10"></i>
-                      </div>
                       <div class="col-xs-height p-l-20">
-                        <h3 class="no-margin">David Nester</h3>
-                        <p class="no-margin fs-16">is excited about the new pages design framework
-                        </p>
-                        <p class="hint-text m-t-5 small">San Fransisco Bay | CEO at Pages.inc
+                        <h3 class="no-margin"><%= @group.title %></h3></br>
+                        <p class="no-margin fs-16">
+                          <% chk = false %>
+                          <% @usergroups.each do |user| %>
+                              <% if @group.id == user.group_id %>
+                                  <% if current_user.id == user.user_id %>
+                                      <% chk = true %>
+                                  <% end %>
+                              <% end %>
+                          <% end %>
+                          <% if chk == false %>
+                              <%= link_to 'Join', user_group_join_path(current_user.id, @group.id), :class => 'btn btn-success btn-cons'  %>
+                          <% else %>
+                              <%= link_to 'Invite', user_group_invite_path(current_user.id, @group.id), :class => 'btn btn-success btn-cons' %>
+                          <% end %>
                         </p>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-4">
-                  <p class="no-margin fs-16">Hi My Name is David Nester, &amp; heres my new pages user profile page</p>
-                  <p class="hint-text m-t-5 small">I love reading people's about page especially those who are in the same industry as me.</p>
+                  <p class="no-margin fs-16"><%= @group.description %></p>
                 </div>
                 <div class="col-md-4">
-                  <p class="m-b-5 small">1,435 Mutual Friends</p>
+                  <p class="m-b-5 small">Group Friends</p>
                   <ul class="list-unstyled ">
-                    <li class="m-r-10">
-                      <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
-                        <%= image_tag('profiles/1x.jpg') %>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
-                        <%= image_tag('profiles/2x.jpg') %>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
-                        <%= image_tag('profiles/3x.jpg') %>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
-                        <%= image_tag('profiles/4x.jpg') %>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
-                        <%= image_tag('profiles/5x.jpg') %>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
-                        <%= image_tag('profiles/6x.jpg') %>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
-                        <%= image_tag('profiles/7x.jpg') %>
-                      </div>
-                    </li>
+                    <% @usergroups.each do |user| %>
+                        <% if user.group_id == @group.id %>
+                            <li class="m-r-10">
+                              <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
+                                <%= image_tag('profiles/1x.jpg') %>
+                              </div>
+                            </li>
+                        <% end %>
+                    <% end %>
                     <li>
                       <div class="thumbnail-wrapper d32 circular b-white">
-                        <div class="bg-master text-center text-white"><span>+34</span>
-                        </div>
+                        <div class="bg-master text-center text-white"><span data-toggle="modal" data-target="#perModal">More</span></div>
                       </div>
                     </li>
                   </ul>
-                  <br>
-                  <p class="m-t-5 small">More friends</p>
                 </div>
               </div>
             </div>
             <!-- END CONTAINER FLUID -->
           </div>
-          <!-- END ITEM -->
-          <!-- START ITEM -->
-          <div class="card col2 padding-20" data-social="item">
-            <form class="simform no-margin" autocomplete="off" data-social="status">
-              <div class="status-form-inner">
-                <ol class="questions">
-                  <li>
+          <!-- Modal -->
+          <div class="modal fade slide-right" id="perModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="myModalLabel">현재 가입된 유저</h4>
+                </div>
+                <div class="modal-body">
+                  <% @users.each do |user1| %>
+                      <% chk = true %>
+                      <% @usergroups.each do |user2| %>
+                          <% if user2.group_id == @group.id %>
+                              <% if user1.id == user2.user_id %>
+                                  <% chk = false %>
+                                  <% break %>
+                              <% end %>
+                          <% end %>
+                      <% end %>
+                      <% if chk == false %>
+                          <%= user1.email %> </br>
+                      <% end %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END ITEM -->
+        <!-- START ITEM -->
+        <div class="card col2 padding-20" data-social="item">
+          <form class="simform no-margin" autocomplete="off" data-social="status">
+            <div class="status-form-inner">
+              <ol class="questions">
+                <li>
                     <span>
                       <label for="status-q1">What's on your mind?</label>
                     </span>
 
-                    <input id="status-q1" name="q1" type="text" data-toggle="modal" data-target="#myModal"/>
+                  <input id="status-q1" name="q1" type="text" data-toggle="modal" data-target="#myModal"/>
 
-                  </li>
-                </ol>
-                <!-- /questions -->
-                <button class="submit" type="submit">Send answers</button>
-                <div class="controls">
-                  <button class="next"></button>
-                  <div class="progress"></div>
-                  <span class="number">
+                </li>
+              </ol>
+              <!-- /questions -->
+              <button class="submit" type="submit">Send answers</button>
+              <div class="controls">
+                <button class="next"></button>
+                <div class="progress"></div>
+                <span class="number">
                     <span class="number-current"></span>
                     <span class="number-total"></span>
                   </span>
-                  <span class="error-message"></span>
-                </div>
-                <!-- / controls -->
+                <span class="error-message"></span>
               </div>
-              <!-- /simform-inner -->
-              <span class="final-message"></span>
-            </form>
-            <!-- /simform -->
+              <!-- / controls -->
+            </div>
+            <!-- /simform-inner -->
+            <span class="final-message"></span>
+          </form>
+          <!-- /simform -->
 
-            <!-- Modal -->
-            <div class="modal fade stick-up" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-                  </div>
-                  <div class="modal-body">
+          <!-- Modal -->
+          <div class="modal fade stick-up" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="myModalLabel">일정 추가하기</h4>
+                </div>
+                <div class="modal-body">
 
-                    <%= render 'contents/form', content: @content %>
+                  <%= render 'contents/form', content: @content %>
 
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <!-- END ITEM -->
-          <!-- START ITEM -->
-          <div class="card status col2" data-social="item">
-            <div class="circle" data-toggle="tooltip" title="Label" data-container="body">
-            </div>
-            <h5>David Nester updated his status
-              <span class="hint-text">few seconds ago</span></h5>
-            <h2>Earned my first salary bonus for the best design of the year award.</h2>
-            <ul class="reactions">
-              <li><a href="#">5,345 <i class="fa fa-comment-o"></i></a>
-              </li>
-              <li><a href="#">23K <i class="fa fa-heart-o"></i></a>
-              </li>
-            </ul>
+        </div>
+        <!-- END ITEM -->
+        <!-- START ITEM -->
+        <div class="card status col2" data-social="item">
+          <div class="circle" data-toggle="tooltip" title="Label" data-container="body">
           </div>
-          <!-- END ITEM -->
-          <!-- START ITEM -->
-          <% @contents.each do |content| %>
-              <div class="card share  col1" data-social="item">
-                <div class="circle" data-toggle="tooltip" title="Label" data-container="body">
+          <h5>David Nester updated his status
+            <span class="hint-text">few seconds ago</span></h5>
+          <h2>Earned my first salary bonus for the best design of the year award.</h2>
+          <ul class="reactions">
+            <li><a href="#">5,345 <i class="fa fa-comment-o"></i></a>
+            </li>
+            <li><a href="#">23K <i class="fa fa-heart-o"></i></a>
+            </li>
+          </ul>
+        </div>
+        <!-- END ITEM -->
+        <!-- START ITEM -->
+        <% @contents.each do |content| %>
+            <div class="card share  col1" data-social="item">
+              <div class="circle" data-toggle="tooltip" title="Label" data-container="body">
+              </div>
+              <div class="card-header clearfix">
+                <div class="user-pic">
+                  <%= image_tag('profiles/5x.jpg') %>
                 </div>
-                <div class="card-header clearfix">
-                  <div class="user-pic">
-                    <%= image_tag('profiles/5x.jpg') %>
-                  </div>
-                  <span style="font-weight: bold;font-size: 18px;">Person Name</span>
-                  <br>
-                  <span class="location semi-bold">START : <%= content.start_date %></span></br>
-                  <span class="location semi-bold">END : <%= content.end_date %></span>
-                  </h6>
-                </div>
-                <div class="card-description">
-                  <p style="font-weight: bold;font-size: 18px;text-align: center;"><%= content.title %></p>
-                  <p><%= content.content %></p>
-                  <div class="card-content">
-                    <ul class="reactions" style="text-align: right;list-style-type: none;height: 0px;">
-                      <li class="card-content-list">
-                        <a href="#"><i class="fa fa-expand"></i>
-                        </a>
-                      </li>
-                      <li class="card-content-list">
-                        <a href="#"><i class="fa fa-heart-o"></i>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="card-footer clearfix">
-                  <div class="time">few seconds ago</div>
-                  <ul class="reactions">
-                    <li><a href="#">5,345 <i class="fa fa-comment-o"></i></a>
+                <span style="font-weight: bold;font-size: 18px;">Person Name</span>
+                <br>
+                <span class="location semi-bold">START : <%= content.start_date %></span></br>
+                <span class="location semi-bold">END : <%= content.end_date %></span>
+                </h6>
+              </div>
+              <div class="card-description">
+                <p style="font-weight: bold;font-size: 18px;text-align: center;"><%= content.title %></p>
+                <p><%= content.content %></p>
+                <div class="card-content">
+                  <ul class="reactions" style="text-align: right;list-style-type: none;height: 0px;">
+                    <li class="card-content-list">
+                      <a href="#"><i class="fa fa-expand"></i>
+                      </a>
                     </li>
-                    <li><a href="#">23K <i class="fa fa-heart-o"></i></a>
+                    <li class="card-content-list">
+                      <a href="#"><i class="fa fa-heart-o"></i>
+                      </a>
                     </li>
                   </ul>
                 </div>
               </div>
-          <% end %>
-          <!-- END ITEM -->
+              <div class="card-footer clearfix">
+                <div class="time">few seconds ago</div>
+                <ul class="reactions">
+                  <li><a href="#">5,345 <i class="fa fa-comment-o"></i></a>
+                  </li>
+                  <li><a href="#">23K <i class="fa fa-heart-o"></i></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+        <% end %>
+        <!-- END ITEM -->
 
-        </div>
-        <!-- END DAY -->
       </div>
-      <!-- END FEED -->
+      <!-- END DAY -->
     </div>
-    <!-- END CONTAINER FLUID -->
+    <!-- END FEED -->
   </div>
-  <!-- /container -->
+  <!-- END CONTAINER FLUID -->
+</div>
+<!-- /container -->
 </div>
 
 <script>
@@ -244,11 +242,11 @@
     });
 </script>
 
-<Style>
+<style>
   .semi-bold {
     font-size: 10px;
   }
   .card-content-list {
     display: inline;
   }
-</Style>
+</style>

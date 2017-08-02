@@ -1,31 +1,71 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Groups</h1>
-
-<table>
-  <thead>
-  <tr>
-    <th>Title</th>
-    <th>Description</th>
-    <th colspan="3"></th>
-  </tr>
-  </thead>
-
-  <tbody>
-  <% @groups.each do |group| %>
-      <tr>
-        <td><%= group.title %></td>
-        <td><%= group.description %></td>
-        <td><%= link_to 'Join', user_group_join_path(current_user.id, group.id) %></td>
-        <td><%= link_to 'Show', user_group_path(current_user.id, group.id) %></td>
-        <td><%= link_to 'Edit', edit_user_group_path(current_user.id, group) %></td>
-        <td><%= link_to 'Invite', user_group_invite_path(current_user.id, group.id) %></td>
-      </tr>
-  <% end %>
-  </tbody>
-</table>
-
-<br>
-
 <%= link_to 'New Group', new_user_group_path(current_user.id) %> </br>
 <%= link_to 'InviteShow', user_inviteShow_path(current_user.id) %>
+
+<!-- START CATEGORY -->
+<div class="gallery">
+  <div class="gallery-filters p-t-20 p-b-10">
+    <ul class="list-inline text-right">
+      <li class="hint-text">Sort by: </li>
+      <li><a href="#" class="active text-master p-r-5 p-l-5">Name</a></li>
+      <li><a href="#" class="text-master hint-text p-r-5 p-l-5">Views</a></li>
+      <li><a href="#" class="text-master hint-text p-r-5 p-l-5">Cost</a></li>
+      <li>
+        <button class="btn btn-primary m-l-10" data-toggle="filters">More filters</button>
+      </li>
+    </ul>
+  </div>
+  <!-- START GALLERY ITEM -->
+  <!--
+        FOR DEMO PURPOSES, FIRST GALLERY ITEM (.first) IS HIDDEN
+        FOR SCREENS <920px. PLEASE REMOVE THE CLASS 'first' WHEN YOU IMPLEMENT
+    --><% @groups.each do |group| %>
+      <div class="gallery-item " data-width="1" data-height="2">
+        <div class="top-right">
+          <div class="dropdown">
+            <a class="fa fa-bars fa-1x" type="button" data-toggle="dropdown" style="padding: 6px;color: white;"></a>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li><%= link_to 'Join', user_group_join_path(current_user.id, group.id) %></li>
+              <li><%= link_to 'Show', user_group_path(current_user.id, group.id) %></li>
+              <li><%= link_to 'Invite', user_group_invite_path(current_user.id, group.id) %></li>
+            </ul>
+          </div>
+        </div>
+        <!-- START PREVIEW -->
+        <!-- END PREVIEW -->
+        <!-- START ITEM OVERLAY DESCRIPTION -->
+        <div class="overlayer bottom-left full-width">
+          <div class="overlayer-wrapper">
+            <div class="gradient-grey p-l-20 p-r-20 p-b-5">
+              <div class="">
+                <p class="pull-left bold text-white fs-14 p-t-10"><%= group.title %></p>
+                <div class="clearfix"></div>
+              </div>
+              <h5 class="text-white light txt" style="
+              display: -webkit-box;
+                  -webkit-line-clamp: 3;
+                  overflow: hidden;
+                  word-break: break-all;
+                  text-overflow: ellipsis;
+                  -webkit-box-orient: vertical;">
+                <%= group.description %>groupgroupgruogroupgruoupgrasdf
+              </h5>
+              <div class="m-t-10">
+                <div class="thumbnail-wrapper d32 circular m-t-5">
+                  <%= image_tag('profiles/avatar.jpg') %>
+                </div>
+                <div class="inline m-l-10">
+                  <p class="no-margin text-white fs-12">Designed by Alex Nester</p>
+                </div>
+                <div class="pull-right m-t-10">
+                </div>
+
+                <div class="clearfix"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END PRODUCT OVERLAY DESCRIPTION -->
+      </div>
+  <% end %>
+</div>
+<!-- END CATEGORY -->

@@ -29,11 +29,17 @@
 //= require pages-plugins/jquery-menuclipper/jquery.menuclipper
 //= require pages-plugins/summernote/js/summernote.min
 //= require pages-plugins/codrops-stepsform/js/stepsForm
+//= require pages-plugins/codrops-dialogFx/dialogFx
 //= require pages-plugins/classie/classie
 //= require pages-plugins/jquery-isotope/isotope.pkgd.min
 //= require pages-plugins/imagesloaded/imagesloaded.pkgd.min
 //= require pages-plugins/select2/js/select2.full.min
-//= require pages-plugins/bootstrap-datepicker/js/bootstrap-datepicker
+//= require pages-plugins/jquery-nouislider/jquery.nouislider.min
+//= require pages-plugins/jquery-nouislider/jquery.liblink
+//= require pages-plugins/owl-carousel/owl.carousel.min
+//= require pages-plugins/jquery-metrojs/MetroJs.min
+//= require pages-plugins/gallery
+//= require pages-plugins/jquery-ui/jquery-ui.min
 
 // BEGIN CORE TEMPLATE JS FOR PAGES
 //= require pages-core/pages

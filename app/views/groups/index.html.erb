@@ -35,7 +35,8 @@
         FOR DEMO PURPOSES, FIRST GALLERY ITEM (.first) IS HIDDEN
         FOR SCREENS <920px. PLEASE REMOVE THE CLASS 'first' WHEN YOU IMPLEMENT
     --><% @groups.each do |group| %>
-      <div class="gallery-item " data-width="1" data-height="2">
+      <div class="gallery-item " data-width="2" data-height="2">
+        <%= image_tag('gallery/2_1.jpg', :class => 'image-responsive-height') %>
         <div class="top-right">
           <div class="dropdown">
             <a class="fa fa-bars fa-2x" type="button" data-toggle="dropdown" style="padding: 6px;color: white;"></a>

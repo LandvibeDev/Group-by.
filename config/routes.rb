@@ -22,9 +22,6 @@ Rails.application.routes.draw do
   end
 
   resources :events
-  resources :invites do
-    delete 'destroy'
-  end
 
   get 'home/index'
   get 'userpop3/setpop/:id' => 'userpop3#setpop'

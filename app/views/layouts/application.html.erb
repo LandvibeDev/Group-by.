@@ -70,15 +70,15 @@
         <ul class="sub-menu">
           <li class="">
             <%= link_to '모든 그룹', user_all_path(current_user.id) %>
-            <span class="icon-thumbnail">sp</span>
+            <span class="icon-thumbnail"><i class="fa fa-globe"></i></span>
           </li>
           <li class="">
             <%= link_to '내가 가입한 그룹', user_groups_path(current_user.id), :calss => 'title' %>
-            <span class="icon-thumbnail">sp</span>
+            <span class="icon-thumbnail"><i class="fa fa-user"></i></span>
           </li>
           <li class="">
             <%= link_to '나에게 온 초대', user_inviteShow_path(current_user.id) %>
-            <span class="icon-thumbnail">sp</span>
+            <span class="icon-thumbnail"><i class="fa fa-user-plus"></i></span>
           </li>
         </ul>
       </li>

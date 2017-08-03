@@ -38,3 +38,5 @@
 
 // BEGIN SITE SCRIPTS
 //= require js/calendar.js
+//= require js/calendar_week.js
+//= require js/calendar_month.js

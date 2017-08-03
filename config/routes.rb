@@ -17,7 +17,8 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'home/calendar'
+  get 'home/calendar_week'
+  get 'home/calendar_month'
 
   post 'home/load_event' => 'home#load_event'
   post 'home/create_event' => 'home#create_event'

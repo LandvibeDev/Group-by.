@@ -16,7 +16,6 @@
   <meta content="" name="author" />
 
   <%= stylesheet_link_tag 'application', media: 'all'%>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
   <!--[if lte IE 9]>
   <link href="/pages/css/ie9.css?v=pages-v1.0.0" rel="stylesheet" type="text/css" />
@@ -84,21 +83,18 @@
       </li>
       <li class="">
         <a href="javascript:;">
-          <span class="title">Page 3</span>
+          <span class="title">CALENDAR</span>
           <span class=" arrow"></span>
         </a>
-        <span class="icon-thumbnail"><i class="pg-grid"></i></span>
+        <span class="icon-thumbnail "><i class="fa fa-calendar"></i>
+                    </span>
         <ul class="sub-menu">
           <li class="">
-            <a href="#">Sub Page 1</a>
+            <a id="change_week" href="/home/calendar_week">Week</a>
             <span class="icon-thumbnail">sp</span>
           </li>
           <li class="">
-            <a href="#">Sub Page 2</a>
-            <span class="icon-thumbnail">sp</span>
-          </li>
-          <li class="">
-            <a href="#">Sub Page 3</a>
+            <a id="change_month" href="/home/calendar_month">Month</a>
             <span class="icon-thumbnail">sp</span>
           </li>
         </ul>
@@ -113,7 +109,7 @@
 <div class="page-container">
   <!-- START PAGE HEADER WRAPPER -->
   <!-- START HEADER -->
-  <div class="header">
+  <div class="header ">
     <!-- START MOBILE CONTROLS -->
     <!-- LEFT SIDE -->
     <div class="pull-left full-height visible-sm visible-xs">
@@ -235,7 +231,7 @@
   <!-- START PAGE CONTENT WRAPPER -->
   <div class="page-content-wrapper full-height">
     <!-- START PAGE CONTENT -->
-    <div class="content full-height" style="padding-bottom: 0px">
+    <div class="content full-height">
       <%= yield %>
     </div>
     <!-- END PAGE CONTENT -->

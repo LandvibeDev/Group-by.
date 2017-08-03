@@ -843,7 +843,7 @@
 
                         eventO.start = moment(eventO.start).add(days, 'days');
                         eventO.start = moment(eventO.start).add(mins, 'minutes').format();
-                        eventO.end = moment(eventO.start).add(el.attr("data-event-duration"), 'minutes').format();
+                        eventO.end = moment(eventO.end).add(el.attr("data-event-duration"), 'minutes').format();
                         //Update Array
                         Calendar.settings.events[eventData.index] = eventO;
                         mins = 0;
@@ -1762,6 +1762,7 @@
             },
             _changeView :function(view){
                 this.gridLayout.layout = view
+                this.settings.view = view
                 this.gridLayout.rebuild();
             },
 

@@ -101,125 +101,134 @@
               </div>
             </div>
           </div>
-        </div>
-        <!-- END ITEM -->
-        <!-- START ITEM -->
-        <div class="card col2 padding-20" data-social="item">
-          <form class="simform no-margin" autocomplete="off" data-social="status">
-            <div class="status-form-inner">
-              <ol class="questions">
-                <li>
+          <!-- END ITEM -->
+          <!-- START ITEM -->
+          <div class="card col2 padding-20" data-social="item">
+            <form class="simform no-margin" autocomplete="off" data-social="status">
+              <div class="status-form-inner">
+                <ol class="questions">
+                  <li>
                     <span>
                       <label for="status-q1">What's on your mind?</label>
                     </span>
 
-                  <input id="status-q1" name="q1" type="text" data-toggle="modal" data-target="#myModal"/>
+                    <input id="status-q1" name="q1" type="text" data-toggle="modal" data-target="#myModal"/>
 
-                </li>
-              </ol>
-              <!-- /questions -->
-              <button class="submit" type="submit">Send answers</button>
-              <div class="controls">
-                <button class="next"></button>
-                <div class="progress"></div>
-                <span class="number">
+                  </li>
+                </ol>
+                <!-- /questions -->
+                <button class="submit" type="submit">Send answers</button>
+                <div class="controls">
+                  <button class="next"></button>
+                  <div class="progress"></div>
+                  <span class="number">
                     <span class="number-current"></span>
                     <span class="number-total"></span>
                   </span>
-                <span class="error-message"></span>
-              </div>
-              <!-- / controls -->
-            </div>
-            <!-- /simform-inner -->
-            <span class="final-message"></span>
-          </form>
-          <!-- /simform -->
-
-          <!-- Modal -->
-          <div class="modal fade stick-up" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title" id="myModalLabel">일정 추가하기</h4>
+                  <span class="error-message"></span>
                 </div>
-                <div class="modal-body">
+                <!-- / controls -->
+              </div>
+              <!-- /simform-inner -->
+              <span class="final-message"></span>
+            </form>
+            <!-- /simform -->
 
-                  <%= render 'contents/form', content: @content %>
+            <!-- Modal -->
+            <div class="modal fade stick-up" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">일정 추가하기</h4>
+                  </div>
+                  <div class="modal-body">
 
+                    <%= render 'contents/form', content: @content %>
+
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <!-- END ITEM -->
-        <!-- START ITEM -->
-        <div class="card status col2" data-social="item">
-          <div class="circle" data-toggle="tooltip" title="Label" data-container="body">
+          <!-- END ITEM -->
+          <!-- START ITEM -->
+          <div class="card status col2" data-social="item">
+            <div class="circle" data-toggle="tooltip" title="Label" data-container="body">
+            </div>
+            <h5>David Nester updated his status
+              <span class="hint-text">few seconds ago</span></h5>
+            <h2>Earned my first salary bonus for the best design of the year award.</h2>
+            <ul class="reactions">
+              <li><a href="#">5,345 <i class="fa fa-comment-o"></i></a>
+              </li>
+              <li><a href="#">23K <i class="fa fa-heart-o"></i></a>
+              </li>
+            </ul>
           </div>
-          <h5>David Nester updated his status
-            <span class="hint-text">few seconds ago</span></h5>
-          <h2>Earned my first salary bonus for the best design of the year award.</h2>
-          <ul class="reactions">
-            <li><a href="#">5,345 <i class="fa fa-comment-o"></i></a>
-            </li>
-            <li><a href="#">23K <i class="fa fa-heart-o"></i></a>
-            </li>
-          </ul>
-        </div>
-        <!-- END ITEM -->
-        <!-- START ITEM -->
-        <% @contents.each do |content| %>
-            <div class="card share  col1" data-social="item">
-              <div class="circle" data-toggle="tooltip" title="Label" data-container="body">
-              </div>
-              <div class="card-header clearfix">
-                <div class="user-pic">
-                  <%= image_tag('profiles/5x.jpg') %>
+          <!-- END ITEM -->
+          <!-- START ITEM -->
+          <% @contents.each do |content| %>
+              <div class="card share  col1" data-social="item">
+                <div class="circle" data-toggle="tooltip" title="Label" data-container="body">
                 </div>
-                <span style="font-weight: bold;font-size: 18px;">Person Name</span>
-                <br>
-                <span class="location semi-bold">START : <%= content.start_date %></span></br>
-                <span class="location semi-bold">END : <%= content.end_date %></span>
-                </h6>
-              </div>
-              <div class="card-description">
-                <p style="font-weight: bold;font-size: 18px;text-align: center;"><%= content.title %></p>
-                <p><%= content.content %></p>
-                <div class="card-content">
-                  <ul class="reactions" style="text-align: right;list-style-type: none;height: 0px;">
-                    <li class="card-content-list">
-                      <a href="#"><i class="fa fa-expand"></i>
-                      </a>
+                <div class="card-header clearfix">
+                  <div class="user-pic">
+                    <%= image_tag('profiles/5x.jpg') %>
+                  </div>
+                  <span style="font-weight: bold;font-size: 18px;">Person Name</span>
+                  <br>
+                  <span class="location semi-bold">START : <%= content.start_date %></span></br>
+                  <span class="location semi-bold">END : <%= content.end_date %></span>
+                  </h6>
+                </div>
+                <div class="card-description">
+                  <p style="font-weight: bold;font-size: 18px;text-align: center;
+                      display: -webkit-box;
+                      overflow: hidden;
+                      word-break: break-all;
+                      text-overflow: ellipsis;
+                      -webkit-box-orient: vertical;"><%= content.title %></p>
+                  <p style="
+                  display: -webkit-box;
+                      overflow: hidden;
+                      word-break: break-all;
+                      text-overflow: ellipsis;
+                      -webkit-box-orient: vertical;"><%= content.content %></p>
+                  <div class="card-content">
+                    <ul class="reactions" style="text-align: right;list-style-type: none;height: 0px;">
+                      <li class="card-content-list">
+                        <a href="#"><i class="fa fa-expand"></i>
+                        </a>
+                      </li>
+                      <li class="card-content-list">
+                        <a href="#"><i class="fa fa-heart-o"></i>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="card-footer clearfix">
+                  <div class="time">few seconds ago</div>
+                  <ul class="reactions">
+                    <li><a href="#">5,345 <i class="fa fa-comment-o"></i></a>
                     </li>
-                    <li class="card-content-list">
-                      <a href="#"><i class="fa fa-heart-o"></i>
-                      </a>
+                    <li><a href="#">23K <i class="fa fa-heart-o"></i></a>
                     </li>
                   </ul>
                 </div>
               </div>
-              <div class="card-footer clearfix">
-                <div class="time">few seconds ago</div>
-                <ul class="reactions">
-                  <li><a href="#">5,345 <i class="fa fa-comment-o"></i></a>
-                  </li>
-                  <li><a href="#">23K <i class="fa fa-heart-o"></i></a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-        <% end %>
-        <!-- END ITEM -->
+          <% end %>
+          <!-- END ITEM -->
 
+        </div>
+        <!-- END DAY -->
       </div>
-      <!-- END DAY -->
+      <!-- END FEED -->
     </div>
-    <!-- END FEED -->
+    <!-- END CONTAINER FLUID -->
   </div>
-  <!-- END CONTAINER FLUID -->
-</div>
-<!-- /container -->
+  <!-- /container -->
 </div>
 
 <script>

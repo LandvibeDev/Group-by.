@@ -43,4 +43,4 @@
 
 // BEGIN CORE TEMPLATE JS FOR PAGES
 //= require pages-core/pages
-//= require pages-core/pages.social
+//= require pages-core/pages.social.min

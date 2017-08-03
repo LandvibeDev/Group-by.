@@ -1,0 +1,15 @@
+<% @users.each do |user1| %>
+    <% chk = true %>
+    <% @usergroups.each do |user2| %>
+        <% if user2.group_id == @group.id %>
+            <% if user1.id == user2.user_id %>
+                <% chk = false %>
+                <% break %>
+            <% end %>
+        <% end %>
+    <% end %>
+    <% if chk == true %>
+        <%= user1.email %>
+        <%= link_to 'Invite', user_group_inviteCreate_path(user1.id, @group.id) %>
+    <% end %>
+<% end %>

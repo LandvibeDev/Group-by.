@@ -1,17 +1,30 @@
 Rails.application.routes.draw do
-
-  resources :contents
-  resources :groups
-  resources :events
   devise_for :users
-  resources :userpop3s do
+
+  resources :groups, only: [:index] do
+    resource :users
+    resource :contents
+  end
+
+  resources :userpop3s, only: [:index] do
     resources :usermails
   end
 
-  get 'home/email'
+  resources :users do
+    get 'inviteShow'
+    get 'all'
+
+    resources :groups do
+      get 'join'
+      get 'inviteCreate'
+      get 'invite'
+    end
+  end
+
+  resources :events
+
   get 'home/index'
   get 'userpop3/setpop/:id' => 'userpop3#setpop'
-  get 'usermail/insertmail/:id' => 'usermail#insertmail'
 
   devise_scope :user do
     authenticated :user do
@@ -22,6 +35,14 @@ Rails.application.routes.draw do
       root 'devise/sessions#new', as: :unauthenticated_root
     end
   end
+
+  get 'home/calendar_week'
+  get 'home/calendar_month'
+
+  post 'home/load_event' => 'home#load_event'
+  post 'home/create_event' => 'home#create_event'
+  post 'home/edit_event' => 'home#edit_event'
+  post 'home/delete_event' => 'home#delete_event'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

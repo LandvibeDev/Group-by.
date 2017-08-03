@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170727070422) do
+ActiveRecord::Schema.define(version: 20170802052506) do
 
   create_table "contents", force: :cascade do |t|
     t.integer "group_id"
@@ -39,6 +39,22 @@ ActiveRecord::Schema.define(version: 20170727070422) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "groups_users", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "group_id"
+    t.index ["group_id"], name: "index_groups_users_on_group_id"
+    t.index ["user_id"], name: "index_groups_users_on_user_id"
+  end
+
+  create_table "invites", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "invite_user"
+    t.integer "invite_group"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_invites_on_user_id"
   end
 
   create_table "usermails", force: :cascade do |t|

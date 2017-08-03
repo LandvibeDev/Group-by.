@@ -29,6 +29,27 @@
 //= require pages-plugins/jquery-scrollbar/jquery.scrollbar.min
 //= require pages-plugins/jquery-menuclipper/jquery.menuclipper
 //= require pages-plugins/summernote/js/summernote.min
+//= require pages-plugins/codrops-stepsform/js/stepsForm
+//= require pages-plugins/codrops-dialogFx/dialogFx
+//= require pages-plugins/classie/classie
+//= require pages-plugins/jquery-isotope/isotope.pkgd.min
+//= require pages-plugins/imagesloaded/imagesloaded.pkgd.min
+//= require pages-plugins/select2/js/select2.full.min
+//= require pages-plugins/jquery-nouislider/jquery.nouislider.min
+//= require pages-plugins/jquery-nouislider/jquery.liblink
+//= require pages-plugins/owl-carousel/owl.carousel.min
+//= require pages-plugins/jquery-metrojs/MetroJs.min
+//= require pages-plugins/gallery
+//= require pages-plugins/jquery-ui/jquery-ui.min
+//= require pages-plugins/interactjs/interact.min
 
 // BEGIN CORE TEMPLATE JS FOR PAGES
 //= require pages-core/pages
+//= require pages-core/pages.email
+//= require pages-core/pages.calendar
+
+// BEGIN SITE SCRIPTS
+//= require js/calendar.js
+//= require js/calendar_week.js
+//= require js/calendar_month.js
+//= require pages-core/pages.social.min

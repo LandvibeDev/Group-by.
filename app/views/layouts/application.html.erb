@@ -16,7 +16,6 @@
   <meta content="" name="author" />
 
   <%= stylesheet_link_tag 'application', media: 'all'%>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
   <!--[if lte IE 9]>
   <link href="/pages/css/ie9.css?v=pages-v1.0.0" rel="stylesheet" type="text/css" />
@@ -62,30 +61,40 @@
         </span>
       </li>
       <li class="">
-        <a href="#">
-          <span class="title">Page 2</span>
+        <a href="javascript:;">
+          <span class="title">GROUP</span>
+          <span class=" arrow"></span>
         </a>
-        <span class="icon-thumbnail "><i class="pg-social"></i>
-                    </span>
+        <span class="icon-thumbnail "><i class="fa fa-users"></i></span>
+        <ul class="sub-menu">
+          <li class="">
+            <%= link_to '모든 그룹', user_all_path(current_user.id) %>
+            <span class="icon-thumbnail"><i class="fa fa-globe"></i></span>
+          </li>
+          <li class="">
+            <%= link_to '내가 가입한 그룹', user_groups_path(current_user.id), :calss => 'title' %>
+            <span class="icon-thumbnail"><i class="fa fa-user"></i></span>
+          </li>
+          <li class="">
+            <%= link_to '나에게 온 초대', user_inviteShow_path(current_user.id) %>
+            <span class="icon-thumbnail"><i class="fa fa-user-plus"></i></span>
+          </li>
+        </ul>
       </li>
       <li class="">
         <a href="javascript:;">
-          <span class="title">Page 3</span>
+          <span class="title">CALENDAR</span>
           <span class=" arrow"></span>
         </a>
-        <span class="icon-thumbnail"><i class="pg-grid"></i>
+        <span class="icon-thumbnail "><i class="fa fa-calendar"></i>
                     </span>
         <ul class="sub-menu">
           <li class="">
-            <a href="#">Sub Page 1</a>
+            <a id="change_week" href="/home/calendar_week">Week</a>
             <span class="icon-thumbnail">sp</span>
           </li>
           <li class="">
-            <a href="#">Sub Page 2</a>
-            <span class="icon-thumbnail">sp</span>
-          </li>
-          <li class="">
-            <a href="#">Sub Page 3</a>
+            <a id="change_month" href="/home/calendar_month">Month</a>
             <span class="icon-thumbnail">sp</span>
           </li>
         </ul>
@@ -100,7 +109,7 @@
 <div class="page-container">
   <!-- START PAGE HEADER WRAPPER -->
   <!-- START HEADER -->
-  <div class="header">
+  <div class="header ">
     <!-- START MOBILE CONTROLS -->
     <!-- LEFT SIDE -->
     <div class="pull-left full-height visible-sm visible-xs">
@@ -222,7 +231,7 @@
   <!-- START PAGE CONTENT WRAPPER -->
   <div class="page-content-wrapper full-height">
     <!-- START PAGE CONTENT -->
-    <div class="content full-height" style="padding-bottom: 0px">
+    <div class="content full-height">
       <%= yield %>
     </div>
     <!-- END PAGE CONTENT -->
@@ -684,7 +693,93 @@
   <!-- END Overlay Content !-->
 </div>
 <!-- END OVERLAY -->
+<!-- END DIALOG -->
+<div class="quickview-wrapper" id="filters">
+  <div class="padding-40 ">
+    <a class="builder-close quickview-toggle pg-close" data-toggle="quickview" data-toggle-element="#filters" href="#"></a>
+    <form class="" role="form">
+      <h5 class="all-caps font-montserrat fs-12 m-b-20">Advance filters</h5>
+      <div class="form-group form-group-default ">
+        <label>Project</label>
+        <input type="email" class="form-control" placeholder="Type of select a label">
+      </div>
+      <h5 class="all-caps font-montserrat fs-12 m-b-20 m-t-25">Advance filters</h5>
+      <div class="radio radio-danger">
+        <input type="radio" checked="checked" value="1" name="filter" id="asc">
+        <label for="asc">Ascending order</label>
+        <br>
+        <input type="radio" value="2" name="filter" id="views">
+        <label for="views">Most viewed</label>
+        <br>
+        <input type="radio" value="3" name="filter" id="cost">
+        <label for="cost">Cost</label>
+        <br>
+        <input type="radio" value="4" name="filter" id="latest">
+        <label for="latest">Latest</label>
+      </div>
+      <h5 class="all-caps font-montserrat fs-12 m-b-20 m-t-25">Price range</h5>
+      <div class="bg-danger m-b-10" id="slider-margin">
+      </div>
+      <button class="pull-right btn btn-danger btn-cons m-t-40">Apply</button>
+    </form>
+  </div>
+</div>
+<script>
+    'use strict';
 
+    $(document).ready(function() {
+        // Initializes search overlay plugin.
+        // Replace onSearchSubmit() and onKeyEnter() with
+        // your logic to perform a search and display results
+        $(".list-view-wrapper").scrollbar();
+
+        $('[data-pages="search"]').search({
+            // Bind elements that are included inside search overlay
+            searchField: '#overlay-search',
+            closeButton: '.overlay-close',
+            suggestions: '#overlay-suggestions',
+            brand: '.brand',
+            // Callback that will be run when you hit ENTER button on search box
+            onSearchSubmit: function(searchString) {
+                console.log("Search for: " + searchString);
+            },
+            // Callback that will be run whenever you enter a key into search box.
+            // Perform any live search here.
+            onKeyEnter: function(searchString) {
+                console.log("Live search for: " + searchString);
+                var searchField = $('#overlay-search');
+                var searchResults = $('.search-results');
+
+              /*
+               Do AJAX call here to get search results
+               and update DOM and use the following block
+               'searchResults.find('.result-name').each(function() {...}'
+               inside the AJAX callback to update the DOM
+               */
+
+                // Timeout is used for DEMO purpose only to simulate an AJAX call
+                clearTimeout($.data(this, 'timer'));
+                searchResults.fadeOut("fast"); // hide previously returned results until server returns new results
+                var wait = setTimeout(function() {
+
+                    searchResults.find('.result-name').each(function() {
+                        if (searchField.val().length != 0) {
+                            $(this).html(searchField.val());
+                            searchResults.fadeIn("fast"); // reveal updated results
+                        }
+                    });
+                }, 500);
+                $(this).data('timer', wait);
+
+            }
+        })
+    });
+
+
+    $('.panel-collapse label').on('click', function(e){
+        e.stopPropagation();
+    })
+</script>
 <!-- JS at bottom of page to improve load time, and only loaded once with 'data-turbolinks-eval' == false  -->
 <%= javascript_include_tag 'application' %>
 

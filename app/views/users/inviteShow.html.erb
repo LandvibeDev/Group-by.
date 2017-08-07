@@ -1,5 +1,77 @@
-<% @invites.each do |invite| %>
-    <%= invite.invite_group %>
-    <td><%= link_to 'Join', user_group_join_path(invite.invite_user, invite.invite_group) %></td>
-    </br>
-<% end %>
+<div class="container-fluid container-fixed-lg bg-white">
+  <!-- START PANEL -->
+  <div class="panel panel-transparent">
+    <div class="panel-heading">
+      <div class="panel-title">나에게 온 초대
+      </div>
+      <div class="export-options-container pull-right">
+        <div class="exportOptions">
+          <div class="DTTT btn-group">
+
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="panel-body">
+      <div id="tableWithExportOptions_wrapper" class="dataTables_wrapper form-inline no-footer"><div class="table-responsive"><table class="table table-striped dataTable no-footer" id="tableWithExportOptions" role="grid" aria-describedby="tableWithExportOptions_info">
+        <thead>
+        <tr role="row">
+          <th class="sorting_asc" tabindex="0" aria-controls="tableWithExportOptions" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Group</th>
+          <th class="sorting" tabindex="0" aria-controls="tableWithExportOptions" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Invite</th>
+       </tr>
+        </thead>
+        <tbody>
+        <% @invites.each do |invite| %>
+            <tr class="gradeA odd" role="row">
+              <td class="sorting_1"> <%= invite.invite_group %></td>
+              <td><%= link_to 'Join', user_group_join_path(invite.invite_user, invite.invite_group) %></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+      </div>
+        <div class="row">
+          <div>
+            <div class="dataTables_paginate paging_simple_numbers" id="tableWithExportOptions_paginate">
+              <ul class="">
+                <li class="paginate_button previous disabled" id="tableWithExportOptions_previous">
+                  <a href="#" aria-controls="tableWithExportOptions" data-dt-idx="0" tabindex="0">
+                    <i class="pg-arrow_left"></i>
+                  </a>
+                </li>
+                <li class="paginate_button active">
+                  <a href="#" aria-controls="tableWithExportOptions" data-dt-idx="1" tabindex="0">1</a>
+                </li>
+                <li class="paginate_button ">
+                  <a href="#" aria-controls="tableWithExportOptions" data-dt-idx="2" tabindex="0">2</a>
+                </li>
+                <li class="paginate_button ">
+                  <a href="#" aria-controls="tableWithExportOptions" data-dt-idx="3" tabindex="0">3</a>
+                </li>
+                <li class="paginate_button ">
+                  <a href="#" aria-controls="tableWithExportOptions" data-dt-idx="4" tabindex="0">4</a>
+                </li>
+                <li class="paginate_button ">
+                  <a href="#" aria-controls="tableWithExportOptions" data-dt-idx="5" tabindex="0">5</a>
+                </li>
+                <li class="paginate_button disabled" id="tableWithExportOptions_ellipsis">
+                  <a href="#" aria-controls="tableWithExportOptions" data-dt-idx="6" tabindex="0">…</a>
+                </li>
+                <li class="paginate_button ">
+                  <a href="#" aria-controls="tableWithExportOptions" data-dt-idx="7" tabindex="0">12</a>
+                </li>
+                <li class="paginate_button next" id="tableWithExportOptions_next">
+                  <a href="#" aria-controls="tableWithExportOptions" data-dt-idx="8" tabindex="0">
+                    <i class="pg-arrow_right"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END PANEL -->
+</div>

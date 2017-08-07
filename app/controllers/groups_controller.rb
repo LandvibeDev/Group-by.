@@ -92,9 +92,14 @@ class GroupsController < ApplicationController
   # PATCH/PUT /groups/1
   # PATCH/PUT /groups/1.json
   def update
+    @user = User.find(current_user.id)
+    @group = @user.groups.find(params[:id])
+    @group.title = params[:title]
+    @group.description = params[:description]
+
     respond_to do |format|
-      if @group.update(group_params)
-        format.html { redirect_to @group, notice: 'Group was successfully updated.' }
+      if @group.update(title: params[:title], description: params[:description])
+        format.html { redirect_to user_group_path(current_user.id, @group.id) }
         format.json { render :show, status: :ok, location: @group }
       else
         format.html { render :edit }

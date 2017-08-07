@@ -43,7 +43,37 @@
                           <% else %>
                               <%= link_to 'Invite', user_group_invite_path(current_user.id, @group.id), :class => 'btn btn-success btn-cons' %>
                           <% end %>
+                          <button class="btn btn-primary m-l-10" data-toggle="modal" data-target="#myModal">Edit</button>
                         </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal fade stick-up" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">그룹 만들기</h4>
+                      </div>
+                      <div class="modal-body">
+
+                        <%= form_with(url: user_group_path, :method => :put , local: true) do |form| %>
+                            <div class="form-group form-group-default">
+                              <%= form.label :title %>
+                              <%= form.text_field :title, id: :group_title, :class => 'form-control' %>
+                            </div>
+
+                            <div class="form-group form-group-default">
+                              <%= form.label :description %>
+                              <%= form.text_area :description, id: :group_description, :class => 'form-control' %>
+                            </div>
+
+                            <div class="actions">
+                              <%= form.submit 'Save Changes', :class => 'btn btn-primary' %>
+                            </div>
+                        <% end %>
+
                       </div>
                     </div>
                   </div>
@@ -76,8 +106,8 @@
           </div>
           <!-- Modal -->
           <div class="modal fade slide-right" id="perModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
+            <div class="modal-dialog" role="document" style="width: 750px;">
+              <div class="modal-content" style="width: 750px;">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                   <h4 class="modal-title" id="myModalLabel">현재 가입된 유저</h4>
@@ -93,9 +123,27 @@
                               <% end %>
                           <% end %>
                       <% end %>
-                      <% if chk == false %>
-                          <%= user1.email %> </br>
-                      <% end %>
+                      <div class="gallery-item " data-width="1" data-height="1" style="float: left;margin: 30px">
+                        <%= image_tag('gallery/2_1.jpg', :class => 'image-responsive-height') %>
+                        <!-- START PREVIEW -->
+                        <!-- END PREVIEW -->
+                        <!-- START ITEM OVERLAY DESCRIPTION -->
+                        <div class="overlayer bottom-left full-width">
+                          <div class="overlayer-wrapper">
+                            <div class="gradient-grey p-l-20 p-r-20 p-b-5">
+                              <div class="">
+                                <p class="pull-left bold text-white fs-14 p-t-10">
+                                  <% if chk == false %>
+                                      <%= user1.email %>
+                                  <% end %>
+                                </p>
+                                <div class="clearfix"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- END PRODUCT OVERLAY DESCRIPTION -->
+                      </div>
                   <% end %>
                 </div>
               </div>
@@ -170,7 +218,8 @@
           <!-- START ITEM -->
           <% @contents.each do |content| %>
               <div class="card share  col1" data-social="item">
-                <div class="circle" data-toggle="tooltip" title="Label" data-container="body">
+                <div class="top-right p-t-10 p-r-10">
+                <a class="fa fa-plus" href="#"></a>
                 </div>
                 <div class="card-header clearfix">
                   <div class="user-pic">
@@ -195,32 +244,20 @@
                       word-break: break-all;
                       text-overflow: ellipsis;
                       -webkit-box-orient: vertical;"><%= content.content %></p>
-                  <div class="card-content">
-                    <ul class="reactions" style="text-align: right;list-style-type: none;height: 0px;">
-                      <li class="card-content-list">
-                        <a href="#"><i class="fa fa-expand"></i>
-                        </a>
-                      </li>
-                      <li class="card-content-list">
-                        <a href="#"><i class="fa fa-heart-o"></i>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
                 </div>
                 <div class="card-footer clearfix">
                   <div class="time">few seconds ago</div>
                   <ul class="reactions">
-                    <li><a href="#">5,345 <i class="fa fa-comment-o"></i></a>
+                    <li><a href="#"><i class="fa fa-commenting-o"></i></a>
                     </li>
-                    <li><a href="#">23K <i class="fa fa-heart-o"></i></a>
+                    <li><a href="#"><i class="fa fa-trash-o"></i></a>
                     </li>
+                    <li><a href="#"><l class="fa fa-pencil"></l></a> </li>
                   </ul>
                 </div>
               </div>
           <% end %>
           <!-- END ITEM -->
-
         </div>
         <!-- END DAY -->
       </div>

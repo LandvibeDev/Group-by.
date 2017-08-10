@@ -43,18 +43,18 @@
                           <% else %>
                               <%= link_to 'Invite', user_group_invite_path(current_user.id, @group.id), :class => 'btn btn-success btn-cons' %>
                           <% end %>
-                          <button class="btn btn-primary m-l-10" data-toggle="modal" data-target="#myModal">Edit</button>
+                          <button class="btn btn-primary m-l-10" data-toggle="modal" data-target="#editModal">Edit</button>
                         </p>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="modal fade stick-up" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal fade stick-up" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">그룹 만들기</h4>
+                        <h4 class="modal-title" id="myModalLabel">Edit</h4>
                       </div>
                       <div class="modal-body">
 
@@ -94,7 +94,7 @@
                         <% end %>
                     <% end %>
                     <li>
-                      <div class="thumbnail-wrapper d32 circular b-white">
+                      <div class="thumbnail-wrapper d32 circular b-white" style="cursor: pointer;">
                         <div class="bg-master text-center text-white"><span data-toggle="modal" data-target="#perModal">More</span></div>
                       </div>
                     </li>

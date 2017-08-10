@@ -13,4 +13,10 @@ class UsersController < ApplicationController
 
     @groups = Group.all
   end
+
+  def delete_push
+    Push.destroy(params[:id])
+
+    render json: current_user.pushs.count
+  end
 end

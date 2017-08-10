@@ -40,6 +40,14 @@ class ContentsController < ApplicationController
         format.json { render json: @content.errors, status: :unprocessable_entity }
       end
     end
+
+    #push 생성
+    @group.users.each do|u|
+      if u != current_user
+        u.pushs.create(message: @content.title, group_id: params[:group_id])
+      end
+    end
+
   end
 
   # PATCH/PUT /contents/1

@@ -21,6 +21,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'delete_push/:id' =>'users#delete_push'
+
   resources :events
 
   get 'home/index'

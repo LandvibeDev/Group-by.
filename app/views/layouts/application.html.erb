@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <meta charset="utf-8" />
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+  <meta charset="utf-8"/>
   <title>Rails Boiler Plate</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <link rel="apple-touch-icon" href="<%= image_path('ico/60.png') %>">
   <link rel="apple-touch-icon" sizes="76x76" href="<%= image_path('ico/76.png') %>">
   <link rel="apple-touch-icon" sizes="120x120" href="<%= image_path('ico/120.png') %>">
@@ -12,20 +12,36 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-touch-fullscreen" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta content="" name="description" />
-  <meta content="" name="author" />
+  <meta content="" name="description"/>
+  <meta content="" name="author"/>
 
-  <%= stylesheet_link_tag 'application', media: 'all'%>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
 
   <!--[if lte IE 9]>
-  <link href="/pages/css/ie9.css?v=pages-v1.0.0" rel="stylesheet" type="text/css" />
+  <link href="/pages/css/ie9.css?v=pages-v1.0.0" rel="stylesheet" type="text/css"/>
   <![endif]-->
 
   <script type="text/javascript">
-      window.onload = function() {
+      window.onload = function () {
           // fix for windows 8
           if (navigator.appVersion.indexOf("Windows NT 6.2") != -1)
               document.head.innerHTML += '<link rel="stylesheet" type="text/css" href="/pages/css/windows.chrome.fix.css?v=pages-v1.0.0" />'
+
+          $(".delete_push").on('click', function () {
+
+              $(this).parent().parent().parent().fadeOut();
+          });
+      }
+
+      var delete_push = function (id) {
+        $.ajax({
+            url: 'delete_push/'+id,
+            success: function(count){
+              if(count == 0){
+                $('.bubble').removeClass('bubble');
+              }
+            }
+        });
       }
   </script>
 
@@ -44,7 +60,8 @@
   <div class="sidebar-header">
     <%= image_tag('groupby_logo_white.png') %>
     <div class="sidebar-header-controls">
-      <button data-pages-toggle="#appMenu" class="btn btn-xs sidebar-slide-toggle btn-link m-l-20" type="button"><i class="fa fa-angle-down fs-16"></i>
+      <button data-pages-toggle="#appMenu" class="btn btn-xs sidebar-slide-toggle btn-link m-l-20" type="button">
+        <i class="fa fa-angle-down fs-16"></i>
       </button>
       <button data-toggle-pin="sidebar" class="btn btn-link visible-lg-inline" type="button"><i class="fa fs-12"></i>
       </button>
@@ -142,30 +159,18 @@
           <li class="p-r-15 inline">
             <div class="dropdown">
               <a href="javascript:;" id="notification-center" class="fa fa-globe" data-toggle="dropdown">
-                <span class="bubble"></span>
+                <% if current_user.pushs.count != 0 %>
+                    <span class="bubble"></span>
+                <% end %>
               </a>
               <div class="dropdown-menu notification-toggle" role="menu" aria-labelledby="notification-center">
                 <div class="notification-panel">
                   <!-- START Notification Body-->
-                  <div class="notification-body scrollable">
-                    <!-- START Notification Item-->
-                    <div class="notification-item  clearfix">
-                      <div class="heading">
-                        <a href="#" class="text-danger">
-                          <i class="fa fa-exclamation-triangle m-r-10"></i>
-                          <span class="bold">98% Server Load</span>
-                          <span class="fs-12 m-l-10">Take Action</span>
-                        </a>
-                        <span class="pull-right time">
-                                                        2 mins ago
-                                                    </span>
-                      </div>
-                      <div class="option">
-                        <a href="#" class="mark"></a>
-                      </div>
-                    </div>
-                    <!-- END Notification Item-->
+
+                  <div id="pushs">
+                    <%= render partial: "layouts/push", collection: current_user.pushs %>
                   </div>
+
                   <!-- END Notification Body-->
                   <!-- START Notification Footer-->
                   <div class="notification-footer text-center">
@@ -187,7 +192,8 @@
           </li>
         </ul>
         <!-- END NOTIFICATION DROPDOWN -->
-        <a href="#" class="search-link" data-toggle="search"><i class="pg-search"></i>Type anywhere to <span class="bold">search</span></a>
+        <a href="#" class="search-link" data-toggle="search"><i class="pg-search"></i>Type anywhere to
+          <span class="bold">search</span></a>
       </div>
     </div>
     <div class=" pull-right">
@@ -270,7 +276,9 @@
                 <a href="#" class="new-note-link" data-navigate="view" data-view-port="#note-views" data-view-animation="push"><i class="fa fa-plus"></i></a>
               </li>
             </ul>
-            <button class="btn-remove-notes btn btn-xs btn-block" style="display:none"><i class="fa fa-times"></i> Delete</button>
+            <button class="btn-remove-notes btn btn-xs btn-block" style="display:none"><i class="fa fa-times"></i>
+              Delete
+            </button>
           </div>
           <ul>
             <!-- BEGIN Note Item !-->
@@ -283,7 +291,8 @@
                 </div>
                 <!-- END Note Action !-->
                 <!-- BEGIN Note Preview Text !-->
-                <p class="note-preview">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
+                <p class="note-preview">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
                 <!-- BEGIN Note Preview Text !-->
               </div>
               <!-- BEGIN Note Details !-->
@@ -302,7 +311,8 @@
         <div class="view note" id="quick-note">
           <div>
             <ul class="toolbar">
-              <li><a href="#" class="close-note-link" data-navigate="view" data-view-port="#note-views" data-view-animation="push"><i class="pg-arrow_left"></i></a>
+              <li>
+                <a href="#" class="close-note-link" data-navigate="view" data-view-port="#note-views" data-view-animation="push"><i class="pg-arrow_left"></i></a>
               </li>
               <li><a href="#" class="Bold"><i class="fa fa-bold"></i></a>
               </li>
@@ -415,7 +425,8 @@
           <div data-init-list-view="ioslist" class="list-view boreded no-top-border">
             <div class="list-view-group-container">
               <div class="list-view-group-header text-uppercase">
-                a</div>
+                a
+              </div>
               <ul>
                 <!-- BEGIN Chat User List Item  !-->
                 <li class="chat-user-list clearfix">
@@ -729,7 +740,7 @@
 <script>
     'use strict';
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         // Initializes search overlay plugin.
         // Replace onSearchSubmit() and onKeyEnter() with
         // your logic to perform a search and display results
@@ -742,12 +753,12 @@
             suggestions: '#overlay-suggestions',
             brand: '.brand',
             // Callback that will be run when you hit ENTER button on search box
-            onSearchSubmit: function(searchString) {
+            onSearchSubmit: function (searchString) {
                 console.log("Search for: " + searchString);
             },
             // Callback that will be run whenever you enter a key into search box.
             // Perform any live search here.
-            onKeyEnter: function(searchString) {
+            onKeyEnter: function (searchString) {
                 console.log("Live search for: " + searchString);
                 var searchField = $('#overlay-search');
                 var searchResults = $('.search-results');
@@ -762,9 +773,9 @@
                 // Timeout is used for DEMO purpose only to simulate an AJAX call
                 clearTimeout($.data(this, 'timer'));
                 searchResults.fadeOut("fast"); // hide previously returned results until server returns new results
-                var wait = setTimeout(function() {
+                var wait = setTimeout(function () {
 
-                    searchResults.find('.result-name').each(function() {
+                    searchResults.find('.result-name').each(function () {
                         if (searchField.val().length != 0) {
                             $(this).html(searchField.val());
                             searchResults.fadeIn("fast"); // reveal updated results
@@ -778,7 +789,7 @@
     });
 
 
-    $('.panel-collapse label').on('click', function(e){
+    $('.panel-collapse label').on('click', function (e) {
         e.stopPropagation();
     })
 </script>

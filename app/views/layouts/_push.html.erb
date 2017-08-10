@@ -1,0 +1,25 @@
+<div class="notification-body scrollable">
+  <!-- START Notification Item-->
+  <div class="notification-item  clearfix">
+    <div class="heading">
+      <a href="/users/<%=current_user.id%>/groups/<%= push.group_id %>" class="text-danger pull-left">
+        <i class="fa fa-exclamation-triangle m-r-10"></i>
+        <span class="bold"><%= push.message %></span>
+        <span class="fs-12 m-l-10"> - <%= Group.find(push.group_id).title %></span>
+      </a>
+      <span class="pull-right time">
+                              <% t = Time.now - push.created_at  %>
+        <%= (t/3600).to_i %> hour
+        <%= ((t%3600)/60).to_i %> min
+        <%= ((t%3600)%60).to_i %> sec
+                              ago
+                            </span>
+    </div>
+    <!-- START Notification Item Right Side-->
+    <div class="option">
+      <a href="javascript:delete_push(<%= push.id %>)" class="fa fa-trash-o delete_push"></a>
+    </div>
+    <!-- END Notification Item Right Side-->
+  </div>
+  <!-- END Notification Item-->
+</div>

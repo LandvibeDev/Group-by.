@@ -22,7 +22,7 @@ class HomeController < ApplicationController
 
   def create_event
     @user = User.find(current_user.id)
-    @event = @user.events.create(title: params[:title],start_date: params[:start],end_date: params[:end])
+    @event = @user.events.create(title: params[:title],content: params[:other][:desc], start_date: params[:start],end_date: params[:end])
 
     respond_to do |format|
       format.json {render json: @event}
@@ -34,8 +34,9 @@ class HomeController < ApplicationController
     @idx = params[:other][:id]
     @event = Event.find(@idx)
     @event.title = params[:title]
+    @event.content = params[:other][:desc]
     @event.start_date = params[:start]
-    @event.end_Date = params[:end]
+    @event.end_date = params[:end]
     @event.save
   end
 

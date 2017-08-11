@@ -18,7 +18,7 @@
             success: function (data) {
                 for (var idx in data) {
                     var e = {};
-                    e.other = {id: data[idx].id};
+                    e.other = {id: data[idx].id, desc: data[idx].content};
                     e.title = data[idx].title;
                     e.class = 'bg-success-lighter';
                     e.start = data[idx].start_date;
@@ -84,6 +84,7 @@
                     allDay: false,
                     other: {
                         //You can have your custom list of attributes here
+                        desc: '',
                     }
                 };
                 selectedEvent = newEvent;
@@ -118,8 +119,7 @@
         function setEventDetailsToForm(event) {
             $('#eventIndex').val();
             $('#txtEventName').val();
-            $('#txtEventCode').val();
-            $('#txtEventLocation').val();
+            $('#txtEventDesc').val();
             //Show Event date
             $('#event-date').html(moment(event.start).format('MMM, D dddd'));
 
@@ -129,8 +129,7 @@
             //Load Event Data To Text Field
             $('#eventIndex').val(event.index);
             $('#txtEventName').val(event.title);
-            $('#txtEventCode').val(event.other.code);
-            $('#txtEventLocation').val(event.other.location);
+            $('#txtEventDesc').val(event.other.desc);
         }
 
         $('#eventSave_week').on('click', function () {
@@ -139,8 +138,7 @@
             //You can add Any thing inside "other" object and it will get save inside the plugin.
             //Refer it back using the same name other.your_custom_attribute
 
-            selectedEvent.other.code = $('#txtEventCode').val();
-            selectedEvent.other.location = $('#txtEventLocation').val();
+            selectedEvent.other.desc = $('#txtEventDesc').val();
 
             mycal.pagescalendar('updateEvent', selectedEvent);
 

@@ -21,8 +21,8 @@
                     e.other = {id: data[idx].id};
                     e.title = data[idx].title;
                     e.class = 'bg-success-lighter';
-                    e.start = data[idx].start;
-                    e.end = data[idx].end;
+                    e.start = data[idx].start_date;
+                    e.end = data[idx].end_date;
                     mycal.pagescalendar('addEvent', e);
                 }
             }

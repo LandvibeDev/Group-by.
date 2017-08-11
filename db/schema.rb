@@ -60,7 +60,6 @@ ActiveRecord::Schema.define(version: 20170810034034) do
   create_table "pushes", force: :cascade do |t|
     t.integer "user_id"
     t.string "message"
-    t.boolean "check"
     t.integer "group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -2,6 +2,7 @@ class Content < ApplicationRecord
 
   belongs_to :group
   has_many :selecteds
+  has_many :selected_users, through: :selecteds, source: :user
 
   validate :end_after_start
   validates :start_date, :end_date, :presence => true

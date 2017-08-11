@@ -118,6 +118,16 @@ class GroupsController < ApplicationController
     end
   end
 
+  # POST /groups/convert_event/:id
+  def convert_event
+    @selected = Selected.create(user_id: current_user.id,content_id: params[:id])
+
+    @user = User.find(current_user.id)
+    @content = Content.find(params[:id])
+    @event = @user.events.create(title: @content.title, content: @content.content, start_date: @content.start_date,end_date: @content.end_date, selected_id: @selected.id)
+
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_group

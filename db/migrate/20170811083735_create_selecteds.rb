@@ -1,10 +1,9 @@
 class CreateSelecteds < ActiveRecord::Migration[5.1]
-  #user와 content 사이의 관계 content를 event 로 변환하기 위해 생성
+  #이 모델이 생성되면 content가 event로 저장 된 것이다
   def change
     create_table :selecteds do |t|
       t.belongs_to :user
       t.belongs_to :content
-      t.boolean :isEvent
 
       t.timestamps
     end

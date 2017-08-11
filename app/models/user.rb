@@ -10,5 +10,6 @@ class User < ApplicationRecord
   has_many :invites
   has_many :pushs
   has_many :selecteds
+  has_many :selected_contents, through: :selecteds, source: :content
   has_and_belongs_to_many :groups, -> { distinct }
 end

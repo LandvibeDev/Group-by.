@@ -1,3 +1,20 @@
+<script>
+    var convert_event = function(content_id){
+        $.ajax({
+            url: '/groups/convert_event/'+content_id,
+            method: 'post',
+            success: function(){
+            }
+        });
+    }
+
+    window.onload = function(){
+        $('.mk_event').on('click',function () {
+            $(this).parent().fadeOut();
+        })
+    }
+</script>
+
 <div class="social-wrapper">
   <div class="social " data-pages="social">
     <!-- START JUMBOTRON -->
@@ -218,12 +235,12 @@
           <!-- START ITEM -->
           <% @contents.each do |content| %>
               <div class="card share  col1" data-social="item">
-                <div class="top-right p-t-10 p-r-10">
-
-                  <!--make event by content-->
-                <a class="fa fa-plus" href="#"></a>
-
-                </div>
+                <% if content.selecteds.find_by(user_id: current_user.id) == nil %>
+                  <div class="top-right p-t-10 p-r-10">
+                    <!--make event by content-->
+                    <a class="fa fa-plus mk_event" href="javascript:convert_event(<%= content.id %>)"></a>
+                  </div>
+                <% end %>
                 <div class="card-header clearfix">
                   <div class="user-pic">
                     <%= image_tag('profiles/5x.jpg') %>
@@ -288,7 +305,11 @@
         $('#endDatepicker').datepicker("option", "onClose", function ( selectedDate ) {
             $("#startDatepicker").datepicker( "option", "maxDate", selectedDate );
         });
+
     });
+
+
+
 </script>
 
 <style>

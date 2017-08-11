@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     resource :contents
   end
 
+  post 'groups/convert_event/:id' => 'groups#convert_event'
+
   resources :userpop3s, only: [:index] do
     resources :usermails
   end

@@ -51,16 +51,14 @@
   <%= yield :head %>
 </head>
 
-<body class="fixed-header">
+<body class="fixed-header ">
 <!-- BEGIN SIDEBAR -->
-<div class="page-sidebar" data-pages="sidebar">
+<nav class="page-sidebar" data-pages="sidebar">
   <div id="appMenu" class="sidebar-overlay-slide from-top">
   </div>
   <!-- BEGIN SIDEBAR HEADER -->
   <div class="sidebar-header">
-    <%= link_to authenticated_root_path do %>
-        <%= image_tag('groupby_logo_white.png') %>
-    <% end %>
+    <%= image_tag('groupby_logo_white.png') %>
     <div class="sidebar-header-controls">
       <button data-pages-toggle="#appMenu" class="btn btn-xs sidebar-slide-toggle btn-link m-l-20" type="button">
         <i class="fa fa-angle-down fs-16"></i>
@@ -122,7 +120,7 @@
     <div class="clearfix"></div>
   </div>
   <!-- END SIDEBAR MENU -->
-</div>
+</nav>
 <!-- END SIDEBAR -->
 <!-- START PAGE-CONTAINER -->
 <div class="page-container">
@@ -131,31 +129,34 @@
   <div class="header ">
     <!-- START MOBILE CONTROLS -->
     <!-- LEFT SIDE -->
-    <div class="pull-left full-height visible-sm visible-xs">
-      <!-- START ACTION BAR -->
-      <div class="sm-action-bar">
-        <a href="#" class="btn-link toggle-sidebar" data-toggle="sidebar">
-          <span class="icon-set menu-hambuger"></span>
-        </a>
+    <div class="container-fluid relative">
+      <!-- LEFT SIDE -->
+      <div class="pull-left visible-sm visible-xs">
+        <!-- START ACTION BAR -->
+        <div class="header-inner">
+          <a href="#" class="btn-link toggle-sidebar visible-sm-inline-block visible-xs-inline-block padding-5" data-toggle="sidebar">
+            <span class="fa fa-bars"></span>
+          </a>
+        </div>
+        <!-- END ACTION BAR -->
       </div>
-      <!-- END ACTION BAR -->
-    </div>
-    <!-- RIGHT SIDE -->
-    <div class="pull-right full-height visible-sm visible-xs">
-      <!-- START ACTION BAR -->
-      <div class="sm-action-bar">
-        <a href="#" class="btn-link" data-toggle="quickview" data-toggle-element="#quickview">
-          <span class="icon-set menu-hambuger-plus"></span>
-        </a>
+      <div class="pull-center hidden-md hidden-lg">
+        <div class="header-inner">
+          <div class="brand inline">
+            <%= image_tag('groupby_logo_2x.png') %>
+          </div>
+        </div>
       </div>
-      <!-- END ACTION BAR -->
+      <!-- RIGHT SIDE -->
+
     </div>
+
     <!-- END MOBILE CONTROLS -->
-    <div class=" pull-left sm-table">
+    <div class=" pull-left sm-table hidden-xs hidden-sm">
       <div class="header-inner">
-        <div class="brand inline" style="padding-left: 20px">
+        <div class="brand inline">
           <%= link_to authenticated_root_path do %>
-              <%= image_tag('groupby_logo_2x.png') %>
+              <%= image_tag('groupby_logo_2x.png', :style => "padding-left: 30px") %>
           <% end %>
         </div>
         <!-- BEGIN NOTIFICATION DROPDOWN -->
@@ -201,11 +202,6 @@
       </div>
     </div>
     <div class=" pull-right">
-      <div class="header-inner">
-        <a href="#" class="btn-link icon-set menu-hambuger-plus m-l-20 sm-no-margin hidden-sm hidden-xs" data-toggle="quickview" data-toggle-element="#quickview"></a>
-      </div>
-    </div>
-    <div class=" pull-right">
       <!-- START User Info-->
       <div class="visible-lg visible-md m-t-10">
         <div class="pull-left p-r-10 p-t-10 fs-16 font-heading">
@@ -239,9 +235,9 @@
   <!-- END HEADER -->
   <!-- END PAGE HEADER WRAPPER -->
   <!-- START PAGE CONTENT WRAPPER -->
-  <div class="page-content-wrapper full-height">
+  <div class="page-content-wrapper">
     <!-- START PAGE CONTENT -->
-    <div class="content full-height">
+    <div class="content">
       <%= yield %>
     </div>
     <!-- END PAGE CONTENT -->
@@ -739,11 +735,8 @@
     </form>
   </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <script>
-    'use strict';
-
     $(document).ready(function () {
         // Initializes search overlay plugin.
         // Replace onSearchSubmit() and onKeyEnter() with

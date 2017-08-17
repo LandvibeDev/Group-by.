@@ -43,6 +43,7 @@
 //= require pages-plugins/jquery-ui/jquery-ui.min
 //= require pages-plugins/interactjs/interact.min
 //= require pages-plugins/notify.min
+//= require pages-plugins/bootstrap-tabcollapse
 
 // BEGIN CORE TEMPLATE JS FOR PAGES
 //= require pages-core/pages

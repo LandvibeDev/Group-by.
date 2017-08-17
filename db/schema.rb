@@ -38,7 +38,6 @@ ActiveRecord::Schema.define(version: 20170811083735) do
     t.text "content"
     t.datetime "start_date"
     t.datetime "end_date"
-    t.integer "selected_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_events_on_user_id"

@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20170810114659) do
     t.text "content"
     t.datetime "start_date"
     t.datetime "end_date"
+    t.integer "selected_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_events_on_user_id"
@@ -69,10 +70,20 @@ ActiveRecord::Schema.define(version: 20170810114659) do
   create_table "pushes", force: :cascade do |t|
     t.integer "user_id"
     t.string "message"
+    t.boolean "check"
     t.integer "group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_pushes_on_user_id"
+  end
+
+  create_table "selecteds", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "content_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["content_id"], name: "index_selecteds_on_content_id"
+    t.index ["user_id"], name: "index_selecteds_on_user_id"
   end
 
   create_table "usermails", force: :cascade do |t|

@@ -1,3 +1,20 @@
+<script>
+    var convert_event = function(content_id){
+        $.ajax({
+            url: '/groups/convert_event/'+content_id,
+            method: 'post',
+            success: function(){
+            }
+        });
+    }
+
+    window.onload = function(){
+        $('.mk_event').on('click',function () {
+            $(this).parent().fadeOut();
+        })
+    }
+</script>
+
 <div class="social-wrapper">
   <div class="social " data-pages="social">
     <!-- START JUMBOTRON -->
@@ -94,8 +111,8 @@
                         <% end %>
                     <% end %>
                     <li>
-                      <div class="thumbnail-wrapper d32 circular b-white" style="cursor: pointer;" data-toggle="modal" data-target="#perModal">
-                        <div class="bg-master text-center text-white"><span>More</span></div>
+                      <div class="thumbnail-wrapper d32 circular b-white" style="cursor: pointer;">
+                        <div class="bg-master text-center text-white"><span data-toggle="modal" data-target="#perModal">More</span></div>
                       </div>
                     </li>
                   </ul>
@@ -218,9 +235,12 @@
           <!-- START ITEM -->
           <% @contents.each do |content| %>
               <div class="card share  col1" data-social="item">
-                <div class="top-right p-t-10 p-r-10">
-                  <a class="fa fa-plus" href="#"></a>
-                </div>
+                <% if content.selecteds.find_by(user_id: current_user.id) == nil %>
+                  <div class="top-right p-t-10 p-r-10">
+                    <!--make event by content-->
+                    <a class="fa fa-plus mk_event" href="javascript:convert_event(<%= content.id %>)"></a>
+                  </div>
+                <% end %>
                 <div class="card-header clearfix">
                   <div class="user-pic">
                     <%= image_tag('profiles/5x.jpg') %>
@@ -360,7 +380,6 @@
   </div>
   <!-- /container -->
 </div>
-
 
 <script>
     $(document).ready(function() {

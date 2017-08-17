@@ -21,8 +21,8 @@
                     e.other = {id: data[idx].id};
                     e.title = data[idx].title;
                     e.class = 'bg-success-lighter';
-                    e.start = data[idx].start;
-                    e.end = data[idx].end;
+                    e.start = data[idx].start_date;
+                    e.end = data[idx].end_date;
                     mycal.pagescalendar('addEvent', e);
                 }
             }
@@ -118,8 +118,7 @@
         function setEventDetailsToForm(event) {
             $('#eventIndex').val();
             $('#txtEventName').val();
-            $('#txtEventCode').val();
-            $('#txtEventLocation').val();
+            $('#txtEventDesc').val();
             //Show Event date
             $('#event-date').html(moment(event.start).format('MMM, D dddd'));
 
@@ -129,8 +128,7 @@
             //Load Event Data To Text Field
             $('#eventIndex').val(event.index);
             $('#txtEventName').val(event.title);
-            $('#txtEventCode').val(event.other.code);
-            $('#txtEventLocation').val(event.other.location);
+            $('#txtEventDesc').val(event.other.desc);
         }
 
         $('#eventSave').on('click', function () {
@@ -139,8 +137,7 @@
             //You can add Any thing inside "other" object and it will get save inside the plugin.
             //Refer it back using the same name other.your_custom_attribute
 
-            selectedEvent.other.code = $('#txtEventCode').val();
-            selectedEvent.other.location = $('#txtEventLocation').val();
+            selectedEvent.other.desc = $('#txtEventDesc').val();
 
             mycal.pagescalendar('updateEvent', selectedEvent);
 

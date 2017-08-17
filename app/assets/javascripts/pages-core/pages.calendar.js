@@ -843,7 +843,7 @@
 
                         eventO.start = moment(eventO.start).add(days, 'days');
                         eventO.start = moment(eventO.start).add(mins, 'minutes').format();
-                        eventO.end = moment(eventO.end).add(el.attr("data-event-duration"), 'minutes').format();
+                        eventO.end = moment(eventO.start).add(el.attr("data-event-duration"), 'minutes').format();
                         //Update Array
                         Calendar.settings.events[eventData.index] = eventO;
                         mins = 0;
@@ -893,7 +893,7 @@
                         $this._drawEvent();
                         return;
                     }
-                    eventO.end = moment(eventO.start).add(duration,"minutes").format();
+                    eventO.end = moment(eventO.end).add(duration,"minutes").format();
                     //Update Array
                     duration = 0;
                     days = 0;
@@ -1367,7 +1367,7 @@
                 }
                 eventO.start = moment(eventO.start).set('month', moment(drop.attr("data-date")).get('month')).format();
                 eventO.start = moment(eventO.start).set('date', moment(drop.attr("data-date")).get('date')).format();
-                eventO.end = moment(eventO.start).set('date', moment(drop.attr("data-date")).get('date')).format();
+                eventO.end = moment(eventO.end).set('date', moment(drop.attr("data-date")).get('date')).format();
                 Calendar.settings.events[eventData.index] = eventO;  
                 $this._drawEvent();    
                 plugin.settings.onEventDragComplete(eventO);      

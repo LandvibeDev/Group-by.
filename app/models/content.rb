@@ -1,6 +1,8 @@
 class Content < ApplicationRecord
 
   belongs_to :group
+  has_many :selecteds
+  has_many :selected_users, through: :selecteds, source: :user
   has_many :comments
 
   validate :end_after_start

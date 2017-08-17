@@ -11,23 +11,6 @@
 
     $(document).ready(function () {
 
-        //처음 이벤트 로드 데이터 불러오기 -> pagescalender에 저장
-        $.ajax({
-            url: '/home/load_event',
-            type: 'post',
-            success: function (data) {
-                for (var idx in data) {
-                    var e = {};
-                    e.other = {id: data[idx].id, desc: data[idx].content};
-                    e.title = data[idx].title;
-                    e.class = 'bg-success-lighter';
-                    e.start = data[idx].start_date;
-                    e.end = data[idx].end_date;
-                    mycal.pagescalendar('addEvent', e);
-                }
-            }
-        });
-
         function edit_event(event) {
             $.ajax({
                 url: '/home/edit_event',
@@ -36,7 +19,7 @@
                 data: JSON.stringify(event),
                 dataType: "json",
                 success: function () {
-                    console.log("success edit");
+                    console.log("success edit month");
                 }
             });
         }
@@ -161,6 +144,24 @@
                 }
             });
             $('#calendar-event').removeClass('open');
+        });
+
+
+        //처음 이벤트 로드 데이터 불러오기 -> pagescalender에 저장
+        $.ajax({
+            url: '/home/load_event',
+            type: 'post',
+            success: function (data) {
+                for (var idx in data) {
+                    var e = {};
+                    e.other = {id: data[idx].id, desc: data[idx].content};
+                    e.title = data[idx].title;
+                    e.class = 'bg-success-lighter';
+                    e.start = data[idx].start_date;
+                    e.end = data[idx].end_date;
+                    mycal.pagescalendar('addEvent', e);
+                }
+            }
         });
 
     });

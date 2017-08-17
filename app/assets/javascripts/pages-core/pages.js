@@ -511,7 +511,7 @@
  *
  * Licensed under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
- * 
+ *
  * Copyright 2014, Codrops
  * http://www.codrops.com
  */
@@ -1226,7 +1226,7 @@
 
         self.notification.append(self.alert);
 
-        // bind to Bootstrap closed event for alerts 
+        // bind to Bootstrap closed event for alerts
         self.alert.on('closed.bs.alert', function() {
             self.notification.remove();
             self.options.onClosed();
@@ -1237,7 +1237,7 @@
     };
 
     Notification.VERSION = "1.0.0";
-    
+
     Notification.prototype.show = function() {
 
         // TODO: add fadeOut animation on show as option
@@ -1778,7 +1778,7 @@
 
     // PARALLAX NO CONFLICT
     // ====================
-    
+
     $.fn.parallax.noConflict = function() {
         $.fn.parallax = old;
         return this;
@@ -1825,11 +1825,11 @@
          this.sideBarWidth = 280;
          this.sideBarWidthCondensed = 280 - 70;
 
-         
+
 
          this.$sidebarMenu = this.$element.find('.sidebar-menu > ul');
          this.$pageContainer = $(this.options.pageContainer);
-         
+
 
          if (!this.$sidebarMenu.length) return;
 
@@ -1861,9 +1861,9 @@
              if(li.hasClass("open active")){
                 el.children('.arrow').removeClass("open active");
                 sub.slideUp(200, function() {
-                    li.removeClass("open active"); 
+                    li.removeClass("open active");
                 });
-                
+
              }else{
                 parent.children('li.open').children('.sub-menu').slideUp(200);
                 parent.children('li.open').children('a').children('.arrow').removeClass('open active');
@@ -1891,7 +1891,7 @@
 
          function sidebarMouseEnter(e) {
             var _sideBarWidthCondensed = _this.$body.hasClass("rtl") ? -_this.sideBarWidthCondensed : _this.sideBarWidthCondensed;
-           
+
              var menuOpenCSS = (this.css3d == true ? 'translate3d(' + _sideBarWidthCondensed + 'px, 0,0)' : 'translate(' + _sideBarWidthCondensed + 'px, 0)');
 
              if ($.Pages.isVisibleSm() || $.Pages.isVisibleXs()) {
@@ -1965,7 +1965,7 @@
      }
 
 
-     // Toggle sidebar for mobile view   
+     // Toggle sidebar for mobile view
      Sidebar.prototype.toggleSidebar = function(toggle) {
          var timer;
          var bodyColor = $('body').css('background-color');

@@ -38,7 +38,6 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'home/calendar_week'
   get 'home/calendar_month'
   get 'groups/comments_create/:content_id/:group_id' => 'groups#comments_create'
 

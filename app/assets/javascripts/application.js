@@ -50,6 +50,5 @@
 //= require pages-core/pages.calendar
 
 // BEGIN SITE SCRIPTS
-//= require js/calendar_week.js
 //= require js/calendar_month.js
 //= require pages-core/pages.social.min

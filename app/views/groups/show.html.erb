@@ -250,12 +250,6 @@
           <!-- START ITEM -->
           <% @contents.each do |content| %>
               <div class="card share  col1" data-social="item">
-                <% if content.selecteds.find_by(user_id: current_user.id) == nil %>
-                  <div class="top-right p-t-10 p-r-10">
-                    <!--make event by content-->
-                    <a class="fa fa-plus mk_event" href="javascript:convert_event(<%= content.id %>)"></a>
-                  </div>
-                <% end %>
                 <div class="card-header clearfix">
                   <div class="user-pic">
                     <%= image_tag('profiles/5x.jpg') %>

@@ -130,16 +130,6 @@ class GroupsController < ApplicationController
     redirect_to user_group_path(current_user.id, @group.id)
   end
 
-  # POST /groups/convert_event/:id
-  def convert_event
-    @selected = Selected.create(user_id: current_user.id,content_id: params[:id])
-
-    @user = User.find(current_user.id)
-    @content = Content.find(params[:id])
-    @event = @user.events.create(title: @content.title, content: @content.content, start_date: (@content.start_date.to_time - 9.hours).to_datetime ,end_date:  (@content.end_date.to_time - 9.hours).to_datetime, selected_id: @selected.id)
-
-  end
-
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_group

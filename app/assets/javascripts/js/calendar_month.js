@@ -19,13 +19,11 @@
                 data: JSON.stringify(event),
                 dataType: "json",
                 success: function () {
-                    console.log("success edit month");
                 }
             });
         }
 
-
-        var selectedEvent;//얘를 잘 활용해야 할듯.. 방법1. 일정한 폼을 만들어 놓고 안의 값만 계속 바꿔준다  방법2 선택된 event를 태그에 표시(좋은 방법은 아닌듯)
+        var selectedEvent;
 
         var mycal = $('#myCalendar_month');
         mycal.pagescalendar({
@@ -46,12 +44,6 @@
                 setEventDetailsToForm(selectedEvent);
             },
             onEventDragComplete: function (event) {
-                selectedEvent = event;
-                edit_event(selectedEvent);
-                setEventDetailsToForm(selectedEvent);
-            },
-            onEventResizeComplete: function (event) {
-
                 selectedEvent = event;
                 edit_event(selectedEvent);
                 setEventDetailsToForm(selectedEvent);
@@ -87,9 +79,8 @@
 
                 setEventDetailsToForm(selectedEvent);
 
-                // 아래코드 사용하면 수정시 title이 없다고 나옴
-                // if (!$('#calendar-event').hasClass('open'))
-                //     $('#calendar-event').addClass('open');
+                if (!$('#calendar-event').hasClass('open'))
+                    $('#calendar-event').addClass('open');
 
             }
         });
@@ -146,7 +137,6 @@
             $('#calendar-event').removeClass('open');
         });
 
-
         //처음 이벤트 로드 데이터 불러오기 -> pagescalender에 저장
         $.ajax({
             url: '/home/load_event',
@@ -165,6 +155,4 @@
         });
 
     });
-
-
 })(window.jQuery);

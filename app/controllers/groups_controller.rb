@@ -136,7 +136,9 @@ class GroupsController < ApplicationController
 
     @user = User.find(current_user.id)
     @content = Content.find(params[:id])
-    @event = @user.events.create(title: @content.title, content: @content.content, start_date: @content.start_date,end_date: @content.end_date, selected_id: @selected.id)
+    @sd = @content.start_date
+    @ed = @content.end_date
+    @event = @user.events.create(title: @content.title, content: @content.content, start_date: @sd.change(hour: @sd.hour - 9, min: @sd.min) ,end_date:  @ed.change(hour: @ed.hour - 9,min: @ed.min), selected_id: @selected.id)
 
   end
 

@@ -109,7 +109,7 @@
             $('#event-date').html(moment(event.start).format('MMM, D dddd'));
 
             $('#lblfromTime').html(moment(event.start).format('h:mm A'));
-            $('#lbltoTime').html(moment(event.end).format('H:mm A'));
+            $('#lbltoTime').html(moment(event.end).format('h:mm A'));
 
             //Load Event Data To Text Field
             $('#eventIndex').val(event.index);

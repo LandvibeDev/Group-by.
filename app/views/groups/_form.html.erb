@@ -7,7 +7,10 @@
     <div class="form-group form-group-default">
       <%= form.label :description %>
       <%= form.text_area :description, id: :group_description, :class => 'form-control' %>
+      <%= form.file_field :groupProfile %>
     </div>
+
+
 
     <div class="actions">
       <%= form.submit 'Save Changes', :class => 'btn btn-primary' %>

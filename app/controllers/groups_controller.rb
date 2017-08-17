@@ -56,6 +56,7 @@ class GroupsController < ApplicationController
 
     @group.title = params[:title]
     @group.description = params[:description]
+    @group.groupProfile = params[:groupProfile]
 
     respond_to do |format|
       if @group.save

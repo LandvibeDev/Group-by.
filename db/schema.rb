@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170811083735) do
+ActiveRecord::Schema.define(version: 20170817132721) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "content_id"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20170811083735) do
     t.datetime "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image"
     t.index ["group_id"], name: "index_contents_on_group_id"
   end
 
@@ -38,6 +39,7 @@ ActiveRecord::Schema.define(version: 20170811083735) do
     t.text "content"
     t.datetime "start_date"
     t.datetime "end_date"
+    t.integer "selected_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_events_on_user_id"
@@ -48,6 +50,7 @@ ActiveRecord::Schema.define(version: 20170811083735) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "groupProfile"
   end
 
   create_table "groups_users", force: :cascade do |t|

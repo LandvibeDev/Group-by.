@@ -25,6 +25,10 @@
       <%= form.text_area :content, id: :content_content, :class => 'form-control' %>
     </div>
 
+    <div>
+      <%= form.file_field :image %>
+    </div>
+
     <div class="actions">
       <%= form.submit 'Save Changes', :class => 'btn btn-primary' %>
     </div>

@@ -37,7 +37,7 @@
       --><% @groups.each do |group| %>
         <div class="gallery-item " data-width="2" data-height="2" href="user_group_path(current_user.id, group.id)">
           <%= link_to user_group_path(current_user.id, group.id) do %>
-              <%= image_tag('gallery/2_1.jpg', :class => 'image-responsive-height') %>
+              <img src="<%= group.groupProfile.url %>" class="image-responsive-height" alt="Image Not Found">
           <% end %>
           <!-- START PREVIEW -->
           <!-- END PREVIEW -->

@@ -42,6 +42,7 @@
 //= require pages-plugins/gallery
 //= require pages-plugins/jquery-ui/jquery-ui.min
 //= require pages-plugins/interactjs/interact.min
+//= require pages-plugins/notify.min
 
 // BEGIN CORE TEMPLATE JS FOR PAGES
 //= require pages-core/pages

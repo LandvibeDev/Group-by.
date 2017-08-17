@@ -1,17 +1,32 @@
 <script>
     var convert_event = function(content_id){
+        //custom notify
+//        $.notify.addStyle('happyblue', {
+//            html: "<div>☺<span data-notify-text/>☺</div>",
+//            classes: {
+//                base: {
+//                    "white-space": "nowrap",
+//                    "background-color": "lightblue",
+//                    "padding": "5px"
+//                },
+//                superblue: {
+//                    "color": "white",
+//                    "background-color": "blue"
+//                }
+//            }
+//        });
+
         $.ajax({
             url: '/groups/convert_event/'+content_id,
             method: 'post',
             success: function(){
+                $.notify("Event에 추가되었습니다.", "success");
+                $('.mk_event').parent().fadeOut();
+            },
+            error: function(){
+                $.notify('Fail')
             }
         });
-    }
-
-    window.onload = function(){
-        $('.mk_event').on('click',function () {
-            $(this).parent().fadeOut();
-        })
     }
 </script>
 

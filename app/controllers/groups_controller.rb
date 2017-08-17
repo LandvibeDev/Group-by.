@@ -132,14 +132,11 @@ class GroupsController < ApplicationController
 
   # POST /groups/convert_event/:id
   def convert_event
-    @selected = Selected.new(user_id: current_user.id,content_id: params[:id])
+    @selected = Selected.create(user_id: current_user.id,content_id: params[:id])
 
     @user = User.find(current_user.id)
     @content = Content.find(params[:id])
-    @sd = @content.start_date
-    @ed = @content.end_date
-    @event = @user.events.create(title: @content.title, content: @content.content, start_date: @sd.change(hour: @sd.hour - 9, min: @sd.min) ,end_date:  @ed.change(hour: @ed.hour - 9,min: @ed.min), selected_id: @selected.id)
-    @selected.save
+    @event = @user.events.create(title: @content.title, content: @content.content, start_date: (@content.start_date.to_time - 9.hours).to_datetime ,end_date:  (@content.end_date.to_time - 9.hours).to_datetime, selected_id: @selected.id)
 
   end
 

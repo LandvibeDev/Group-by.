@@ -235,9 +235,9 @@
   <!-- END HEADER -->
   <!-- END PAGE HEADER WRAPPER -->
   <!-- START PAGE CONTENT WRAPPER -->
-  <div class="page-content-wrapper">
+  <div class="page-content-wrapper full-height">
     <!-- START PAGE CONTENT -->
-    <div class="content">
+    <div class="content full-height">
       <%= yield %>
     </div>
     <!-- END PAGE CONTENT -->
@@ -736,6 +736,11 @@
   </div>
 </div>
 
+
+
+<!-- JS at bottom of page to improve load time, and only loaded once with 'data-turbolinks-eval' == false  -->
+<%= javascript_include_tag 'application' %>
+
 <script>
     $(document).ready(function () {
         // Initializes search overlay plugin.
@@ -790,9 +795,6 @@
         e.stopPropagation();
     })
 </script>
-
-<!-- JS at bottom of page to improve load time, and only loaded once with 'data-turbolinks-eval' == false  -->
-<%= javascript_include_tag 'application' %>
 
 </body>
 </html>

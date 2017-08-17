@@ -35,7 +35,11 @@
     <!-- START JUMBOTRON -->
     <div class="jumbotron" data-pages="parallax" data-social="cover">
       <div class="cover-photo">
-        <%= image_tag('social/cover.png') %>
+        <% @usergroups.each do |user| %>
+            <% if user.group_id == @group.id %>
+                <img src="<%= @group.groupCover.url %>">
+            <% end %>
+        <% end %>
       </div>
       <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
         <div class="inner">
@@ -99,6 +103,14 @@
                             <div class="form-group form-group-default">
                               <%= form.label :description %>
                               <%= form.text_area :description, id: :group_description, :class => 'form-control' %>
+                            </div>
+                            <div class="form-group form-group-default">
+                              <%= form.label :group_profile_image %>
+                              <%= form.file_field :groupProfile %>
+                            </div>
+                            <div class="form-group form-group-default">
+                              <%= form.label :group_cover_image %>
+                              <%= form.file_field :groupCover %>
                             </div>
 
                             <div class="actions">

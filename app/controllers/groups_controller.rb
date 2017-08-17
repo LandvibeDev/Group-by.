@@ -118,14 +118,26 @@ class GroupsController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_group
-      @group = Group.find(params[:id])
-    end
+  def comments_create
+    @group = Group.find(params[:group_id])
+    @content = Content.find(params[:content_id])
+    @comment = @content.comments.new()
+    @comment.comment = params[:comment]
+    @comment.user_name = current_user.email
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def group_params
-      # params.require(:group).permit(:title, :description)
-    end
+    @comment.save
+
+    redirect_to user_group_path(current_user.id, @group.id)
+  end
+
+  private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_group
+    @group = Group.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def group_params
+    # params.require(:group).permit(:title, :description)
+  end
 end

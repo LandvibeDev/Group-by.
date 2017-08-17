@@ -1,88 +1,81 @@
 <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
-<!-- START CATEGORY -->
-<div class="gallery">
-  <div class="gallery-filters p-t-20 p-b-10">
-    <ul class="list-inline text-right">
-      <li class="hint-text">Sort by: </li>
-      <li><a href="#" class="active text-master p-r-5 p-l-5">Name</a></li>
-      <li><a href="#" class="text-master hint-text p-r-5 p-l-5">Views</a></li>
-      <li><a href="#" class="text-master hint-text p-r-5 p-l-5">Cost</a></li>
-      <li>
-        <button class="btn btn-primary m-l-10" data-toggle="filters">More filters</button>
-      </li>
-      <li>
-        <button class="btn btn-primary m-l-10" data-toggle="modal" data-target="#myModal">Make Group</button>
-      </li>
-    </ul>
-  </div>
-  <div class="modal fade stick-up" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">그룹 만들기</h4>
-        </div>
-        <div class="modal-body">
+  <!-- START CATEGORY -->
+  <div class="gallery">
+    <div class="gallery-filters p-t-20 p-b-10">
+      <ul class="list-inline text-right">
+        <li class="hint-text">Sort by: </li>
+        <li><a href="#" class="active text-master p-r-5 p-l-5">Name</a></li>
+        <li><a href="#" class="text-master hint-text p-r-5 p-l-5">Views</a></li>
+        <li><a href="#" class="text-master hint-text p-r-5 p-l-5">Cost</a></li>
+        <li>
+          <button class="btn btn-primary m-l-10" data-toggle="filters">More filters</button>
+        </li>
+        <li>
+          <button class="btn btn-primary m-l-10" data-toggle="modal" data-target="#myModal">Make Group</button>
+        </li>
+      </ul>
+    </div>
+    <div class="modal fade stick-up" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">그룹 만들기</h4>
+          </div>
+          <div class="modal-body">
 
-          <%= render 'form', group: @group %>
+            <%= render 'form', group: @group %>
 
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- START GALLERY ITEM -->
-  <!--
-        FOR DEMO PURPOSES, FIRST GALLERY ITEM (.first) IS HIDDEN
-        FOR SCREENS <920px. PLEASE REMOVE THE CLASS 'first' WHEN YOU IMPLEMENT
-    --><% @groups.each do |group| %>
-      <div class="gallery-item " data-width="2" data-height="2">
-        <%= image_tag('gallery/2_1.jpg', :class => 'image-responsive-height') %>
-        <div class="top-right">
-          <div class="dropdown">
-            <a class="fa fa-bars fa-2x" type="button" data-toggle="dropdown" style="padding: 6px;color: white;"></a>
-            <ul class="dropdown-menu dropdown-menu-right">
-              <li><%= link_to 'Show', user_group_path(current_user.id, group.id) %></li>
-              <li><%= link_to 'Invite', user_group_invite_path(current_user.id, group.id) %></li>
-            </ul>
-          </div>
-        </div>
-        <!-- START PREVIEW -->
-        <!-- END PREVIEW -->
-        <!-- START ITEM OVERLAY DESCRIPTION -->
-        <div class="overlayer bottom-left full-width">
-          <div class="overlayer-wrapper">
-            <div class="gradient-grey p-l-20 p-r-20 p-b-5">
-              <div class="">
-                <p class="pull-left bold text-white fs-14 p-t-10"><%= group.title %></p>
-                <div class="clearfix"></div>
-              </div>
-              <h5 class="text-white light txt" style="
-              display: -webkit-box;
-                  -webkit-line-clamp: 3;
-                  overflow: hidden;
-                  word-break: break-all;
-                  text-overflow: ellipsis;
-                  -webkit-box-orient: vertical;">
-                <%= group.description %>
-              </h5>
-              <div class="m-t-10">
-                <div class="thumbnail-wrapper d32 circular m-t-5">
-                  <%= image_tag('profiles/avatar.jpg') %>
+    <!-- START GALLERY ITEM -->
+    <!--
+          FOR DEMO PURPOSES, FIRST GALLERY ITEM (.first) IS HIDDEN
+          FOR SCREENS <920px. PLEASE REMOVE THE CLASS 'first' WHEN YOU IMPLEMENT
+      --><% @groups.each do |group| %>
+        <div class="gallery-item " data-width="2" data-height="2" href="user_group_path(current_user.id, group.id)">
+          <%= link_to user_group_path(current_user.id, group.id) do %>
+              <%= image_tag('gallery/2_1.jpg', :class => 'image-responsive-height') %>
+          <% end %>
+          <!-- START PREVIEW -->
+          <!-- END PREVIEW -->
+          <!-- START ITEM OVERLAY DESCRIPTION -->
+          <div class="overlayer bottom-left full-width">
+            <div class="overlayer-wrapper">
+              <div class="gradient-grey p-l-20 p-r-20 p-b-5">
+                <div class="">
+                  <p class="pull-left bold text-white fs-14 p-t-10"><%= group.title %></p>
+                  <div class="clearfix"></div>
                 </div>
-                <div class="inline m-l-10">
-                  <p class="no-margin text-white fs-12">Designed by Alex Nester</p>
-                </div>
-                <div class="pull-right m-t-10">
-                </div>
+                <h5 class="text-white light txt" style="
+                display: -webkit-box;
+                    -webkit-line-clamp: 3;
+                    overflow: hidden;
+                    word-break: break-all;
+                    text-overflow: ellipsis;
+                    -webkit-box-orient: vertical;">
+                  <%= group.description %>
+                </h5>
+                <div class="m-t-10">
+                  <div class="thumbnail-wrapper d32 circular m-t-5">
+                    <%= image_tag('profiles/avatar.jpg') %>
+                  </div>
+                  <div class="inline m-l-10">
+                    <p class="no-margin text-white fs-12">Designed by Alex Nester</p>
+                  </div>
+                  <div class="pull-right m-t-10">
+                  </div>
 
-                <div class="clearfix"></div>
+                  <div class="clearfix"></div>
+                </div>
               </div>
             </div>
           </div>
+          <!-- END PRODUCT OVERLAY DESCRIPTION -->
         </div>
-        <!-- END PRODUCT OVERLAY DESCRIPTION -->
-      </div>
-  <% end %>
-</div>
-<!-- END CATEGORY -->
+    <% end %>
+  </div>
+  <!-- END CATEGORY -->
 </div>

@@ -40,6 +40,7 @@ Rails.application.routes.draw do
 
   get 'home/calendar_week'
   get 'home/calendar_month'
+  get 'groups/comments_create/:content_id/:group_id' => 'groups#comments_create'
 
   post 'home/load_event' => 'home#load_event'
   post 'home/create_event' => 'home#create_event'

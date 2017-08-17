@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
   <meta charset="utf-8"/>
-  <title>Rails Boiler Plate</title>
+  <title>Group by.</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <link rel="apple-touch-icon" href="<%= image_path('ico/60.png') %>">
   <link rel="apple-touch-icon" sizes="76x76" href="<%= image_path('ico/76.png') %>">
@@ -34,14 +34,14 @@
       }
 
       var delete_push = function (id) {
-        $.ajax({
-            url: 'delete_push/'+id,
-            success: function(count){
-              if(count == 0){
-                $('.bubble').removeClass('bubble');
+          $.ajax({
+              url: 'delete_push/'+id,
+              success: function(count){
+                  if(count == 0){
+                      $('.bubble').removeClass('bubble');
+                  }
               }
-            }
-        });
+          });
       }
   </script>
 
@@ -58,7 +58,9 @@
   </div>
   <!-- BEGIN SIDEBAR HEADER -->
   <div class="sidebar-header">
-    <%= image_tag('groupby_logo_white.png') %>
+    <%= link_to authenticated_root_path do %>
+        <%= image_tag('groupby_logo_white.png') %>
+    <% end %>
     <div class="sidebar-header-controls">
       <button data-pages-toggle="#appMenu" class="btn btn-xs sidebar-slide-toggle btn-link m-l-20" type="button">
         <i class="fa fa-angle-down fs-16"></i>
@@ -152,7 +154,9 @@
     <div class=" pull-left sm-table">
       <div class="header-inner">
         <div class="brand inline" style="padding-left: 20px">
-          <%= image_tag('groupby_logo_2x.png') %>
+          <%= link_to authenticated_root_path do %>
+              <%= image_tag('groupby_logo_2x.png') %>
+          <% end %>
         </div>
         <!-- BEGIN NOTIFICATION DROPDOWN -->
         <ul class="notification-list no-margin hidden-sm hidden-xs b-grey b-l b-r no-style p-l-30 p-r-20">

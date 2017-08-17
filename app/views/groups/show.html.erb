@@ -94,8 +94,8 @@
                         <% end %>
                     <% end %>
                     <li>
-                      <div class="thumbnail-wrapper d32 circular b-white" style="cursor: pointer;">
-                        <div class="bg-master text-center text-white"><span data-toggle="modal" data-target="#perModal">More</span></div>
+                      <div class="thumbnail-wrapper d32 circular b-white" style="cursor: pointer;" data-toggle="modal" data-target="#perModal">
+                        <div class="bg-master text-center text-white"><span>More</span></div>
                       </div>
                     </li>
                   </ul>
@@ -219,7 +219,7 @@
           <% @contents.each do |content| %>
               <div class="card share  col1" data-social="item">
                 <div class="top-right p-t-10 p-r-10">
-                <a class="fa fa-plus" href="#"></a>
+                  <a class="fa fa-plus" href="#"></a>
                 </div>
                 <div class="card-header clearfix">
                   <div class="user-pic">
@@ -247,7 +247,7 @@
                 </div>
                 <div class="card-footer clearfix">
                   <div class="time">few seconds ago</div>
-                  <ul class="reactions">
+                  <ul class="reactions" id="content_modal" data-toggle="modal" data-target="#contentModal<%= content.id %>">
                     <li><a href="#"><i class="fa fa-commenting-o"></i></a>
                     </li>
                     <li><a href="#"><i class="fa fa-trash-o"></i></a>
@@ -256,6 +256,99 @@
                   </ul>
                 </div>
               </div>
+
+              <div class="modal fade fill-in" id="contentModal<%= content.id %>" tabindex="-1" role="dialog" aria-labelledby="modalFillInLabel" aria-hidden="true">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                  <i class="pg-close"></i>
+                </button>
+                <div class="modal-dialog " style="min-width: 880px;">
+                  <div class="modal-content" style="background: rgba(255, 255, 255, 0.53);">
+                    <div class="modal-header" style="border-bottom: 1px solid;border-bottom-color: darkgrey;">
+                      <div class="user-pic" style="float: left">
+                        <%= image_tag('profiles/5x.jpg', :style => 'width: 40px;border-radius: 100%;' ) %>
+                      </div>
+                      <div style="float: left;">
+                        <h3 class="text-left p-l-20" ><%= content.title %></h3>
+                      </div>
+                      <div style="float: right">
+                        <h4 class="text-right semi-bold"> <%= content.start_date %> - <%= content.end_date %> </h4>
+                      </div>
+                    </div>
+                    <div class="modal-body" style="min-height: 500px;border-bottom: 1px solid;border-bottom-color: darkgrey;">
+                      <div class="p-t-20 p-b-20" style="text-align: center">
+                        <%= image_tag('gallery/2.jpg') %>
+                      </div>
+                      <div>
+                        <h3><%= content.content %></h3>
+                      </div>
+                    </div>
+                    <div class="modal-footer" style="min-height: 300px;">
+                      <div>
+                        <div style="float: left;">
+                          <i class="fa fa-commenting fa-2x" aria-hidden="true" style="line-height: 53.64px;">
+                          </i>
+                          <h4 class="p-l-15" style="float: right">Comments</h4>
+                        </div>
+                        <div style="float: right;">
+                          <h3>Group by.</h3>
+                        </div>
+                      </div>
+                      <form id="comment-input" class="form-group form-group-default input-group" style="float: left;" method="get" action="/groups/comments_create/<%= content.id %>/<%= @group.id %>">
+                        <label class="text-left">Comments</label>
+                        <input type="text" class="form-control" id="comment-text" name="comment">
+                        <a type="submit" id="comment-enter" class="input-group-addon">Enter</a>
+                      </form>
+                      <% content.comments.each do |com| %>
+                          <div id="comment-div" class="p-b-10 p-t-10" style="float: left;width: 100%;text-align: left;">
+                            <div class="user-pic p-r-15" style="float: left">
+                              <%= image_tag('profiles/5x.jpg', :style => 'width: 50px;border-radius: 100%;' ) %>
+                            </div>
+                            <span class="semi-bold"><%= com.user_name %></span>
+                            <h4 style="line-height: 10px;"><%= com.comment %></h4>
+                          </div>
+                      <% end %>
+                    </div>
+                  </div>
+                  <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+              </div>
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+              <script>
+                  $('#comment-input').on('submit', function(e) {
+                      e.preventDefault();
+                      var content = $('#comment-text').val();
+                      $.ajax({
+                          url: '/groups/comments_create/<%= content.id %>/<%= @group.id %>',
+                          type: "GET",
+                          data: $('#comment-input').serialize(),
+                          success: function (data) {
+                              $('#comment-text').val('');
+                              $('.modal-footer').append('<div id="comment-div" class="p-b-10 p-t-10" style="float: left;width: 100%;text-align: left;">' +
+                                  '<div class="user-pic p-r-15" style="float: left">' +
+                                  '<%= image_tag('profiles/5x.jpg', :style => 'width: 50px;border-radius: 100%;' ) %>' +
+                                  '</div>' + '<span class="semi-bold">' + '<%= current_user.email %>' + '</span>' + '<h4 style="line-height: 10px;">' + content + '</h4>' + '</div>');
+                          }
+                      });
+                  });
+                  $('#comment-enter').on('click', function(e) {
+                      e.preventDefault();
+                      var content = $('#comment-text').val();
+                      $.ajax({
+                          url: '/groups/comments_create/<%= content.id %>/<%= @group.id %>',
+                          type: "GET",
+                          data: $('#comment-input').serialize(),
+                          success: function (data) {
+                              $('#comment-text').val('');
+                              $('.modal-footer').append('<div id="comment-div" class="p-b-10 p-t-10" style="float: left;width: 100%;text-align: left;">' +
+                                  '<div class="user-pic p-r-15" style="float: left">' +
+                                  '<%= image_tag('profiles/5x.jpg', :style => 'width: 50px;border-radius: 100%;' ) %>' +
+                                  '</div>' + '<span class="semi-bold">' + '<%= current_user.email %>' + '</span>' + '<h4 style="line-height: 10px;">' + content + '</h4>' + '</div>');
+                          }
+                      });
+                  });
+              </script>
           <% end %>
           <!-- END ITEM -->
         </div>
@@ -267,6 +360,7 @@
   </div>
   <!-- /container -->
 </div>
+
 
 <script>
     $(document).ready(function() {

@@ -43,6 +43,14 @@
                 <textarea class="form-control" placeholder="description" id="txtEventDesc"></textarea>
               </div>
             </div>
+            <div class="form-group form-group-default">
+              <label>Start Time</label>
+              <%= datetime_field_tag 'txtEventStartDate' %>
+            </div>
+            <div class="form-group form-group-default">
+              <label>End Time</label>
+              <%= datetime_field_tag 'txtEventEndDate' %>
+            </div>
             <!--<div class="row clearfix cursor">-->
               <!--<div class="form-group form-group-default" data-navigate="view" data-view-port="#eventFormController" data-view-animation="push-parrallax">-->
                 <!--<label>Alerts</label>-->

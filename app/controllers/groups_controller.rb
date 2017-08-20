@@ -37,6 +37,8 @@ class GroupsController < ApplicationController
 
     @group.title = params[:title]
     @group.description = params[:description]
+    @group.groupProfile = params[:groupProfile]
+    @group.groupCover = params[:groupCover]
 
     respond_to do |format|
       if @group.save
@@ -57,6 +59,8 @@ class GroupsController < ApplicationController
     @group = @user.groups.find(params[:id])
     @group.title = params[:title]
     @group.description = params[:description]
+    @group.groupProfile = params[:groupProfile]
+    @group.groupCover = params[:groupCover]
 
     respond_to do |format|
       if @group.update(title: params[:title], description: params[:description])

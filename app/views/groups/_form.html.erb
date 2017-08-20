@@ -8,6 +8,15 @@
       <%= form.label :description %>
       <%= form.text_area :description, id: :group_description, :class => 'form-control' %>
     </div>
+    <div class="form-group form-group-default">
+      <%= form.label :group_profile_image %>
+      <%= form.file_field :groupProfile %>
+    </div>
+    <div class="form-group form-group-default">
+      <%= form.label :group_cover_image %>
+      <%= form.file_field :groupCover %>
+    </div>
+
 
     <div class="actions">
       <%= form.submit 'Save Changes', :class => 'btn btn-primary' %>

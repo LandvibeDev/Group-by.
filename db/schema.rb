@@ -29,13 +29,14 @@ ActiveRecord::Schema.define(version: 20170820074514) do
     t.datetime "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image"
     t.index ["group_id"], name: "index_contents_on_group_id"
   end
 
   create_table "event_users", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "team_evnet_id"
-    t.index ["team_evnet_id"], name: "index_event_users_on_team_evnet_id"
+    t.integer "team_event_id"
+    t.index ["team_event_id"], name: "index_event_users_on_team_event_id"
     t.index ["user_id"], name: "index_event_users_on_user_id"
   end
 
@@ -55,6 +56,8 @@ ActiveRecord::Schema.define(version: 20170820074514) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "groupProfile"
+    t.string "groupCover"
   end
 
   create_table "groups_users", force: :cascade do |t|
@@ -67,7 +70,7 @@ ActiveRecord::Schema.define(version: 20170820074514) do
   create_table "invites", force: :cascade do |t|
     t.integer "user_id"
     t.integer "invite_user"
-    t.integer "invite_group"
+    t.integer "invite_project"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_invites_on_user_id"
@@ -94,15 +97,6 @@ ActiveRecord::Schema.define(version: 20170820074514) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_pushes_on_user_id"
-  end
-
-  create_table "selecteds", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "content_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["content_id"], name: "index_selecteds_on_content_id"
-    t.index ["user_id"], name: "index_selecteds_on_user_id"
   end
 
   create_table "team_events", force: :cascade do |t|

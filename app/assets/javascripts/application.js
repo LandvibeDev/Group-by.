@@ -54,3 +54,6 @@
 // BEGIN SITE SCRIPTS
 //= require js/calendar_month.js
 //= require pages-core/pages.social.min
+
+// APPLICATION
+//= require js/search.js

@@ -562,7 +562,7 @@
     <!-- BEGIN Overlay Header !-->
     <div class="container-fluid">
       <!-- BEGIN Overlay Logo !-->
-      <%= image_tag('logo.png') %>
+      <img src="/assets/groupby_logo_2x-df93fa1429c6484f02fde9ad8379736f4e9e0e1bf7eddbfff6fdce78d9c7bd71.png" alt="Groupby logo 2x">
       <!-- END Overlay Logo !-->
       <!-- BEGIN Overlay Close !-->
       <a href="#" class="close-icon-light overlay-close text-black fs-16">
@@ -593,96 +593,14 @@
             </span>
       <span id="overlay-suggestions"></span>
       <br>
-      <div class="search-results m-t-40">
+      <div class="m-t-40">
         <p class="bold">Pages Search Results</p>
         <div class="row">
-          <div class="col-md-6">
-            <!-- BEGIN Search Result Item !-->
-            <div class="">
-              <!-- BEGIN Search Result Item Thumbnail !-->
-              <div class="thumbnail-wrapper d48 circular bg-success text-white inline m-t-10">
-                <div>
-                  <%= image_tag('profiles/avatar.jpg') %>
-                </div>
-              </div>
-              <!-- END Search Result Item Thumbnail !-->
-              <div class="p-l-10 inline p-t-5">
-                <h5 class="m-b-5"><span class="semi-bold result-name">ice cream</span> on pages</h5>
-                <p class="hint-text">via john smith</p>
-              </div>
-            </div>
-            <!-- END Search Result Item !-->
-            <!-- BEGIN Search Result Item !-->
-            <div class="">
-              <!-- BEGIN Search Result Item Thumbnail !-->
-              <div class="thumbnail-wrapper d48 circular bg-success text-white inline m-t-10">
-                <div>T</div>
-              </div>
-              <!-- END Search Result Item Thumbnail !-->
-              <div class="p-l-10 inline p-t-5">
-                <h5 class="m-b-5"><span class="semi-bold result-name">ice cream</span> related topics</h5>
-                <p class="hint-text">via pages</p>
-              </div>
-            </div>
-            <!-- END Search Result Item !-->
-            <!-- BEGIN Search Result Item !-->
-            <div class="">
-              <!-- BEGIN Search Result Item Thumbnail !-->
-              <div class="thumbnail-wrapper d48 circular bg-success text-white inline m-t-10">
-                <div><i class="fa fa-headphones large-text "></i>
-                </div>
-              </div>
-              <!-- END Search Result Item Thumbnail !-->
-              <div class="p-l-10 inline p-t-5">
-                <h5 class="m-b-5"><span class="semi-bold result-name">ice cream</span> music</h5>
-                <p class="hint-text">via pagesmix</p>
-              </div>
-            </div>
-            <!-- END Search Result Item !-->
+          <div class="col-md-4" id="search-results-users" >
           </div>
-          <div class="col-md-6">
-            <!-- BEGIN Search Result Item !-->
-            <div class="">
-              <!-- BEGIN Search Result Item Thumbnail !-->
-              <div class="thumbnail-wrapper d48 circular bg-info text-white inline m-t-10">
-                <div><i class="fa fa-facebook large-text "></i>
-                </div>
-              </div>
-              <!-- END Search Result Item Thumbnail !-->
-              <div class="p-l-10 inline p-t-5">
-                <h5 class="m-b-5"><span class="semi-bold result-name">ice cream</span> on facebook</h5>
-                <p class="hint-text">via facebook</p>
-              </div>
-            </div>
-            <!-- END Search Result Item !-->
-            <!-- BEGIN Search Result Item !-->
-            <div class="">
-              <!-- BEGIN Search Result Item Thumbnail !-->
-              <div class="thumbnail-wrapper d48 circular bg-complete text-white inline m-t-10">
-                <div><i class="fa fa-twitter large-text "></i>
-                </div>
-              </div>
-              <!-- END Search Result Item Thumbnail !-->
-              <div class="p-l-10 inline p-t-5">
-                <h5 class="m-b-5">Tweats on<span class="semi-bold result-name"> ice cream</span></h5>
-                <p class="hint-text">via twitter</p>
-              </div>
-            </div>
-            <!-- END Search Result Item !-->
-            <!-- BEGIN Search Result Item !-->
-            <div class="">
-              <!-- BEGIN Search Result Item Thumbnail !-->
-              <div class="thumbnail-wrapper d48 circular text-white bg-danger inline m-t-10">
-                <div><i class="fa fa-google-plus large-text "></i>
-                </div>
-              </div>
-              <!-- END Search Result Item Thumbnail !-->
-              <div class="p-l-10 inline p-t-5">
-                <h5 class="m-b-5">Circles on<span class="semi-bold result-name"> ice cream</span></h5>
-                <p class="hint-text">via google plus</p>
-              </div>
-            </div>
-            <!-- END Search Result Item !-->
+          <div class="col-md-4" id="search-results-mygroups">
+          </div>
+          <div class="col-md-4" id="search-results-groups">
           </div>
         </div>
       </div>
@@ -731,11 +649,32 @@
 
 <script>
     $(document).ready(function () {
+
+        /*
+        * when first loading
+        * */
+        search('');
+
+        /*
+        * first search click event
+        *
+        * */
+        $('[data-pages="search"]').click(function () {
+            $(".list-view-wrapper").scrollbar();
+            $("#search-results-users").children().remove();
+            $("#search-results-mygroups").children().remove();
+            $("#search-results-groups").children().remove();
+            search('');
+        });
+
         // Initializes search overlay plugin.
         // Replace onSearchSubmit() and onKeyEnter() with
         // your logic to perform a search and display results
-        $(".list-view-wrapper").scrollbar();
 
+        /*
+        * click event in search page
+        *
+        * */
         $('[data-pages="search"]').search({
             // Bind elements that are included inside search overlay
             searchField: '#overlay-search',
@@ -743,38 +682,10 @@
             suggestions: '#overlay-suggestions',
             brand: '.brand',
             // Callback that will be run when you hit ENTER button on search box
-            onSearchSubmit: function (searchString) {
-                console.log("Search for: " + searchString);
-            },
+            onSearchSubmit: search,
             // Callback that will be run whenever you enter a key into search box.
             // Perform any live search here.
-            onKeyEnter: function (searchString) {
-                console.log("Live search for: " + searchString);
-                var searchField = $('#overlay-search');
-                var searchResults = $('.search-results');
-
-              /*
-               Do AJAX call here to get search results
-               and update DOM and use the following block
-               'searchResults.find('.result-name').each(function() {...}'
-               inside the AJAX callback to update the DOM
-               */
-
-                // Timeout is used for DEMO purpose only to simulate an AJAX call
-                clearTimeout($.data(this, 'timer'));
-                searchResults.fadeOut("fast"); // hide previously returned results until server returns new results
-                var wait = setTimeout(function () {
-
-                    searchResults.find('.result-name').each(function () {
-                        if (searchField.val().length != 0) {
-                            $(this).html(searchField.val());
-                            searchResults.fadeIn("fast"); // reveal updated results
-                        }
-                    });
-                }, 500);
-                $(this).data('timer', wait);
-
-            }
+            onKeyEnter: search
         })
     });
 
@@ -782,6 +693,110 @@
     $('.panel-collapse label').on('click', function (e) {
         e.stopPropagation();
     })
+
+
+    /*
+    * ajax
+    * GET /user/:user_id/search/:word
+    *
+    * */
+    function search(searchString) {
+
+        var searchField = $('#overlay-search');
+        var searchResults = $('.search-results');
+
+        $.ajax({
+
+            url: "<%= authenticated_root_url %>users/<%= current_user.id %>/search/".concat(searchString),
+            method: "GET",
+            dataType: "json",
+            success:function (result) {
+
+                var users = result.users;
+                var mygroups = result.mygroups;
+                var groups = result.groups;
+
+                var users_html = '';
+                var mygroups_html = '';
+                var groups_html = '';
+
+                $("#search-results-users").children().remove();
+                $("#search-results-mygroups").children().remove();
+                $("#search-results-groups").children().remove();
+
+                $.each(users, function (index, entry) {
+
+                    users_html =
+                        '<div>' +
+                        '<div class="thumbnail-wrapper d48 circular bg-success text-white inline m-t-10">' +
+                        '<div>' +
+                        '<%= image_tag('profiles/avatar.jpg') %>' +
+                        '</div>'  +
+                        '</div>'  +
+                        '<div class="p-l-10 inline p-t-5">' +
+                        '<h5 class="m-b-5">' +
+                        entry.email+
+                        '</h5>' +
+                        '<p class="hint-text">' +
+                        entry.email+
+                        '</p>'+
+                        '</div>'  +
+                        '</div>';
+
+                    $("#search-results-users").append(users_html);
+
+                });
+
+
+                $.each(mygroups, function (index, entry) {
+                    mygroups_html =
+                        '<div>' +
+                        '<div class="thumbnail-wrapper d48 circular bg-success text-white inline m-t-10">' +
+                        '<div>' +
+                        '<%= image_tag('profiles/avatar.jpg') %>' +
+                        '</div>'  +
+                        '</div>'  +
+                        '<div class="p-l-10 inline p-t-5">' +
+                        '<h5 class="m-b-5">' +
+                        entry.title+
+                        '</h5>' +
+                        '<p class="hint-text">' +
+                        entry.description+
+                        '</p>'  +
+                        '</div>'  +
+                        '</div>';
+                    $("#search-results-mygroups").append(mygroups_html);
+                });
+
+                $.each(groups, function (index, entry) {
+                    groups_html =
+                        '<div>' +
+                        '<div class="thumbnail-wrapper d48 circular bg-success text-white inline m-t-10">' +
+                        '<div>' +
+                        '<%= image_tag('profiles/avatar.jpg') %>' +
+                        '</div>'  +
+                        '</div>'  +
+                        '<div class="p-l-10 inline p-t-5">' +
+                        '<h5 class="m-b-5">' +
+                        entry.title+
+                        '</h5>' +
+                        '<p class="hint-text">' +
+                        entry.description+
+                        '</p>'  +
+                        '</div>'  +
+                        '</div>';
+                    $("#search-results-groups").append(groups_html);
+                });
+
+                return false;
+            },
+            error:function(e){
+                alert(e.responseText);
+            }
+        });
+    }
+
+
 </script>
 
 </body>

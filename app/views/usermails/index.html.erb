@@ -101,20 +101,20 @@
               <span>EMAIL LIST</span>
             </div>
             <ul class="no-padding">
-                  <% @usermails.each do |m| %>
-                      <li class="item padding-15 active" data-email-id=<%= m.id %> >
-                        <div class="checkbox  no-margin p-l-10">
-                          <input type="checkbox" value="1" id="emailcheckbox-0-0">
-                          <label for="emailcheckbox-0-0"></label>
-                        </div>
-                        <div class="inline m-l-15">
-                          <p class="recipients no-margin hint-text small">From : <%= m.from %></p>
-                          <p class="subject no-margin" style="padding: 20px;display: block;white-space: inherit;">TITLE : <%= m.subject %></p>
-                        </div>
-                        <div class="datetime"><%= m.date %></div>
-                        <div class="clearfix"></div>
-                      </li>
-                  <% end %>
+              <% @usermails.each do |m| %>
+                  <li class="item padding-15 active" data-email-id=<%= m.id %> >
+                    <div class="checkbox  no-margin p-l-10">
+                      <input type="checkbox" value="1" id="emailcheckbox-0-0">
+                      <label for="emailcheckbox-0-0"></label>
+                    </div>
+                    <div class="inline m-l-15">
+                      <p class="recipients no-margin hint-text small">From : <%= m.from %></p>
+                      <p class="subject no-margin" style="padding: 20px;display: block;white-space: inherit;">TITLE : <%= m.subject %></p>
+                    </div>
+                    <div class="datetime"><%= m.date %></div>
+                    <div class="clearfix"></div>
+                  </li>
+              <% end %>
             </ul>
           </div>
         </div>
@@ -181,12 +181,9 @@
   <!-- END SPLIT DETAILS -->
   <!-- START COMPOSE BUTTON FOR TABS -->
   <div class="compose-wrapper visible-xs">
-    <a class="compose-email text-info pull-right m-r-10 m-t-10" href="email_compose.html"><i class="fa fa-pencil-square-o"></i></a>
   </div>
   <!-- END COMPOSE BUTTON -->
 </div>
-</div>
-<!-- END APP -->
 
 <style>
   .email-content-body {

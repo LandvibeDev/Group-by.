@@ -11,6 +11,8 @@
 
     $(document).ready(function () {
 
+        $('#lbltoTime')
+
         function edit_event(event) {
             $.ajax({
                 url: '/home/edit_event',

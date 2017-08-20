@@ -32,6 +32,7 @@
  *= require pages-plugins/jquery-nouislider/jquery.nouislider
  *= require pages-plugins/owl-carousel/assets/owl.carousel
  *= require pages-plugins/jquery-metrojs/MetroJs
+ *= require pages-plugins/jquery.timepicker
  *
  * BEGIN CORE TEMPLATE CSS FOR PAGES
  *= require pages-core/css/pages-icons

@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :projects
+  resources :projects do
+    resource :users
+    resource :events
+  end
+
   devise_for :users
 
   resources :groups, only: [:index, :edit, :update] do
@@ -19,9 +23,14 @@ Rails.application.routes.draw do
 
     resources :groups do
       get 'join'
+    end
+
+    resources :projects do
+      get 'join'
       get 'inviteCreate'
       get 'invite'
     end
+
   end
 
   get 'delete_push/:id' =>'users#delete_push'

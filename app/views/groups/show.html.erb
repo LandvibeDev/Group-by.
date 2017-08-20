@@ -72,8 +72,6 @@
                           <% end %>
                           <% if chk == false %>
                               <%= link_to 'Join', user_group_join_path(current_user.id, @group.id), :class => 'btn btn-success btn-cons'  %>
-                          <% else %>
-                              <%= link_to 'Invite', user_group_invite_path(current_user.id, @group.id), :class => 'btn btn-success btn-cons' %>
                           <% end %>
                           <button class="btn btn-primary m-l-10" data-toggle="modal" data-target="#editModal">Edit</button>
                         </p>

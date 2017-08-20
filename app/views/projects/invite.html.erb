@@ -1,4 +1,4 @@
-<div class="container-fluid container-fixed-lg bg-white">
+<div class="container-fluid container-fixed-lg bg-white" style="min-height: 840px;">
   <!-- START PANEL -->
   <div class="panel panel-transparent">
     <div class="panel-heading">
@@ -10,15 +10,15 @@
           <table class="table table-striped dataTable no-footer" id="tableWithExportOptions" role="grid" aria-describedby="tableWithExportOptions_info">
             <thead>
             <tr role="row">
-              <th class="sorting_asc" tabindex="0" aria-controls="tableWithExportOptions" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">User</th>
+              <th class="sorting_asc" tabindex="0" aria-controls="tableWithExportOptions" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Project</th>
               <th class="sorting" tabindex="0" aria-controls="tableWithExportOptions" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Invite</th>
             </tr>
             </thead>
             <tbody>
             <% @users.each do |user1| %>
                 <% chk = true %>
-                <% @usergroups.each do |user2| %>
-                    <% if user2.group_id == @group.id %>
+                <% @userprojects.each do |user2| %>
+                    <% if user2.group_id == @project.id %>
                         <% if user1.id == user2.user_id %>
                             <% chk = false %>
                             <% break %>
@@ -28,7 +28,7 @@
                 <% if chk == true %>
                     <tr class="gradeA odd" role="row">
                       <td class="sorting_1"><%= user1.email %></td>
-                      <td><%= link_to 'Invite', user_group_inviteCreate_path(user1.id, @group.id) %></td>
+                      <td><%= link_to 'Invite', user_group_inviteCreate_path(user1.id, @project.id) %></td>
                     </tr>
                 <% end %>
             <% end %>

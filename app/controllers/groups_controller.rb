@@ -24,25 +24,6 @@ class GroupsController < ApplicationController
     @user = User.all
   end
 
-  # GET /groups
-  def inviteCreate
-    @users = User.all
-    @group = Group.find(params[:group_id])
-
-    @user = User.find(current_user.id)
-    @invite = @user.invites.new(invite_user: params[:user_id], invite_group: params[:group_id])
-    @invite.save
-
-    redirect_to user_group_invite_path(current_user.id, params[:group_id])
-  end
-
-  # GET /groups
-  def invite
-    @users = User.all
-    @group = Group.find(params[:group_id])
-
-    @usergroups = GroupsUser.all
-  end
 
   # GET /groups/1/edit
   def edit
@@ -69,26 +50,6 @@ class GroupsController < ApplicationController
     end
   end
 
-  # UPDATE /groups/join/1
-  def join
-    @user = User.find(params[:user_id])
-    @group = Group.find(params[:group_id])
-
-    @invite = Invite.where(:invite_group => params[:group_id], :invite_user => params[:user_id])
-    @invite.delete_all
-
-    respond_to do |format|
-      if @group.save
-        @user.groups << @group
-        format.html { redirect_to user_group_path(current_user.id, params[:group_id])}
-        format.json { render :show, status: :created, location: @group }
-      else
-        format.html { render :new }
-        format.json { render json: @group.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   # PATCH/PUT /groups/1
   # PATCH/PUT /groups/1.json
   def update
@@ -103,6 +64,22 @@ class GroupsController < ApplicationController
         format.json { render :show, status: :ok, location: @group }
       else
         format.html { render :edit }
+        format.json { render json: @group.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def join
+    @user = User.find(params[:user_id])
+    @group = Group.find(params[:group_id])
+
+    respond_to do |format|
+      if @group.save
+        @user.groups << @group
+        format.html { redirect_to user_group_path(current_user.id, params[:group_id])}
+        format.json { render :show, status: :created, location: @group }
+      else
+        format.html { render :new }
         format.json { render json: @group.errors, status: :unprocessable_entity }
       end
     end

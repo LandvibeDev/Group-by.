@@ -55,3 +55,4 @@
 
 // APPLICATION
 //= require js/search.js
+//= require js/timeline

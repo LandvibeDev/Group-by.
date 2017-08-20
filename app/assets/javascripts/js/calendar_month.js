@@ -104,6 +104,9 @@
             $('#eventIndex').val(event.index);
             $('#txtEventName').val(event.title);
             $('#txtEventDesc').val(event.other.desc);
+
+            $('#txtEventStartDate').val(moment(event.start).format('YYYY-MM-DDThh:mm'));
+            $('#txtEventEndDate').val(moment(event.end).format('YYYY-MM-DDThh:mm'));
         }
 
         $('#eventSave_month').on('click', function () {
@@ -113,6 +116,9 @@
             //Refer it back using the same name other.your_custom_attribute
 
             selectedEvent.other.desc = $('#txtEventDesc').val();
+
+            selectedEvent.start = $('#txtEventStartDate').val();
+            selectedEvent.end = $('#txtEventEndDate').val();
 
             mycal.pagescalendar('updateEvent', selectedEvent);
 

@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20170820074514) do
     t.datetime "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image"
     t.index ["group_id"], name: "index_contents_on_group_id"
   end
 
@@ -55,6 +56,8 @@ ActiveRecord::Schema.define(version: 20170820074514) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "groupProfile"
+    t.string "groupCover"
   end
 
   create_table "groups_users", force: :cascade do |t|
@@ -95,7 +98,6 @@ ActiveRecord::Schema.define(version: 20170820074514) do
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_pushes_on_user_id"
   end
-
 
   create_table "team_events", force: :cascade do |t|
     t.integer "project_id"

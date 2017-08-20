@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   resources :users do
     get 'inviteShow'
     get 'all'
+    get 'search' => 'users#search'
+    get 'search/:word' => 'users#search'
 
     resources :groups do
       get 'join'

@@ -14,6 +14,22 @@ class UsersController < ApplicationController
     @groups = Group.all
   end
 
+  def search
+
+    @user = User.find(params[:user_id])
+
+    # enrolled groups
+    @mygroups = @user.groups.all.where("title LIKE ?" , "%#{params[:word]}%")
+    # not enroolled groups
+    @groups = Group.where("title LIKE ?" , "%#{params[:word]}%")
+    # users
+    @users = User.where("email LIKE ? AND id != ?" , "%#{params[:word]}%" , params[:user_id])
+
+    @result = {:users=> @users,:mygroups=> @mygroups,:groups=> @groups}
+
+    render :json => @result
+  end
+
   def delete_push
     Push.destroy(params[:id])
 

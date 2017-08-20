@@ -37,7 +37,7 @@
       <div class="cover-photo">
         <% @usergroups.each do |user| %>
             <% if user.group_id == @group.id %>
-                <img src="<%= @group.groupCover.url %>">
+                <img src="<%= @group.groupCover.url %>" >
             <% end %>
         <% end %>
       </div>
@@ -324,7 +324,7 @@
                     </div>
                     <div class="modal-body" style="min-height: 500px;border-bottom: 1px solid;border-bottom-color: darkgrey;">
                       <div class="p-t-20 p-b-20" style="text-align: center">
-                        <%= image_tag('gallery/2.jpg') %>
+                        <img src="<%= content.image.url %>" class="image-responsive-height">
                       </div>
                       <div>
                         <h3><%= content.content %></h3>

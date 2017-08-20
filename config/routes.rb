@@ -1,12 +1,11 @@
 Rails.application.routes.draw do
+  resources :projects
   devise_for :users
 
   resources :groups, only: [:index, :edit, :update] do
     resource :users
     resource :contents
   end
-
-  post 'groups/convert_event/:id' => 'groups#convert_event'
 
   resources :userpop3s, only: [:index] do
     resources :usermails
@@ -15,6 +14,8 @@ Rails.application.routes.draw do
   resources :users do
     get 'inviteShow'
     get 'all'
+    get 'search' => 'users#search'
+    get 'search/:word' => 'users#search'
 
     resources :groups do
       get 'join'
@@ -40,7 +41,6 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'home/calendar_week'
   get 'home/calendar_month'
   get 'groups/comments_create/:content_id/:group_id' => 'groups#comments_create'
 

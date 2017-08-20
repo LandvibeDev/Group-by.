@@ -48,8 +48,10 @@
 // BEGIN CORE TEMPLATE JS FOR PAGES
 //= require pages-core/pages
 //= require pages-core/pages.calendar
+//= require pages-core/pages.social.min
 
 // BEGIN SITE SCRIPTS
-//= require js/calendar_week.js
 //= require js/calendar_month.js
-//= require pages-core/pages.social.min
+
+// APPLICATION
+//= require js/search.js

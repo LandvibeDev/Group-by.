@@ -9,16 +9,16 @@ $(function() {
     /* GRID
     -------------------------------------------------------------*/
 
-    /* 
+    /*
         Wait for the images to be loaded before applying
-        Isotope plugin. 
+        Isotope plugin.
     */
     var $gallery = $('.gallery');
     $gallery.imagesLoaded(function() {
         applyIsotope();
     });
 
-    /*  Apply Isotope plugin 
+    /*  Apply Isotope plugin
         isotope.metafizzy.co
     */
     var applyIsotope = function() {
@@ -31,7 +31,7 @@ $(function() {
             }
         });
     }
-    
+
     /*
         Show a sliding item using MetroJS
         http://www.drewgreenwell.com/projects/metrojs
@@ -43,7 +43,7 @@ $(function() {
     -------------------------------------------------------------*/
     /*
         Look for data-image attribute and apply those
-        images as CSS background-image 
+        images as CSS background-image
     */
     $('.item-slideshow > div').each(function() {
         var img = $(this).data('image');

@@ -10,4 +10,5 @@ class User < ApplicationRecord
   has_many :invites
   has_many :pushs
   has_and_belongs_to_many :groups, -> { distinct }
+  has_and_belongs_to_many :projects, -> { distinct }
 end

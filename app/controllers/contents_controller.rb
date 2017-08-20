@@ -30,6 +30,7 @@ class ContentsController < ApplicationController
     @content.content = params[:content]
     @content.start_date = params[:start_date]
     @content.end_date = params[:end_date]
+    @content.image = params[:image]
 
     respond_to do |format|
       if @content.save

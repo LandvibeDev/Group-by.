@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170820035646) do
+ActiveRecord::Schema.define(version: 20170820074514) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "content_id"
@@ -29,7 +29,15 @@ ActiveRecord::Schema.define(version: 20170820035646) do
     t.datetime "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image"
     t.index ["group_id"], name: "index_contents_on_group_id"
+  end
+
+  create_table "event_users", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "team_event_id"
+    t.index ["team_event_id"], name: "index_event_users_on_team_event_id"
+    t.index ["user_id"], name: "index_event_users_on_user_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -48,6 +56,8 @@ ActiveRecord::Schema.define(version: 20170820035646) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "groupProfile"
+    t.string "groupCover"
   end
 
   create_table "groups_users", force: :cascade do |t|
@@ -60,7 +70,7 @@ ActiveRecord::Schema.define(version: 20170820035646) do
   create_table "invites", force: :cascade do |t|
     t.integer "user_id"
     t.integer "invite_user"
-    t.integer "invite_group"
+    t.integer "invite_project"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_invites_on_user_id"
@@ -73,6 +83,13 @@ ActiveRecord::Schema.define(version: 20170820035646) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "projects_users", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "project_id"
+    t.index ["project_id"], name: "index_projects_users_on_project_id"
+    t.index ["user_id"], name: "index_projects_users_on_user_id"
+  end
+
   create_table "pushes", force: :cascade do |t|
     t.integer "user_id"
     t.string "message"
@@ -82,13 +99,16 @@ ActiveRecord::Schema.define(version: 20170820035646) do
     t.index ["user_id"], name: "index_pushes_on_user_id"
   end
 
-  create_table "selecteds", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "content_id"
+  create_table "team_events", force: :cascade do |t|
+    t.integer "project_id"
+    t.string "title"
+    t.text "content"
+    t.string "image"
+    t.datetime "start_date"
+    t.datetime "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["content_id"], name: "index_selecteds_on_content_id"
-    t.index ["user_id"], name: "index_selecteds_on_user_id"
+    t.index ["project_id"], name: "index_team_events_on_project_id"
   end
 
   create_table "usermails", force: :cascade do |t|

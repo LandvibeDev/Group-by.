@@ -1231,7 +1231,8 @@ body.rtl [class*="col-"] {
   -webkit-transition: opacity 0.3s ease;
   transition: opacity 0.3s ease;
   background-size: cover;
-  background-color: #47b5ab;
+  background-color: #ffffff;
+  background-color: rgba(255,255,255,0.5);
 }
 .jumbotron .cover-photo img {
   display: none;

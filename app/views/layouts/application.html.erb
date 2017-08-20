@@ -53,7 +53,7 @@
 
 <body class="fixed-header ">
 <!-- BEGIN SIDEBAR -->
-<nav class="page-sidebar" data-pages="sidebar">
+<nav class="page-sidebar" data-pages="sidebar" style="z-index:1001">
   <div id="appMenu" class="sidebar-overlay-slide from-top">
   </div>
   <!-- BEGIN SIDEBAR HEADER -->
@@ -72,12 +72,6 @@
   <div class="sidebar-menu">
     <ul class="menu-items">
       <li class="m-t-30">
-        <%= link_to 'EMAIL', userpop3_usermails_path(1), :class => 'title' %>
-        <span class="icon-thumbnail ">
-          <i class="fa fa-envelope-o"></i>
-        </span>
-      </li>
-      <li class="">
         <a href="javascript:;">
           <span class="title">GROUP</span>
           <span class=" arrow"></span>
@@ -89,8 +83,25 @@
             <span class="icon-thumbnail"><i class="fa fa-globe"></i></span>
           </li>
           <li class="">
-            <%= link_to '내가 가입한 그룹', user_groups_path(current_user.id), :calss => 'title' %>
+            <%= link_to '내가 가입한 그룹', user_groups_path(current_user.id), :class => 'title' %>
             <span class="icon-thumbnail"><i class="fa fa-user"></i></span>
+          </li>
+        </ul>
+      </li>
+      <li class="m-t-15">
+        <a href="javascript:;">
+          <span class="title">PROJECT</span>
+          <span class=" arrow"></span>
+        </a>
+        <span class="icon-thumbnail"><i class="fa fa-tablet" aria-hidden="true"></i></span>
+        <ul class="sub-menu">
+          <li>
+            <%= link_to '프로젝트 만들기', new_user_project_path(current_user.id) %>
+            <span class="icon-thumbnail"><i class="fa fa-file-text" aria-hidden="true"></i></span>
+          </li>
+          <li>
+            <%= link_to '프로젝트', user_projects_path(current_user.id) %>
+            <span class="icon-thumbnail "><i class="fa fa-handshake-o"></i></span>
           </li>
           <li class="">
             <%= link_to '나에게 온 초대', user_inviteShow_path(current_user.id) %>
@@ -98,10 +109,16 @@
           </li>
         </ul>
       </li>
-      <li class="">
+      <li class="m-t-15">
         <a id="change_month" href="/home/calendar_month">CALENDAR</a>
         <span class="icon-thumbnail ">
           <i class="fa fa-calendar"></i>
+        </span>
+      </li>
+      <li class="m-t-15">
+        <%= link_to 'EMAIL', userpop3_usermails_path(1), :class => 'title' %>
+        <span class="icon-thumbnail ">
+          <i class="fa fa-envelope-o"></i>
         </span>
       </li>
     </ul>
@@ -302,10 +319,10 @@
         // your logic to perform a search and display results
         $(".list-view-wrapper").scrollbar();
 
-        /*
-        * click event in search page
-        *
-        * */
+      /*
+       * click event in search page
+       *
+       * */
         $('[data-pages="search"]').search({
             // Bind elements that are included inside search overlay
             searchField: '#overlay-search',
@@ -327,10 +344,10 @@
 
 
     /*
-    * ajax
-    * GET /user/:user_id/search/:word
-    *
-    * */
+     * ajax
+     * GET /user/:user_id/search/:word
+     *
+     * */
     function search(searchString) {
 
         var searchField = $('#overlay-search');

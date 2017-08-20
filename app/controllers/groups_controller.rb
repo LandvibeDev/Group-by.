@@ -24,25 +24,6 @@ class GroupsController < ApplicationController
     @user = User.all
   end
 
-  # GET /groups
-  def inviteCreate
-    @users = User.all
-    @group = Group.find(params[:group_id])
-
-    @user = User.find(current_user.id)
-    @invite = @user.invites.new(invite_user: params[:user_id], invite_group: params[:group_id])
-    @invite.save
-
-    redirect_to user_group_invite_path(current_user.id, params[:group_id])
-  end
-
-  # GET /groups
-  def invite
-    @users = User.all
-    @group = Group.find(params[:group_id])
-
-    @usergroups = GroupsUser.all
-  end
 
   # GET /groups/1/edit
   def edit
@@ -56,31 +37,13 @@ class GroupsController < ApplicationController
 
     @group.title = params[:title]
     @group.description = params[:description]
+    @group.groupProfile = params[:groupProfile]
+    @group.groupCover = params[:groupCover]
 
     respond_to do |format|
       if @group.save
         @user.groups << @group
         format.html { redirect_to user_group_path(current_user.id, @group.id) }
-        format.json { render :show, status: :created, location: @group }
-      else
-        format.html { render :new }
-        format.json { render json: @group.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # UPDATE /groups/join/1
-  def join
-    @user = User.find(params[:user_id])
-    @group = Group.find(params[:group_id])
-
-    @invite = Invite.where(:invite_group => params[:group_id], :invite_user => params[:user_id])
-    @invite.delete_all
-
-    respond_to do |format|
-      if @group.save
-        @user.groups << @group
-        format.html { redirect_to user_group_path(current_user.id, params[:group_id])}
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new }
@@ -96,6 +59,8 @@ class GroupsController < ApplicationController
     @group = @user.groups.find(params[:id])
     @group.title = params[:title]
     @group.description = params[:description]
+    @group.groupProfile = params[:groupProfile]
+    @group.groupCover = params[:groupCover]
 
     respond_to do |format|
       if @group.update(title: params[:title], description: params[:description])
@@ -103,6 +68,22 @@ class GroupsController < ApplicationController
         format.json { render :show, status: :ok, location: @group }
       else
         format.html { render :edit }
+        format.json { render json: @group.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def join
+    @user = User.find(params[:user_id])
+    @group = Group.find(params[:group_id])
+
+    respond_to do |format|
+      if @group.save
+        @user.groups << @group
+        format.html { redirect_to user_group_path(current_user.id, params[:group_id])}
+        format.json { render :show, status: :created, location: @group }
+      else
+        format.html { render :new }
         format.json { render json: @group.errors, status: :unprocessable_entity }
       end
     end

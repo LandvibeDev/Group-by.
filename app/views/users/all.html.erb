@@ -27,46 +27,46 @@
         FOR DEMO PURPOSES, FIRST GALLERY ITEM (.first) IS HIDDEN
         FOR SCREENS <920px. PLEASE REMOVE THE CLASS 'first' WHEN YOU IMPLEMENT
     --><% @groups.each do |group| %>
-      <div class="gallery-item " data-width="2" data-height="2">
-        <%= link_to user_group_path(current_user.id, group.id) do %>
-            <%= image_tag('gallery/2_1.jpg', :class => 'image-responsive-height') %>
-        <% end %>
-        <!-- START PREVIEW -->
-        <!-- END PREVIEW -->
-        <!-- START ITEM OVERLAY DESCRIPTION -->
-        <div class="overlayer bottom-left full-width">
-          <div class="overlayer-wrapper">
-            <div class="gradient-grey p-l-20 p-r-20 p-b-5">
-              <div class="">
-                <p class="pull-left bold text-white fs-14 p-t-10"><%= group.title %></p>
-                <div class="clearfix"></div>
-              </div>
-              <h5 class="text-white light txt" style="
-              display: -webkit-box;
-                  -webkit-line-clamp: 3;
-                  overflow: hidden;
-                  word-break: break-all;
-                  text-overflow: ellipsis;
-                  -webkit-box-orient: vertical;">
-                <%= group.description %>
-              </h5>
-              <div class="m-t-10">
-                <div class="thumbnail-wrapper d32 circular m-t-5">
-                  <%= image_tag('profiles/avatar.jpg') %>
-                </div>
-                <div class="inline m-l-10">
-                  <p class="no-margin text-white fs-12">Designed by Alex Nester</p>
-                </div>
-                <div class="pull-right m-t-10">
-                </div>
+      <%= link_to user_group_path(current_user.id, group.id) do %>
+          <div class="gallery-item " data-width="2" data-height="2">
+            <img src="<%=group.groupProfile.url %>" class="image-responsive-height" alt="Image not found" />
+            <!-- START PREVIEW -->
+            <!-- END PREVIEW -->
+            <!-- START ITEM OVERLAY DESCRIPTION -->
+            <div class="overlayer bottom-left full-width">
+              <div class="overlayer-wrapper">
+                <div class="gradient-grey p-l-20 p-r-20 p-b-5">
+                  <div class="">
+                    <p class="pull-left bold text-white fs-14 p-t-10"><%= group.title %></p>
+                    <div class="clearfix"></div>
+                  </div>
+                  <h5 class="text-white light txt" style="
+                  display: -webkit-box;
+                      -webkit-line-clamp: 3;
+                      overflow: hidden;
+                      word-break: break-all;
+                      text-overflow: ellipsis;
+                      -webkit-box-orient: vertical;">
+                    <%= group.description %>
+                  </h5>
+                  <div class="m-t-10">
+                    <div class="thumbnail-wrapper d32 circular m-t-5">
+                      <%= image_tag('profiles/avatar.jpg') %>
+                    </div>
+                    <div class="inline m-l-10">
+                      <p class="no-margin text-white fs-12">Designed by Alex Nester</p>
+                    </div>
+                    <div class="pull-right m-t-10">
+                    </div>
 
-                <div class="clearfix"></div>
+                    <div class="clearfix"></div>
+                  </div>
+                </div>
               </div>
             </div>
+            <!-- END PRODUCT OVERLAY DESCRIPTION -->
           </div>
-        </div>
-        <!-- END PRODUCT OVERLAY DESCRIPTION -->
-      </div>
+      <% end %>
   <% end %>
 </div>
 <!-- END CATEGORY -->

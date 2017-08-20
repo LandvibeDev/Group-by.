@@ -35,7 +35,11 @@
     <!-- START JUMBOTRON -->
     <div class="jumbotron" data-pages="parallax" data-social="cover">
       <div class="cover-photo">
-        <%= image_tag('social/cover.png') %>
+        <% @usergroups.each do |user| %>
+            <% if user.group_id == @group.id %>
+                <img src="<%= @group.groupCover.url %>" >
+            <% end %>
+        <% end %>
       </div>
       <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
         <div class="inner">
@@ -72,8 +76,6 @@
                           <% end %>
                           <% if chk == false %>
                               <%= link_to 'Join', user_group_join_path(current_user.id, @group.id), :class => 'btn btn-success btn-cons'  %>
-                          <% else %>
-                              <%= link_to 'Invite', user_group_invite_path(current_user.id, @group.id), :class => 'btn btn-success btn-cons' %>
                           <% end %>
                           <button class="btn btn-primary m-l-10" data-toggle="modal" data-target="#editModal">Edit</button>
                         </p>
@@ -99,6 +101,14 @@
                             <div class="form-group form-group-default">
                               <%= form.label :description %>
                               <%= form.text_area :description, id: :group_description, :class => 'form-control' %>
+                            </div>
+                            <div class="form-group form-group-default">
+                              <%= form.label :group_profile_image %>
+                              <%= form.file_field :groupProfile %>
+                            </div>
+                            <div class="form-group form-group-default">
+                              <%= form.label :group_cover_image %>
+                              <%= form.file_field :groupCover %>
                             </div>
 
                             <div class="actions">
@@ -248,6 +258,7 @@
                       word-break: break-all;
                       text-overflow: ellipsis;
                       -webkit-box-orient: vertical;"><%= content.title %></p>
+                  <img src="<%= content.image.url %>" >
                   <p style="
                   display: -webkit-box;
                       overflow: hidden;
@@ -286,7 +297,7 @@
                     </div>
                     <div class="modal-body" style="min-height: 500px;border-bottom: 1px solid;border-bottom-color: darkgrey;">
                       <div class="p-t-20 p-b-20" style="text-align: center">
-                        <%= image_tag('gallery/2.jpg') %>
+                        <img src="<%= content.image.url %>" class="image-responsive-height">
                       </div>
                       <div>
                         <h3><%= content.content %></h3>

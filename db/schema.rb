@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170810114659) do
+ActiveRecord::Schema.define(version: 20170820035646) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "content_id"
@@ -66,6 +66,13 @@ ActiveRecord::Schema.define(version: 20170810114659) do
     t.index ["user_id"], name: "index_invites_on_user_id"
   end
 
+  create_table "projects", force: :cascade do |t|
+    t.string "title"
+    t.boolean "complete"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "pushes", force: :cascade do |t|
     t.integer "user_id"
     t.string "message"
@@ -73,6 +80,15 @@ ActiveRecord::Schema.define(version: 20170810114659) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_pushes_on_user_id"
+  end
+
+  create_table "selecteds", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "content_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["content_id"], name: "index_selecteds_on_content_id"
+    t.index ["user_id"], name: "index_selecteds_on_user_id"
   end
 
   create_table "usermails", force: :cascade do |t|

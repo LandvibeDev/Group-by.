@@ -17,7 +17,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require cable
-//= require pages-plugins/pace/pace.min
 //= require pages-plugins/modernizr.custom
 //= require pages-plugins/moment/moment.min
 //= require pages-plugins/bootstrapv3/js/bootstrap.min

@@ -1,7 +1,3 @@
-$('#tlqkf').on 'click', ->
-  App.cable.connect();
-
-
 App.room = App.cable.subscriptions.create "RoomChannel",
   connected: ->
     console.log('connected');
@@ -12,12 +8,19 @@ App.room = App.cable.subscriptions.create "RoomChannel",
 # Called when the subscription has been terminated by the server
 
   received: (data) ->
+    $('#messages').append data['message']
+    $('#messages').append '<br>'
     console.log('recevied');
 # Called when there's incoming data on the websocket for this channel
 
-  speak: ->
-    @perform 'speak'
-#console.log('speak');
+  speak: (message)->
+    @perform 'speak', message: message
+
+  $(document).on 'keypress', '[data-behavior~=room_speaker]', (event) ->
+    if event.keyCode is 13 # return/enter= send
+      App.room.speak event.target.value
+      event.target.value = ''
+      event.preventDefault()
 
 
 

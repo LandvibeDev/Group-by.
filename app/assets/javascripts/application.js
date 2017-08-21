@@ -54,5 +54,5 @@
 //= require js/calendar_month.js
 
 // APPLICATION
-//= require js/search.js
+//= require js/groups.js
 //= require js/timeline

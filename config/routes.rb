@@ -21,6 +21,8 @@ Rails.application.routes.draw do
     get 'search' => 'users#search'
     get 'search/:word' => 'users#search'
 
+    patch '' => 'users#update_info'
+
     resources :groups do
       get 'join'
     end

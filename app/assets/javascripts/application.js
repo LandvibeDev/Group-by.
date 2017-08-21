@@ -16,6 +16,7 @@
 
 //= require jquery
 //= require jquery_ujs
+//= require cable
 //= require pages-plugins/pace/pace.min
 //= require pages-plugins/modernizr.custom
 //= require pages-plugins/moment/moment.min
@@ -42,7 +43,6 @@
 //= require pages-plugins/gallery
 //= require pages-plugins/jquery-ui/jquery-ui.min
 //= require pages-plugins/interactjs/interact.min
-//= require pages-plugins/notify.min
 //= require pages-plugins/bootstrap-tabcollapse
 //= require pages-plugins/jquery.timepicker.min
 

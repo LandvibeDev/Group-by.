@@ -289,6 +289,18 @@
     <div class="tab-pane fade" id="fade3">
       <div class="row">
 
+        <h3>Chat room</h3>
+        <div id="messages">
+          <%= render partial: "message", collection: @messages %>
+        </div>
+        <form>
+          <label>Say something:</label>
+          <br>
+          <input type="text" data-behavior="room_speaker">
+        </form>
+
+        <input style="margin-left: 50px" type="button" id="tlqkf">
+
       </div>
     </div>
   </div>

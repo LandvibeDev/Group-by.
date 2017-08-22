@@ -16,6 +16,9 @@ class GroupsController < ApplicationController
     @contents = @group.contents.all
 
     @usergroups = GroupsUser.all
+
+    @groupcategory = GroupCategory.where(:group_id => params[:id])
+
   end
 
   # GET /groups/new
@@ -43,6 +46,9 @@ class GroupsController < ApplicationController
     respond_to do |format|
       if @group.save
         @user.groups << @group
+
+        GroupCategory.new(group_id: @group.id , category_id: params[:category]).save
+
         format.html { redirect_to user_group_path(current_user.id, @group.id) }
         format.json { render :show, status: :created, location: @group }
       else
@@ -61,6 +67,9 @@ class GroupsController < ApplicationController
     @group.description = params[:description]
     @group.groupProfile = params[:groupProfile]
     @group.groupCover = params[:groupCover]
+
+    @groupcategory = GroupCategory.where(:group_id => params[:id])
+    @groupcategory.update(group_id: @group.id , category_id: params[:category])
 
     respond_to do |format|
       if @group.update(title: params[:title], description: params[:description])

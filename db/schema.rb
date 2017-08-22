@@ -12,6 +12,14 @@
 
 ActiveRecord::Schema.define(version: 20170821105536) do
 
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+
   create_table "comments", force: :cascade do |t|
     t.integer "content_id"
     t.string "user_name"
@@ -42,6 +50,13 @@ ActiveRecord::Schema.define(version: 20170821105536) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
+  create_table "group_categories", force: :cascade do |t|
+    t.integer "group_id"
+    t.integer "category_id"
+    t.index ["category_id"], name: "index_group_categories_on_category_id"
+    t.index ["group_id"], name: "index_group_categories_on_group_id"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -118,6 +133,7 @@ ActiveRecord::Schema.define(version: 20170821105536) do
     t.index ["project_id"], name: "index_team_events_on_project_id"
   end
 
+
   create_table "team_events_users", force: :cascade do |t|
     t.integer "user_id"
     t.integer "team_event_id"
@@ -125,6 +141,14 @@ ActiveRecord::Schema.define(version: 20170821105536) do
     t.datetime "updated_at", null: false
     t.index ["team_event_id"], name: "index_team_events_users_on_team_event_id"
     t.index ["user_id"], name: "index_team_events_users_on_user_id"
+  end
+
+  create_table "user_categories", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "category_id"
+    t.index ["category_id"], name: "index_user_categories_on_category_id"
+    t.index ["user_id"], name: "index_user_categories_on_user_id"
+
   end
 
   create_table "usermails", force: :cascade do |t|

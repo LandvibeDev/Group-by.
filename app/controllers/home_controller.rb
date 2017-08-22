@@ -2,6 +2,8 @@ class HomeController < ApplicationController
   before_action :authenticate_user!, only: [:index, :eamil]
 
   def index
+    @user_category = UserCategory.find_by_user_id(current_user.id)
+
   end
 
   def email

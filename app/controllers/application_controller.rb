@@ -16,11 +16,20 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up) do |user_params|
+
+    # devise_parameter_sanitizer.permit(:u) do |user_params|
+    #   user_params.permit(:email, :password, :password_confirmation , :name , :organization )
+
+
+    devise_parameter_sanitizer.permit(:sign_up ) do |user_params|
       user_params.permit(:email, :password, :password_confirmation , :name , :organization )
     end
-  end
 
+    devise_parameter_sanitizer.permit(:account_update ) do |user_params|
+      user_params.permit(:email,:password, :password_confirmation ,:current_password, :name , :organization )
+    end
+
+  end
 
 
 end

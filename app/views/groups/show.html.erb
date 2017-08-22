@@ -303,7 +303,8 @@
                         <h3><%= content.content %></h3>
                       </div>
                     </div>
-                    <input type="hidden" id="content-id" value="<%= content.id %>">
+                    <input type="hidden" class="content-id" value="<%= content.id %>">
+
                     <div class="modal-footer" id="<%= content.id %>" style="min-height: 300px;">
                       <div>
                         <div style="float: left;">
@@ -352,47 +353,52 @@
 <script>
 
     $(document).ready(function() {
-        var content_id = $('#content-id').val();
-        var comment_input = '#comment-input' + content_id;
-        var comment_enter = '#comment-enter' + content_id;
 
-        $(comment_input).on('submit', function(e) {
-            e.preventDefault();
-            var content = $('#comment-text').val();
-            var modal_footer = '#' + content_id;
-            $.ajax({
-                url: '/groups/comments_create/'+ content_id +'/<%= @group.id %>',
-                type: "GET",
-                data: $(comment_input).serialize(),
-                success: function (data) {
-                    $('#comment-text').val('');
-                    $(modal_footer).append('<div id="comment-div" class="p-b-10 p-t-10" style="float: left;width: 100%;text-align: left;">' +
-                        '<div class="user-pic p-r-15" style="float: left">' +
-                        '<%= image_tag('profiles/5x.jpg', :style => 'width: 50px;border-radius: 100%;' ) %>' +
-                        '</div>' + '<span class="semi-bold">' + '<%= current_user.email %>' + '</span>' + '<h4 style="line-height: 10px;">' + content + '</h4>' + '</div>');
-                    return false;
-                }
-            });
-        });
+        var content_id = $('.content-id').val();
+        for(var i=0;i<content_id.size();i++) {
 
-        $(comment_enter).on('click', function(e) {
-            e.preventDefault();
-            var content = $('#comment-text').val();
-            var modal_footer = '#' + content_id;
-            $.ajax({
-                url: '/groups/comments_create/'+ content_id + '/<%= @group.id %>',
-                type: "GET",
-                data: $(comment_enter).serialize(),
-                success: function (data) {
-                    $('#comment-text').val('');
-                    $(modal_footer).append('<div id="comment-div" class="p-b-10 p-t-10" style="float: left;width: 100%;text-align: left;">' +
-                        '<div class="user-pic p-r-15" style="float: left">' +
-                        '<%= image_tag('profiles/5x.jpg', :style => 'width: 50px;border-radius: 100%;' ) %>' +
-                        '</div>' + '<span class="semi-bold">' + '<%= current_user.email %>' + '</span>' + '<h4 style="line-height: 10px;">' + content + '</h4>' + '</div>');
-                    return false;
-                }
+            var comment_input = '#comment-input' + content_id[i];
+            var comment_enter = '#comment-enter' + content_id[i];
+
+
+            $(comment_input).on('submit', function (e) {
+                e.preventDefault();
+                var content = $('#comment-text').val();
+                var modal_footer = '#' + content_id;
+                $.ajax({
+                    url: '/groups/comments_create/' + content_id[i] + '/<%= @group.id %>',
+                    type: "GET",
+                    data: $(comment_input).serialize(),
+                    success: function (data) {
+                        $('#comment-text').val('');
+                        $(modal_footer).append('<div id="comment-div" class="p-b-10 p-t-10" style="float: left;width: 100%;text-align: left;">' +
+                            '<div class="user-pic p-r-15" style="float: left">' +
+                            '<%= image_tag('profiles/5x.jpg', :style => 'width: 50px;border-radius: 100%;' ) %>' +
+                            '</div>' + '<span class="semi-bold">' + '<%= current_user.email %>' + '</span>' + '<h4 style="line-height: 10px;">' + content + '</h4>' + '</div>');
+                        return false;
+                    }
+                });
             });
-        });
+
+            $(comment_enter).on('click', function (e) {
+                e.preventDefault();
+                var content = $('#comment-text').val();
+                var modal_footer = '#' + content_id[i];
+                $.ajax({
+                    url: '/groups/comments_create/' + content_id[i] + '/<%= @group.id %>',
+                    type: "GET",
+                    data: $(comment_enter).serialize(),
+                    success: function (data) {
+                        $('#comment-text').val('');
+                        $(modal_footer).append('<div id="comment-div" class="p-b-10 p-t-10" style="float: left;width: 100%;text-align: left;">' +
+                            '<div class="user-pic p-r-15" style="float: left">' +
+                            '<%= image_tag('profiles/5x.jpg', :style => 'width: 50px;border-radius: 100%;' ) %>' +
+                            '</div>' + '<span class="semi-bold">' + '<%= current_user.email %>' + '</span>' + '<h4 style="line-height: 10px;">' + content + '</h4>' + '</div>');
+                        return false;
+                    }
+                });
+            });
+        }
 
         document.getElementById("status-q1").readOnly = true;
 

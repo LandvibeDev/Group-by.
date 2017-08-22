@@ -15,6 +15,13 @@ class UsersController < ApplicationController
     @groups = Group.all
   end
 
+  # GET /edit
+  def edit
+    @user = User.find(params[:id])
+
+  end
+
+  # GET /search
   def search
 
     @user = User.find(params[:user_id])
@@ -36,4 +43,9 @@ class UsersController < ApplicationController
 
     render json: current_user.pushs.count
   end
+
+
+
+
+
 end

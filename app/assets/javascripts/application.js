@@ -16,6 +16,7 @@
 
 //= require jquery
 //= require jquery_ujs
+//= require turbolinks
 //= require cable
 //= require pages-plugins/modernizr.custom
 //= require pages-plugins/moment/moment.min

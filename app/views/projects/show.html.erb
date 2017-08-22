@@ -290,16 +290,14 @@
       <div class="row" style="margin-left: 50px">
 
         <h3>Chat room</h3>
-        <div id="messages">
-          <%= render partial: "message", collection: @messages %>
+        <div id="messages" data-project=<%=@project.id%>>
+          <%= render partial: "message", collection: @project.messages %>
         </div>
         <form>
-          <label>Say something:</label>
+          <label><%=@project.title%> Say something: cuser: <%= current_user.id%></label>
           <br>
-          <input type="text" data-behavior="room_speaker">
+          <input type="text" id="type_message" data-behavior="room_speaker">
         </form>
-
-        <input type="button" id="tlqkf">
 
       </div>
     </div>

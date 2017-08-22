@@ -1,0 +1,37 @@
+$(document).on('turbolinks:load', function() {
+    submitNewMessage();
+});
+
+<% Project.all.each do |project|%>
+App['room' + <%=project.id%>] = App.cable.subscriptions.create({channel: 'RoomChannel', room: <%=project.id%>}, {
+    connected: function() {
+        return console.log('connected!');
+    },
+    disconnected: function() {
+        return console.log('disconnected');
+    },
+    received: function(data) {
+        $('[data-project=\'' + this.projectId + '\']').append(data.message);
+        $('[data-project=\'' + this.projectId + '\']').append("<br>");
+        return console.log('recevied');
+        return console.log(data);
+    },
+    setProjectId: function(projectId) {
+        return this.projectId = projectId;
+    }
+});
+<% end %>
+
+function submitNewMessage(){
+    $('#type_message').keydown(function(event) {
+        if (event.keyCode == 13) {
+            var msg = event.target.value
+            var projectId = $("[data-project]").data().project
+            App['room' + projectId].setProjectId(projectId)
+            App['room' + projectId].send({message: msg, project_id: projectId})
+            event.target.value = ''
+            event.preventDefault()
+            return false;
+        }
+    });
+}

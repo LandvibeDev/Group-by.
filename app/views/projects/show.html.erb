@@ -9,6 +9,9 @@
     <li class="">
       <a data-toggle="tab" href="#fade3" aria-expanded="false"><span>Chat</span></a>
     </li>
+    <li class="">
+      <a data-toggle="tab" href="#fade4" aria-expanded="false"><span>Invite</span></a>
+    </li>
   </ul>
 </div>
 <div class="panel panel-transparent full-height p-t-50">
@@ -18,182 +21,35 @@
     <div class="tab-pane fade active in" id="fade1">
       <div class="row">
         <div class="container-fluid sm-p-l-5 bg-master-lighter ">
-          <div class="timeline-container top-circle">
+          <div class="timeline-container top-circle" style="min-height: 840px;">
             <section class="timeline">
-              <div class="timeline-block">
-                <div class="timeline-point success">
-                  <i class="pg-map"></i>
-                </div>
-                <!-- timeline-point -->
-                <div class="timeline-content">
-                  <div class="card share full-width">
-                    <div class="circle" data-toggle="tooltip" title="Label" data-container="body">
+              <% @team_events.each do |events|  %>
+                  <div class="timeline-block">
+                    <div class="timeline-point success">
                     </div>
-                    <div class="card-header clearfix">
-                      <div class="user-pic">
-                        <img alt="Profile Image" width="33" height="33" data-src-retina="assets/img/profiles/8x.jpg" data-src="assets/img/profiles/8.jpg" src="assets/img/profiles/8x.jpg">
+                    <!-- timeline-point -->
+                    <div class="timeline-content">
+                      <div class="card share full-width">
+                        <div class="circle" data-toggle="tooltip" title="Label" data-container="body">
+                        </div>
+                        <div class="card-header clearfix">
+                          <h5><%= events.title %></h5>
+                          <h6>Shared a Tweet
+                            <span class="location semi-bold"><i class="fa fa-map-marker"></i> SF, California</span>
+                          </h6>
+                        </div>
+                        <div class="card-description">
+                          <p><%= events.content %> </p>
+                        </div>
                       </div>
-                      <h5>Jeff Curtis</h5>
-                      <h6>Shared a Tweet
-                        <span class="location semi-bold"><i class="fa fa-map-marker"></i> SF, California</span>
-                      </h6>
-                    </div>
-                    <div class="card-description">
-                      <p>What you think, you become. What you feel, you attract. What you imagine, you create - Buddha. <a href="#">#quote</a> </p>
-                      <div class="via">via Twitter</div>
-                    </div>
-                  </div>
-                  <div class="event-date">
-                    <h6 class="font-montserrat all-caps hint-text m-t-0">Apple Inc</h6>
-                    <small class="fs-12 hint-text">15 January 2015, 06:50 PM</small>
-                  </div>
-                </div>
-                <!-- timeline-content -->
-              </div>
-              <!-- timeline-block -->
-              <div class="timeline-block">
-                <div class="timeline-point small">
-                </div>
-                <!-- timeline-point -->
-                <div class="timeline-content">
-                  <div class="card share full-width">
-                    <div class="circle" data-toggle="tooltip" title="Label" data-container="body">
-                    </div>
-                    <div class="card-header clearfix">
-                      <div class="user-pic">
-                        <img alt="Profile Image" width="33" height="33" data-src-retina="assets/img/profiles/5x.jpg" data-src="assets/img/profiles/5.jpg" src="assets/img/profiles/5x.jpg">
+                      <div class="event-date">
+                        <h6 class="font-montserrat all-caps hint-text m-t-0">Apple Inc</h6>
+                        <small class="fs-12 hint-text"><%= events.start_date %> - <%= events.end_date %></small>
                       </div>
-                      <h5>Shannon Williams</h5>
-                      <h6>Shared a photo
-                        <span class="location semi-bold"><i class="fa fa-map-marker"></i> NYC, New York</span>
-                      </h6>
                     </div>
-                    <div class="card-description">
-                      <p>Inspired by : good design is obvious, great design is transparent</p>
-                      <div class="via">via themeforest</div>
-                    </div>
-                    <div class="card-content">
-                      <ul class="buttons ">
-                        <li>
-                          <a href="#"><i class="fa fa-expand"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#"><i class="fa fa-heart-o"></i>
-                          </a>
-                        </li>
-                      </ul>
-                      <img alt="Social post" src="assets/img/social-post-image.png">
-                    </div>
-                    <div class="card-footer clearfix">
-                      <div class="time">few seconds ago</div>
-                      <ul class="reactions">
-                        <li><a href="#">5,345 <i class="fa fa-comment-o"></i></a>
-                        </li>
-                        <li><a href="#">23K <i class="fa fa-heart-o"></i></a>
-                        </li>
-                      </ul>
-                    </div>
+                    <!-- timeline-content -->
                   </div>
-                  <div class="event-date">
-                    <small class="fs-12 hint-text">15 January 2015, 06:50 PM</small>
-                  </div>
-                </div>
-                <!-- timeline-content -->
-              </div>
-              <!-- timeline-block -->
-              <div class="timeline-block">
-                <div class="timeline-point warning">
-                  <i class="pg-social"></i>
-                </div>
-                <!-- timeline-point -->
-                <div class="timeline-content">
-                  <div class="card share full-width ">
-                    <div class="card-header clearfix">
-                      <h5 class="text-warning-dark pull-left fs-12">Stock Market <i class="fa fa-circle text-warning-dark fs-11"></i></h5>
-                      <div class="pull-right small hint-text">
-                        5,345 <i class="fa fa-comment-o"></i>
-                      </div>
-                      <div class="clearfix"></div>
-                    </div>
-                    <div class="card-description">
-                      <h5 class='hint-text no-margin'>Apple Inc.</h5>
-                      <h5 class="small hint-text no-margin">NASDAQ: AAPL - Nov 13 8:37 AM ET</h5>
-                      <h3>111.25 <span class="text-warning-dark"><i class="fa fa-sort-up small text-warning-dark"></i> 0.15 (0.13%)</span></h3>
-                    </div>
-                    <div class="card-footer clearfix">
-                      <div class="pull-left">by <span class="text-warning-dark">John Smith</span></div>
-                      <div class="pull-right hint-text">
-                        Apr 23
-                      </div>
-                      <div class="clearfix"></div>
-                    </div>
-                  </div>
-                  <div class="event-date">
-                    <h6 class="font-montserrat all-caps hint-text m-t-0">Shared</h6>
-                    <small class="fs-12 hint-text">15 January 2015, 06:50 PM</small>
-                  </div>
-                </div>
-                <!-- timeline-content -->
-              </div>
-              <!-- timeline-block -->
-              <div class="timeline-block">
-                <div class="timeline-point small">
-                </div>
-                <!-- timeline-point -->
-                <div class="timeline-content">
-                  <div class="card share full-width ">
-                    <div class="circle" data-toggle="tooltip" title="Label" data-container="body">
-                    </div>
-                    <div class="card-header clearfix">
-                      <div class="user-pic">
-                        <img alt="Profile Image" width="33" height="33" data-src-retina="assets/img/profiles/6x.jpg" data-src="assets/img/profiles/6.jpg" src="assets/img/profiles/6x.jpg">
-                      </div>
-                      <h5>Nathaniel Hamilton</h5>
-                      <h6>Shared a Tweet
-                        <span class="location semi-bold"><i class="icon-map"></i>  NYC, New York</span>
-                      </h6>
-                    </div>
-                    <div class="card-description">
-                      <p>Testing can show the presense of bugs, but not their absence.</p>
-                      <div class="via">via Twitter</div>
-                    </div>
-                  </div>
-                  <div class="event-date">
-                    <small class="fs-12 hint-text">15 January 2015, 06:50 PM</small>
-                  </div>
-                </div>
-                <!-- timeline-content -->
-              </div>
-              <!-- timeline-block -->
-              <div class="timeline-block">
-                <div class="timeline-point small">
-                </div>
-                <!-- timeline-point -->
-                <div class="timeline-content">
-                  <div class="card share full-width">
-                    <div class="circle" data-toggle="tooltip" title="Label" data-container="body">
-                    </div>
-                    <div class="card-header clearfix">
-                      <div class="user-pic">
-                        <img alt="Profile Image" width="33" height="33" data-src-retina="assets/img/profiles/4x.jpg" data-src="assets/img/profiles/4.jpg" src="assets/img/profiles/4x.jpg">
-                      </div>
-                      <h5>Andy Young</h5>
-                      <h6>Updated his status
-                        <span class="location semi-bold"><i class="icon-map"></i> NYC, New York</span>
-                      </h6>
-                    </div>
-                    <div class="card-description">
-                      <p>What a lovely day! I think I should go and play outside.</p>
-                    </div>
-                  </div>
-                  <div class="event-date">
-                    <small class="fs-12 hint-text">15 January 2015, 06:50 PM</small>
-                  </div>
-                </div>
-                <!-- timeline-content -->
-              </div>
-              <!-- timeline-block -->
+              <% end  %>
             </section>
             <!-- timeline -->
           </div>
@@ -203,92 +59,100 @@
     </div>
     <div class="tab-pane fade full-height" id="fade2" scroll=auto style="overflow-x:hidden">
       <div class="row full-height">
-        <!-- START CALENDAR -->
-        <div id="myCalendar_month" class="full-height"></div>
-        <!-- END CALENDAR -->
-        <!-- START EVENT MANAGER -->
-        <!-- START Calendar Events Form -->
-        <div class="quickview-wrapper calendar-event" id="calendar-event">
+        <div class="p-t-20 p-b-10 p-r-20" style="text-align: right">
+          <%= link_to 'Edit', project_calendar_path(@project.id), :class => 'btn btn-lg btn-info' %>
+        </div>
+        <div id="show_team_calendar_month" class="full-height"></div>
+        <input type="hidden" id="project_id" value="<%= @project.id %>">
+
+        <div class="quickview-wrapper show_team_calendar-event" id="show_team_calendar-event">
           <div class="view-port clearfix" id="eventFormController">
             <div class="view bg-white">
               <div class="scrollable">
                 <div class="p-l-30 p-r-30 p-t-20">
-                  <a class="fa fa-window-close text-master link pull-right" data-toggle="quickview" data-toggle-element="#calendar-event" href="#"></a>
-                  <h4 id="event-date">&amp;</h4>
-                  <div class="m-b-20">
-                    <i class="fa fa-clock-o"></i>
-                    <span id="lblfromTime"></span> to
-                    <span id="lbltoTime"></span>
-                  </div>
+                  <i class="fa fa-times" id="eventExit" aria-hidden="true" style="text-align: right;display: block;"></i>
                 </div>
-                <div class="p-t-15">
-                  <input id="eventIndex" name="eventIndex" type="hidden">
+                <div class="p-t-60 p-l-20">
+                  <p class="eventText" id="eventTitle" style="font-size: xx-large;"></p>
+                </div>
+                <div class="p-t-25">
+                  <input id="teameventIndex" name="teameventIndex" type="hidden">
                   <div class="form-group-attached">
-                    <div class="form-group form-group-default ">
-                      <label>Title</label>
-                      <input type="text" class="form-control" id="txtEventName" name="" placeholder="event name">
-                    </div>
-                    <!--<div class="row clearfix">-->
-                    <!--<div class="col-sm-9">-->
-                    <!--<div class="form-group form-group-default">-->
-                    <!--<label>Location</label>-->
-                    <!--<input type="text" class="form-control" id="txtEventLocation" placeholder="name of place" name="">-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="col-sm-3">-->
-                    <!--<div class="form-group form-group-default">-->
-                    <!--<label>Code</label>-->
-                    <!--<input type="text" class="form-control" id="txtEventCode" name="lastName">-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--</div>-->
                     <div class="row clearfix">
                       <div class="form-group form-group-default">
-                        <label>Note</label>
-                        <textarea class="form-control" placeholder="description" id="txtEventDesc"></textarea>
+                        <label>Content</label>
+                        <p class="eventText" id="eventContent"></p>
                       </div>
                     </div>
-                    <!--<div class="row clearfix cursor">-->
-                    <!--<div class="form-group form-group-default" data-navigate="view" data-view-port="#eventFormController" data-view-animation="push-parrallax">-->
-                    <!--<label>Alerts</label>-->
-                    <!--<div class="p-t-10">-->
-                    <!--<span class="pull-right p-r-10 p-b-5"><i class="pg-arrow_right"></i></span>-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--</div>-->
+                    <div class="form-group form-group-default">
+                      <label>Start Time</label>
+                      <p class="eventText" id="eventStart"></p>
+                    </div>
+                    <div class="form-group form-group-default">
+                      <label>End Time</label>
+                      <p class="eventText" id="eventEndTime"></p>
+                    </div>
+                    <div class="form-group form-group-default" id="eventImage">
+                    </div>
                   </div>
                 </div>
-                <div class="p-l-30 p-r-30 p-t-30">
-                  <button id="eventSave_month" class="btn btn-warning btn-cons">Save Event</button>
-                  <button id="eventDelete_month" class="btn btn-white"><i class="fa fa-trash-o"></i>
-                  </button>
-                </div>
               </div>
-            </div>
-            <div class="view bg-white">
-              <div class="navbar navbar-default navbar-sm">
-                <div class="navbar-inner">
-                  <a href="javascript:;" class="inline action p-l-10 link text-master" data-navigate="view" data-view-port="#eventFormController" data-view-animation="push-parrallax">
-                    <i class="pg-arrow_left"></i>
-                  </a>
-                  <div class="view-heading">
-                    <span class="font-montserrat text-uppercase fs-13">Alerts</span>
-                  </div>
-                  <a href="#" class="inline action p-r-10 pull-right link text-master">
-                    <i class="pg-search"></i>
-                  </a>
-                </div>
-              </div>
-              <p class="p-l-30 p-r-30 p-t-30"> This is a Demo</p>
             </div>
           </div>
         </div>
-        <!-- END Calendar Events Form -->
       </div>
     </div>
     <div class="tab-pane fade" id="fade3">
       <div class="row">
 
+      </div>
+    </div>
+    <div class="tab-pane fade" id="fade4">
+      <div class="row">
+        <div class="container-fluid container-fixed-lg bg-white" style="min-height: 840px;">
+          <!-- START PANEL -->
+          <div class="panel panel-transparent">
+            <div class="panel-heading">
+              <div class="panel-title">All User</div>
+            </div>
+            <div class="panel-body">
+              <div id="tableWithExportOptions_wrapper" class="dataTables_wrapper form-inline no-footer">
+                <div class="table-responsive">
+                  <table class="table table-striped dataTable no-footer" id="tableWithExportOptions" role="grid" aria-describedby="tableWithExportOptions_info">
+                    <thead>
+                    <tr role="row">
+                      <th class="sorting_asc" tabindex="0" aria-controls="tableWithExportOptions" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Project</th>
+                      <th class="sorting" tabindex="0" aria-controls="tableWithExportOptions" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Invite</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% @users.each do |user1| %>
+                        <% if user1.id != current_user.id %>
+                            <% chk = true %>
+                            <% @userprojects.each do |user2| %>
+                                <% if user2.project_id == @project.id %>
+                                    <% if user1.id == user2.user_id %>
+                                        <% chk = false %>
+                                        <% break %>
+                                    <% end %>
+                                <% end %>
+                            <% end %>
+                            <% if chk == true %>
+                                <tr class="gradeA odd" role="row">
+                                  <td class="sorting_1"><%= user1.email %></td>
+                                  <td><%= link_to 'Invite', user_project_inviteCreate_path(user1.id, @project.id) %></td>
+                                </tr>
+                            <% end %>
+                        <% end %>
+                    <% end %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- END PANEL -->
+        </div>
       </div>
     </div>
   </div>
@@ -297,11 +161,18 @@
 <style>
   .fixed-navbar {
     position: fixed;
-    z-index:1000;
+    z-index:100;
     height:50px;
     width:100%;
     top: 60px;
     left: 70px;
     background-color: #fbfbfb;
+  }
+  .event-container{
+    cursor: pointer;
+  }
+  .eventText {
+    margin: 0;
+    padding-top: 10px;
   }
 </style>

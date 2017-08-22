@@ -1,27 +1,26 @@
-<%= form_with(url: user_projects_path, local: true) do |form| %>
-  <% if project.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
+<div style="width: 600px;margin: 0 auto;display: table;height: 100%;">
+  <div style="display: table-cell;vertical-align: middle; ">
+    <%= form_with(url: user_projects_path, local: true) do |form| %>
+        <% if project.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
 
-      <ul>
-      <% project.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+              <ul>
+                <% project.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title, id: :project_title %>
+        <div class="row">
+          <div class="col-md-9">
+            <%= form.text_field :title, id: :project_title, :class => 'form-control input-lg', :placeholder => 'Please enter a title.' %>
+          </div>
+          <div class="col-md-2">
+            <%= form.submit 'Sign up', :class => 'btn btn-primary btn-lg btn-large fs-15' %>
+          </div>
+        </div>
+    <% end %>
   </div>
-
-  <div class="field">
-    <%= form.label :complete %>
-    <%= form.check_box :complete, id: :project_complete %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

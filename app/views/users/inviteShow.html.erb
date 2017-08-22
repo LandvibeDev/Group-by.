@@ -26,8 +26,8 @@
             <tbody>
             <% @invites.each do |invite| %>
                 <tr class="gradeA odd" role="row">
-                  <td class="sorting_1"> <%= invite.invite_project %></td>
-                  <td><%= link_to 'Join', user_project_invite_path(invite.invite_user, invite.invite_project) %></td>
+                  <td class="sorting_1"> <%= invite.invite_project_title %></td>
+                  <td><%= link_to 'Join', user_project_join_path(invite.invite_user, invite.invite_project) %></td>
                 </tr>
             <% end %>
             </tbody>

@@ -6,16 +6,14 @@
  * ============================================================ */
 
 (function ($) {
-
-    'use strict';
-
     $(document).ready(function () {
 
-        $('#lbltoTime')
+        var project_id = $('#project_id').val();
+        var selectedTeamEvent;
 
-        function edit_event(event) {
+        function edit_teamEvent(event) {
             $.ajax({
-                url: '/home/edit_event',
+                url: '/projects/' + project_id + '/edit_teamEvent/' + selectedTeamEvent.other.id,
                 type: 'post',
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(event),
@@ -25,10 +23,9 @@
             });
         }
 
-        var selectedEvent;
 
-        var mycal = $('#myCalendar_month');
-        mycal.pagescalendar({
+        var teamcal = $('#teamCalendar_month');
+        teamcal.pagescalendar({
             //Loading Dummy EVENTS for demo Purposes, you can feed the events attribute from
             //Web Service
             events: [],
@@ -38,13 +35,14 @@
             },
             onEventClick: function (event) {
                 //Open Pages Custom Quick View
-                if (!$('#calendar-event').hasClass('open'))
-                    $('#calendar-event').addClass('open');
+                if (!$('#teamcalendar-event').hasClass('open'))
+                    $('#teamcalendar-event').addClass('open');
 
-                selectedEvent = event;
+
+                selectedTeamEvent = event;
 
                 $.ajax({
-                    url: '/home/current_load_event/' + selectedEvent.other.id,
+                    url: '/projects/' + project_id + '/current_load_teamEvent/' + selectedTeamEvent.other.id,
                     type: 'post',
                     success: function (data) {
                         var e = {};
@@ -54,44 +52,45 @@
                         e.class = 'bg-success-lighter';
                         e.start = data.start_date;
                         e.end = data.end_date;
-                        $('#txteventname').val(e.title);
-                        $('#txteventdesc').val(e.content);
+                        $('#teameventname').val(e.title);
+                        $('#teameventdesc').val(e.content);
                     }
                 });
 
-                setEventDetailsToForm(selectedEvent);
+                setTeamEventDetailsToForm(selectedTeamEvent);
             },
             onEventDragComplete: function (event) {
-                selectedEvent = event;
-                edit_event(selectedEvent);
-                setEventDetailsToForm(selectedEvent);
+                selectedTeamEvent = event;
+                edit_teamEvent(selectedTeamEvent);
+                setTeamEventDetailsToForm(selectedTeamEvent);
             },
             onTimeSlotDblClick: function (timeSlot) {
-                $('#calendar-event').removeClass('open');
+                $('#teamcalendar-event').removeClass('open');
                 //Adding a new Event on Slot Double Click
-                var newEvent = {
+                var newteamEvent = {
                     title: 'my new event',
                     class: 'bg-success-lighter',
                     start: timeSlot.date,
                     end: moment(timeSlot.date).add(1, 'hour').format(),
                     allDay: false,
+                    image: "",
                     other: {
                         desc: '',
                         //You can have your custom list of attributes here
                     }
                 };
-                selectedEvent = newEvent;
+                selectedTeamEvent = newteamEvent;
 
                 //초기 이벤트 생성시 저장
                 $.ajax({
-                    url: '/home/create_event',
+                    url: '/projects/' + project_id + '/create_teamEvent',
                     type: 'post',
                     contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify(selectedEvent),
+                    data: JSON.stringify(selectedTeamEvent),
                     dataType: "json",
                     success: function (data) {
                         $.ajax({
-                            url: '/home/new_load_event',
+                            url: '/projects/' + project_id + '/new_load_teamEvent',
                             type: 'post',
                             success: function (data) {
                                 var e = {};
@@ -100,13 +99,14 @@
                                 e.class = 'bg-success-lighter';
                                 e.start = data.start_date;
                                 e.end = data.end_date;
-                                mycal.pagescalendar('addEvent', e);
+                                teamcal.pagescalendar('addEvent', e);
                             }
                         });
                     }
                 });
 
-                setEventDetailsToForm(selectedEvent);
+
+                setTeamEventDetailsToForm(selectedTeamEvent);
             }
         });
 
@@ -115,66 +115,68 @@
         //get the value of a property
         //console.log($('body').pagescalendar('getDate','MMMM'));
 
-        $('#eventExit').click(function () {
-            $('#calendar-event').removeClass('open');
-        });
-
-        function setEventDetailsToForm(event) {
-            $('#eventIndex').val();
-            $('#txtEventName').val();
-            $('#txtEventDesc').val();
+        function setTeamEventDetailsToForm(event) {
+            $('#teameventIndex').val();
+            $('#teamEventName').val();
+            $('#teamEventDesc').val();
             //Show Event date
-            $('#event-date').html(moment(event.start).format('MMM, D dddd'));
+            $('#teamEvent-date').html(moment(event.start).format('MMM, D dddd'));
 
-            $('#lblfromTime').html(moment(event.start).format('h:mm A'));
-            $('#lbltoTime').html(moment(event.end).format('h:mm A'));
+            $('#teamlblfromTime').html(moment(event.start).format('h:mm A'));
+            $('#teamlbltoTime').html(moment(event.end).format('h:mm A'));
 
             //Load Event Data To Text Field
-            $('#eventIndex').val(event.index);
-            $('#txtEventName').val(event.title);
-            $('#txtEventDesc').val(event.other.desc);
+            $('#teameventIndex').val(event.index);
+            $('#teamEventName').val(event.title);
+            $('#teamEventDesc').val(event.other.desc);
 
-            $('#txtEventStartDate').val(moment(event.start).format('YYYY-MM-DDThh:mm'));
-            $('#txtEventEndDate').val(moment(event.end).format('YYYY-MM-DDThh:mm'));
+            $('#teamEventStartDate').val(moment(event.start).format('YYYY-MM-DDThh:mm'));
+            $('#teamEventEndDate').val(moment(event.end).format('YYYY-MM-DDThh:mm'));
         }
 
-        $('#eventSave_month').on('click', function () {
-            selectedEvent.title = $('#txtEventName').val();
+        $('#eventExit').click(function () {
+            $('#teamcalendar-event').removeClass('open');
+        });
+
+        $('#teameventSave').on('click', function () {
+            selectedTeamEvent.title = $('#teamEventName').val();
 
             //You can add Any thing inside "other" object and it will get save inside the plugin.
             //Refer it back using the same name other.your_custom_attribute
 
-            selectedEvent.other.desc = $('#txtEventDesc').val();
+            selectedTeamEvent.other.desc = $('#teamEventDesc').val();
 
-            selectedEvent.start = $('#txtEventStartDate').val();
-            selectedEvent.end = $('#txtEventEndDate').val();
+            selectedTeamEvent.start = $('#teamEventStartDate').val();
+            selectedTeamEvent.end = $('#teamEventEndDate').val();
 
-            mycal.pagescalendar('updateEvent', selectedEvent);
+            selectedTeamEvent.image = $('#teamEventImage').val();
 
-            edit_event(selectedEvent);
+            teamcal.pagescalendar('updateEvent', selectedTeamEvent);
 
-            $('#calendar-event').removeClass('open');
+            edit_teamEvent(selectedTeamEvent);
+
+            $('#teamcalendar-event').removeClass('open');
         });
 
-        $('#eventDelete_month').on('click', function () {
-            mycal.pagescalendar('removeEvent', $('#eventIndex').val());
+        $('#teameventDelete').on('click', function () {
+            teamcal.pagescalendar('removeEvent', $('#teameventIndex').val());
 
             //삭제
             $.ajax({
-                url: '/home/delete_event',
-                type: 'post',
+                url: '/projects/'+ project_id +'/delete_teamEvent/' + selectedTeamEvent.other.id,
+                type: 'delete',
                 contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(selectedEvent),
+                data: JSON.stringify(selectedTeamEvent),
                 dataType: "json",
                 success: function () {
                 }
             });
-            $('#calendar-event').removeClass('open');
+            $('#teamcalendar-event').removeClass('open');
         });
 
         //처음 이벤트 로드 데이터 불러오기 -> pagescalender에 저장
         $.ajax({
-            url: '/home/load_event',
+            url: '/projects/' + project_id + '/load_teamEvent',
             type: 'post',
             success: function (data) {
                 for (var idx in data) {
@@ -184,7 +186,7 @@
                     e.class = 'bg-success-lighter';
                     e.start = data[idx].start_date;
                     e.end = data[idx].end_date;
-                    mycal.pagescalendar('addEvent', e);
+                    teamcal.pagescalendar('addEvent', e);
                 }
             }
         });

@@ -215,7 +215,7 @@
             </span>
           </button>
           <ul class="dropdown-menu profile-dropdown" role="menu">
-            <li><a href="#"><i class="pg-settings_small"></i> Settings</a>
+            <li><a href="/users/edit"><i class="pg-settings_small"></i> Settings</a>
             </li>
             <li><a href="#"><i class="pg-outdent"></i> Feedback</a>
             </li>
@@ -300,12 +300,13 @@
   <!-- END Overlay Content !-->
 </div>
 <!-- END OVERLAY -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/interact.js/1.2.9/interact.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
 <!-- JS at bottom of page to improve load time, and only loaded once with 'data-turbolinks-eval' == false  -->
 
 <script>
     $(document).ready(function () {
+
         $('[data-pages="search"]').click(function () {
             $(".list-view-wrapper").scrollbar();
             $("#search-results-users").children().remove();

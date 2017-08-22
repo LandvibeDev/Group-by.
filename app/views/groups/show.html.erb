@@ -303,7 +303,9 @@
                         <h3><%= content.content %></h3>
                       </div>
                     </div>
-                    <div class="modal-footer" style="min-height: 300px;">
+                    <input type="hidden" class="content-id" value="<%= content.id %>">
+
+                    <div class="modal-footer" id="<%= content.id %>" style="min-height: 300px;">
                       <div>
                         <div style="float: left;">
                           <i class="fa fa-commenting fa-2x" aria-hidden="true" style="line-height: 53.64px;">
@@ -314,10 +316,10 @@
                           <h3>Group by.</h3>
                         </div>
                       </div>
-                      <form id="comment-input" class="form-group form-group-default input-group" style="float: left;" method="get" action="/groups/comments_create/<%= content.id %>/<%= @group.id %>">
+                      <form id="comment-input<%= content.id %>" class="form-group form-group-default input-group" style="float: left;">
                         <label class="text-left">Comments</label>
                         <input type="text" class="form-control" id="comment-text" name="comment">
-                        <a type="submit" id="comment-enter" class="input-group-addon">Enter</a>
+                        <a type="submit" id="comment-enter<%= content.id %>" class="input-group-addon">Enter</a>
                       </form>
                       <% content.comments.each do |com| %>
                           <div id="comment-div" class="p-b-10 p-t-10" style="float: left;width: 100%;text-align: left;">
@@ -334,42 +336,6 @@
                 </div>
                 <!-- /.modal-dialog -->
               </div>
-              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-              <script>
-                  $('#comment-input').on('submit', function(e) {
-                      e.preventDefault();
-                      var content = $('#comment-text').val();
-                      $.ajax({
-                          url: '/groups/comments_create/<%= content.id %>/<%= @group.id %>',
-                          type: "GET",
-                          data: $('#comment-input').serialize(),
-                          success: function (data) {
-                              $('#comment-text').val('');
-                              $('.modal-footer').append('<div id="comment-div" class="p-b-10 p-t-10" style="float: left;width: 100%;text-align: left;">' +
-                                  '<div class="user-pic p-r-15" style="float: left">' +
-                                  '<%= image_tag('profiles/5x.jpg', :style => 'width: 50px;border-radius: 100%;' ) %>' +
-                                  '</div>' + '<span class="semi-bold">' + '<%= current_user.email %>' + '</span>' + '<h4 style="line-height: 10px;">' + content + '</h4>' + '</div>');
-                          }
-                      });
-                  });
-                  $('#comment-enter').on('click', function(e) {
-                      e.preventDefault();
-                      var content = $('#comment-text').val();
-                      $.ajax({
-                          url: '/groups/comments_create/<%= content.id %>/<%= @group.id %>',
-                          type: "GET",
-                          data: $('#comment-input').serialize(),
-                          success: function (data) {
-                              $('#comment-text').val('');
-                              $('.modal-footer').append('<div id="comment-div" class="p-b-10 p-t-10" style="float: left;width: 100%;text-align: left;">' +
-                                  '<div class="user-pic p-r-15" style="float: left">' +
-                                  '<%= image_tag('profiles/5x.jpg', :style => 'width: 50px;border-radius: 100%;' ) %>' +
-                                  '</div>' + '<span class="semi-bold">' + '<%= current_user.email %>' + '</span>' + '<h4 style="line-height: 10px;">' + content + '</h4>' + '</div>');
-                          }
-                      });
-                  });
-              </script>
           <% end %>
           <!-- END ITEM -->
         </div>
@@ -382,8 +348,58 @@
   <!-- /container -->
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <script>
+
     $(document).ready(function() {
+
+        var content_id = $('.content-id').val();
+        for(var i=0;i<content_id.size();i++) {
+
+            var comment_input = '#comment-input' + content_id[i];
+            var comment_enter = '#comment-enter' + content_id[i];
+
+
+            $(comment_input).on('submit', function (e) {
+                e.preventDefault();
+                var content = $('#comment-text').val();
+                var modal_footer = '#' + content_id;
+                $.ajax({
+                    url: '/groups/comments_create/' + content_id[i] + '/<%= @group.id %>',
+                    type: "GET",
+                    data: $(comment_input).serialize(),
+                    success: function (data) {
+                        $('#comment-text').val('');
+                        $(modal_footer).append('<div id="comment-div" class="p-b-10 p-t-10" style="float: left;width: 100%;text-align: left;">' +
+                            '<div class="user-pic p-r-15" style="float: left">' +
+                            '<%= image_tag('profiles/5x.jpg', :style => 'width: 50px;border-radius: 100%;' ) %>' +
+                            '</div>' + '<span class="semi-bold">' + '<%= current_user.email %>' + '</span>' + '<h4 style="line-height: 10px;">' + content + '</h4>' + '</div>');
+                        return false;
+                    }
+                });
+            });
+
+            $(comment_enter).on('click', function (e) {
+                e.preventDefault();
+                var content = $('#comment-text').val();
+                var modal_footer = '#' + content_id[i];
+                $.ajax({
+                    url: '/groups/comments_create/' + content_id[i] + '/<%= @group.id %>',
+                    type: "GET",
+                    data: $(comment_enter).serialize(),
+                    success: function (data) {
+                        $('#comment-text').val('');
+                        $(modal_footer).append('<div id="comment-div" class="p-b-10 p-t-10" style="float: left;width: 100%;text-align: left;">' +
+                            '<div class="user-pic p-r-15" style="float: left">' +
+                            '<%= image_tag('profiles/5x.jpg', :style => 'width: 50px;border-radius: 100%;' ) %>' +
+                            '</div>' + '<span class="semi-bold">' + '<%= current_user.email %>' + '</span>' + '<h4 style="line-height: 10px;">' + content + '</h4>' + '</div>');
+                        return false;
+                    }
+                });
+            });
+        }
+
         document.getElementById("status-q1").readOnly = true;
 
         $('#startDatepicker').datepicker({

@@ -42,6 +42,24 @@
               </div>
             </div>
 
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group form-group-default">
+                  <%= f.label :name %>
+                  <%= f.text_field :name, autocomplete: "off", placeholder: "Name", class: "form-control" %>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group form-group-default">
+                  <%= f.label :organization %>
+                  <%= f.text_field :organization, autocomplete: "off", placeholder: "Organization", class: "form-control" %>
+                </div>
+              </div>
+            </div>
+
             <%= f.submit "Sign up", class: "btn btn-primary btn-cons m-t-10" %>
         <% end %>
 

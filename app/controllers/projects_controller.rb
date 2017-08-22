@@ -8,9 +8,20 @@ class ProjectsController < ApplicationController
     @projects = @user.projects.all
   end
 
+  def calendar
+    @project = Project.find(params[:project_id])
+    @events = TeamEvent.all
+  end
+
   # GET /projects/1
   # GET /projects/1.json
   def show
+    @project = Project.find(params[:id])
+    @team_events = @project.team_events.order('start_date')
+
+    @users = User.all
+
+    @userprojects = ProjectsUser.all
   end
 
   # GET /projects/new
@@ -34,7 +45,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       if @project.save
         @user.projects << @project
-        format.html { redirect_to user_project_path(current_user.id, @project.id) }
+        format.html { redirect_to project_calendar_path(@project.id) }
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new }
@@ -67,16 +78,18 @@ class ProjectsController < ApplicationController
     end
   end
 
+  # 초대 기능
   # GET /groups
   def inviteCreate
     @users = User.all
     @project = Project.find(params[:project_id])
 
-    @user = User.find(current_user.id)
-    @invite = @user.invites.new(invite_user: params[:user_id], invite_project: params[:project_id])
+    @user = User.find(params[:user_id])
+    @currentuser = User.find(current_user.id)
+    @invite = @currentuser.invites.new(invite_user: params[:user_id], invite_project: params[:project_id], invite_user_email: @user.email, invite_project_title: @project.title)
     @invite.save
 
-    redirect_to user_group_invite_path(current_user.id, params[:project_id])
+    redirect_to user_project_path(current_user.id, @project.id)
   end
 
   # GET /groups
@@ -98,13 +111,62 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       if @project.save
         @user.projects << @project
-        format.html { redirect_to user_group_path(current_user.id, params[:project_id])}
+        format.html { redirect_to user_project_path(current_user.id, @project.id)}
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new }
         format.json { render json: @group.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  #팀 이벤트
+  def load_teamEvent
+    @project = Project.find(params[:id])
+    @events = @project.team_events.all
+    render json: @events
+  end
+
+  def new_load_teamEvent
+    @project = Project.find(params[:project_id])
+    @event = @project.team_events.order("created_at").last
+    render json: @event
+  end
+
+  def current_load_teamEvent
+    @event = TeamEvent.find(params[:event_id])
+    render json: @event
+  end
+
+  def create_teamEvent
+    @user = User.find(current_user.id)
+    @project = Project.find(params[:project_id])
+    @event = @project.team_events.create(title: params[:title],content: params[:other][:desc], start_date: params[:start],end_date: params[:end], image: params[:image])
+
+    respond_to do |format|
+      @user.team_events << @event
+      format.json {render json: @event}
+    end
+  end
+
+  def edit_teamEvent
+    #파라미터 넘어올때 계속 index로 몇번째 event인지만 넘어온다.(0부터 시작)
+    @event = TeamEvent.find(params[:id])
+    @event.title = params[:title]
+    @event.content = params[:other][:desc]
+    @event.start_date = params[:start]
+    @event.end_date = params[:end]
+    @event.image = params[:image]
+    @event.save
+  end
+
+  def delete_teamEvent
+    #앞쪽의 event 삭제시 edit_event에서 활용한 방식이 문제가 된다
+    # @idx = params[:other][:id]
+    # @event = TeamEvent.find(@idx)
+
+    @event = TeamEvent.find(params[:id])
+    @event.destroy
   end
 
   private

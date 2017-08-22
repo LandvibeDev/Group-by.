@@ -39,7 +39,6 @@
 //= require pages-plugins/jquery-metrojs/MetroJs.min
 //= require pages-plugins/gallery
 //= require pages-plugins/jquery-ui/jquery-ui.min
-//= require pages-plugins/notify.min
 //= require pages-plugins/interactjs/interact.min
 //= require pages-plugins/bootstrap-tabcollapse
 //= require pages-plugins/jquery.timepicker.min
@@ -56,7 +55,6 @@
 //= require js/show_team_calendar.js
 
 // APPLICATION
-//= require js/search.js
 //= require js/timeline
 
 // require_tree .

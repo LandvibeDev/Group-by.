@@ -1,3 +1,17 @@
-<div class=“message”>
-  <p><%= message.content %></p>
-</div>
+<% if message.user_id == current_user.id %>
+  <div class="message clearfix">
+    <div class="chat-bubble from-me">
+      <%= message.content %>
+    </div>
+  </div>
+<% else%>
+    <div class="message clearfix">
+      <!--message.user_id 이용하여 사진 삽입-->
+      <!--<div class="profile-img-wrapper m-t-5 inline">-->
+        <!--<img class="col-top" width="30" height="30" src="assets/img/profiles/avatar_small.jpg" alt="" data-src="assets/img/profiles/avatar_small.jpg" data-src-retina="assets/img/profiles/avatar_small2x.jpg">-->
+      <!--</div>-->
+      <div class="chat-bubble from-them">
+        <%= message.content %>
+      </div>
+    </div>
+<%end %>

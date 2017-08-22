@@ -289,15 +289,43 @@
     <div class="tab-pane fade" id="fade3">
       <div class="row" style="margin-left: 50px">
 
-        <h3>Chat room</h3>
-        <div id="messages" data-project=<%=@project.id%>>
-          <%= render partial: "message", collection: @project.messages %>
+        <!-- BEGIN Conversation View  !-->
+        <div class="view chat-view bg-white clearfix" style="margin-right: 70px">
+          <!-- BEGIN Header  !-->
+          <div class="navbar navbar-default">
+            <div class="navbar-inner">
+              <div class="view-heading">
+                <h2 style="text-align: center"><%= @project.title %></h2>
+                <!--<div class="fs-11 hint-text">Online</div>-->
+              </div>
+            </div>
+          </div>
+          <!-- END Header  !-->
+          <!-- BEGIN Conversation  !-->
+          <div class="chat-inner" id="my-conversation">
+            <div id="messages" data-project=<%=@project.id%> data-user=<%= current_user.id%>>
+
+              <%= render partial: "message", collection: @project.messages %>
+            </div>
+          </div>
+          <!-- BEGIN Conversation  !-->
+          <!-- BEGIN Chat Input  !-->
+          <div class="b-t b-grey bg-white clearfix p-l-10 p-r-10">
+            <div class="row">
+              <div class="col-xs-1 p-t-15">
+                <a href="#" class="link text-master"><i class="fa fa-plus-circle"></i></a>
+              </div>
+              <div class="col-xs-8 no-padding">
+                <form>
+                  <input type="text" class="form-control chat-input" id="type_message" data-behavior="room_speaker" data-chat-input="" data-chat-conversation="#my-conversation" placeholder="Say something">
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- END Chat Input  !-->
+          </div>
         </div>
-        <form>
-          <label><%=@project.title%> Say something: cuser: <%= current_user.id%></label>
-          <br>
-          <input type="text" id="type_message" data-behavior="room_speaker">
-        </form>
+        <!-- END Conversation View  !-->
 
       </div>
     </div>

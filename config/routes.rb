@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   resources :projects do
     get 'calendar'
     post 'create_teamEvent'

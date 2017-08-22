@@ -1,0 +1,78 @@
+<div class="p-t-20 p-b-10 p-r-20" style="text-align: right">
+  <%= link_to 'Save', user_project_path(current_user.id, @project.id), :class => 'btn btn-lg btn-info' %>
+</div>
+
+<!-- START CALENDAR -->
+<div id="teamCalendar_month" class="full-height"></div>
+
+<input type="hidden" id="project_id" value="<%= @project.id %>">
+<!-- END CALENDAR -->
+<!-- START EVENT MANAGER -->
+<!-- START Calendar Events Form -->
+<div class="quickview-wrapper teamcalendar-event" id="teamcalendar-event">
+  <div class="view-port clearfix" id="eventFormController">
+    <div class="view bg-white">
+      <div class="scrollable">
+        <div class="p-l-30 p-r-30 p-t-20">r
+          <i class="fa fa-times" id="eventExit" aria-hidden="true" style="text-align: right;display: block;"></i>
+          <h4 id="teamEvent-date">&amp;</h4>
+          <div class="m-b-20">
+            <i class="fa fa-clock-o"></i>
+            <span id="teamlblfromTime"></span> to
+            <span id="teamlbltoTime"></span>
+          </div>
+        </div>
+        <div class="p-t-15">
+          <input id="teameventIndex" name="teameventIndex" type="hidden">
+          <div class="form-group-attached">
+            <div class="form-group form-group-default ">
+              <label>Title</label>
+              <input type="text" class="form-control" id="teamEventName" name="" placeholder="event name">
+            </div>
+            <div class="row clearfix">
+              <div class="form-group form-group-default">
+                <label>Note</label>
+                <textarea class="form-control" placeholder="description" id="teamEventDesc"></textarea>
+              </div>
+            </div>
+            <div class="form-group form-group-default">
+              <label>Start Time</label>
+              <%= datetime_field_tag 'teamEventStartDate' %>
+            </div>
+            <div class="form-group form-group-default">
+              <label>End Time</label>
+              <%= datetime_field_tag 'teamEventEndDate' %>
+            </div>
+            <div class="form-group form-group-default">
+              <label>Image</label>
+              <%= file_field_tag 'teamEventImage' %>
+            </div>
+          </div>
+        </div>
+        <div class="p-l-30 p-r-30 p-t-30">
+          <button id="teameventSave" class="btn btn-warning btn-cons">Save Event</button>
+          <input type="hidden" id="deleteEvent-id" value="">
+          <button id="teameventDelete" class="btn btn-white"><i class="fa fa-trash-o"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="view bg-white">
+      <div class="navbar navbar-default navbar-sm">
+        <div class="navbar-inner">
+          <a href="javascript:;" class="inline action p-l-10 link text-master" data-navigate="view" data-view-port="#eventFormController" data-view-animation="push-parrallax">
+            <i class="pg-arrow_left"></i>
+          </a>
+          <div class="view-heading">
+            <span class="font-montserrat text-uppercase fs-13">Alerts</span>
+          </div>
+          <a href="#" class="inline action p-r-10 pull-right link text-master">
+            <i class="pg-search"></i>
+          </a>
+        </div>
+      </div>
+      <p class="p-l-30 p-r-30 p-t-30"> This is a Demo</p>
+    </div>
+  </div>
+</div>
+<!-- END Calendar Events Form -->

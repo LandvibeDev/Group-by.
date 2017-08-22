@@ -1,0 +1,2 @@
+class TeamEventsUser < ApplicationRecord
+end

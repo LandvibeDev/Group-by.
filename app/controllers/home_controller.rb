@@ -4,6 +4,9 @@ class HomeController < ApplicationController
   def index
     @user_category = UserCategory.find_by_user_id(current_user.id)
 
+    @categorygroup = Category.includes(:group_categories).all
+
+
   end
 
   def email

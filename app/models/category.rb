@@ -1,4 +1,4 @@
 class Category < ApplicationRecord
-  has_and_belongs_to_many :groups
-  has_and_belongs_to_many  :user
+  has_many :group_categories
+  has_many  :user_categories
 end

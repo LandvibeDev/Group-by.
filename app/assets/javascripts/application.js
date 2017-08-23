@@ -11,14 +11,13 @@
 // about supported directives.
 //
 
-//= require rails-ujs
-// require_tree .
-
 //= require jquery
 //= require jquery_ujs
-//= require pages-plugins/pace/pace.min
+//= require turbolinks
+//= require cable
 //= require pages-plugins/modernizr.custom
 //= require pages-plugins/moment/moment.min
+//= require pages-plugins/moment/moment-with-locales.min
 //= require pages-plugins/bootstrapv3/js/bootstrap.min
 //= require pages-plugins/jquery/jquery-easy
 //= require pages-plugins/jquery-unveil/jquery.unveil.min
@@ -33,7 +32,6 @@
 //= require pages-plugins/codrops-dialogFx/dialogFx
 //= require pages-plugins/classie/classie
 //= require pages-plugins/jquery-isotope/isotope.pkgd.min
-//= require pages-plugins/imagesloaded/imagesloaded.pkgd.min
 //= require pages-plugins/select2/js/select2.full.min
 //= require pages-plugins/jquery-nouislider/jquery.nouislider.min
 //= require pages-plugins/jquery-nouislider/jquery.liblink
@@ -41,9 +39,9 @@
 //= require pages-plugins/jquery-metrojs/MetroJs.min
 //= require pages-plugins/gallery
 //= require pages-plugins/jquery-ui/jquery-ui.min
-//= require pages-plugins/interactjs/interact.min
-//= require pages-plugins/notify.min
 //= require pages-plugins/bootstrap-tabcollapse
+//= require pages-plugins/jquery.timepicker.min
+
 
 // BEGIN CORE TEMPLATE JS FOR PAGES
 //= require pages-core/pages
@@ -52,7 +50,10 @@
 
 // BEGIN SITE SCRIPTS
 //= require js/calendar_month.js
+//= require js/team_calendar.js
+//= require js/show_team_calendar.js
 
 // APPLICATION
-//= require js/search.js
 //= require js/timeline
+
+// require_tree .

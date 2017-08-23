@@ -11,6 +11,8 @@
 
     $(document).ready(function () {
 
+        $('#lbltoTime')
+
         function edit_event(event) {
             $.ajax({
                 url: '/home/edit_event',
@@ -39,8 +41,24 @@
                 if (!$('#calendar-event').hasClass('open'))
                     $('#calendar-event').addClass('open');
 
-
                 selectedEvent = event;
+
+                $.ajax({
+                    url: '/home/current_load_event/' + selectedEvent.other.id,
+                    type: 'post',
+                    success: function (data) {
+                        var e = {};
+                        e.other = { id: data.id, desc: data.content};
+                        e.title = data.title;
+                        e.content = data.content;
+                        e.class = 'bg-success-lighter';
+                        e.start = data.start_date;
+                        e.end = data.end_date;
+                        $('#txteventname').val(e.title);
+                        $('#txteventdesc').val(e.content);
+                    }
+                });
+
                 setEventDetailsToForm(selectedEvent);
             },
             onEventDragComplete: function (event) {
@@ -63,7 +81,6 @@
                     }
                 };
                 selectedEvent = newEvent;
-                mycal.pagescalendar('addEvent', selectedEvent);
 
                 //초기 이벤트 생성시 저장
                 $.ajax({
@@ -73,15 +90,23 @@
                     data: JSON.stringify(selectedEvent),
                     dataType: "json",
                     success: function (data) {
-                        selectedEvent.other.id = data.id;
+                        $.ajax({
+                            url: '/home/new_load_event',
+                            type: 'post',
+                            success: function (data) {
+                                var e = {};
+                                e.other = { id: data.id, desc: data.content};
+                                e.title = data.title;
+                                e.class = 'bg-success-lighter';
+                                e.start = data.start_date;
+                                e.end = data.end_date;
+                                mycal.pagescalendar('addEvent', e);
+                            }
+                        });
                     }
                 });
 
                 setEventDetailsToForm(selectedEvent);
-
-                if (!$('#calendar-event').hasClass('open'))
-                    $('#calendar-event').addClass('open');
-
             }
         });
 
@@ -89,6 +114,10 @@
         //console.log($('body').pagescalendar('getEvents'))
         //get the value of a property
         //console.log($('body').pagescalendar('getDate','MMMM'));
+
+        $('#eventExit').click(function () {
+            $('#calendar-event').removeClass('open');
+        });
 
         function setEventDetailsToForm(event) {
             $('#eventIndex').val();

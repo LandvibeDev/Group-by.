@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170820082548) do
+ActiveRecord::Schema.define(version: 20170821105536) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "content_id"
@@ -31,13 +31,6 @@ ActiveRecord::Schema.define(version: 20170820082548) do
     t.datetime "updated_at", null: false
     t.string "image"
     t.index ["group_id"], name: "index_contents_on_group_id"
-  end
-
-  create_table "event_users", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "team_event_id"
-    t.index ["team_event_id"], name: "index_event_users_on_team_event_id"
-    t.index ["user_id"], name: "index_event_users_on_user_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -70,10 +63,22 @@ ActiveRecord::Schema.define(version: 20170820082548) do
   create_table "invites", force: :cascade do |t|
     t.integer "user_id"
     t.integer "invite_user"
-    t.integer "invite_project"
+    t.string "invite_project"
+    t.string "invite_user_email"
+    t.string "invite_project_title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_invites_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.string "content"
+    t.integer "project_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_messages_on_project_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -86,6 +91,7 @@ ActiveRecord::Schema.define(version: 20170820082548) do
   create_table "projects_users", force: :cascade do |t|
     t.integer "user_id"
     t.integer "project_id"
+    t.boolean "admin_user"
     t.index ["project_id"], name: "index_projects_users_on_project_id"
     t.index ["user_id"], name: "index_projects_users_on_user_id"
   end
@@ -93,7 +99,8 @@ ActiveRecord::Schema.define(version: 20170820082548) do
   create_table "pushes", force: :cascade do |t|
     t.integer "user_id"
     t.string "message"
-    t.integer "group_id"
+    t.integer "pusher_id"
+    t.boolean "isGroup"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_pushes_on_user_id"
@@ -109,6 +116,15 @@ ActiveRecord::Schema.define(version: 20170820082548) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_team_events_on_project_id"
+  end
+
+  create_table "team_events_users", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "team_event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_event_id"], name: "index_team_events_users_on_team_event_id"
+    t.index ["user_id"], name: "index_team_events_users_on_user_id"
   end
 
   create_table "usermails", force: :cascade do |t|

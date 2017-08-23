@@ -45,7 +45,7 @@ class ContentsController < ApplicationController
     #push 생성
     @group.users.each do|u|
       if u != current_user
-        u.pushs.create(message: @content.title, group_id: params[:group_id])
+        u.pushs.create(message: @content.title, pusher_id: params[:group_id], isGroup: true)
       end
     end
 

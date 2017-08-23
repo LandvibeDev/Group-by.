@@ -11,7 +11,11 @@ class User < ApplicationRecord
   has_many :usermails
   has_many :invites
   has_many :pushs
+  has_many :messages
+
+  has_many :projects_users
+  has_many :projects, :through => :projects_users
+
   has_and_belongs_to_many :groups, -> { distinct }
-  has_and_belongs_to_many :projects, -> { distinct }
   has_and_belongs_to_many :team_events, -> { distinct }
 end

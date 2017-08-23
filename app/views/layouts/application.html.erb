@@ -72,7 +72,7 @@
   <div class="sidebar-menu">
     <ul class="menu-items">
       <li class="m-t-30">
-        <a href="javascript:;">
+        <a style="CURSOR: pointer">
           <span class="title">GROUP</span>
           <span class=" arrow"></span>
         </a>
@@ -89,7 +89,7 @@
         </ul>
       </li>
       <li class="m-t-15">
-        <a href="javascript:;">
+        <a style="CURSOR: pointer">
           <span class="title">PROJECT</span>
           <span class=" arrow"></span>
         </a>
@@ -180,16 +180,7 @@
                   <div id="pushs">
                     <%= render partial: "layouts/push", collection: current_user.pushs %>
                   </div>
-
                   <!-- END Notification Body-->
-                  <!-- START Notification Footer-->
-                  <div class="notification-footer text-center">
-                    <a href="#" class="">Read all notifications</a>
-                    <a data-toggle="refresh" class="portlet-refresh text-black pull-right" href="#">
-                      <i class="pg-refresh_new"></i>
-                    </a>
-                  </div>
-                  <!-- END Notification Footer-->
                 </div>
               </div>
             </div>
@@ -218,7 +209,7 @@
             </span>
           </button>
           <ul class="dropdown-menu profile-dropdown" role="menu">
-            <li><a href="#"><i class="pg-settings_small"></i> Settings</a>
+            <li><a href="/users/edit"><i class="pg-settings_small"></i> Settings</a>
             </li>
             <li><a href="#"><i class="pg-outdent"></i> Feedback</a>
             </li>
@@ -303,10 +294,8 @@
   <!-- END Overlay Content !-->
 </div>
 <!-- END OVERLAY -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
 <!-- JS at bottom of page to improve load time, and only loaded once with 'data-turbolinks-eval' == false  -->
-
+<%= javascript_include_tag "application"%>
 <script>
     $(document).ready(function () {
 
@@ -450,7 +439,7 @@
 
 
 </script>
-<%= javascript_include_tag 'application' %>
+
 
 </body>
 </html>

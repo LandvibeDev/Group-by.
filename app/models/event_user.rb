@@ -1,2 +1,0 @@
-class EventUser < ApplicationRecord
-end

@@ -5,7 +5,7 @@ class UserProfileUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
   def default_url
-    ActionController::Base.helpers.asset_path("/images/profiles/avatar2x.jpg")
+    ActionController::Base.helpers.asset_path("profiles/avatar2x.jpg")
   end
 
   version :thumb do

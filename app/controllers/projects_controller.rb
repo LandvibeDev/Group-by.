@@ -89,6 +89,8 @@ class ProjectsController < ApplicationController
     @invite = @currentuser.invites.new(invite_user: params[:user_id], invite_project: params[:project_id], invite_user_email: @user.email, invite_project_title: @project.title)
     @invite.save
 
+    @user.pushs.create(message: @project.title, pusher_id: params[:project_id], isGroup: false)
+
     redirect_to user_project_path(current_user.id, @project.id)
   end
 

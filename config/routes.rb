@@ -38,6 +38,8 @@ Rails.application.routes.draw do
     end
 
     resources :projects do
+      get 'admin_user_add'
+      get 'admin_user_destroy'
       get 'join'
       get 'inviteCreate'
       get 'invite'

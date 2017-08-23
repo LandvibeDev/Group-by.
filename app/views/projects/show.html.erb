@@ -1,5 +1,7 @@
 <div class="fixed-navbar">
-  <ul class="nav nav-tabs nav-tabs-linetriangle">
+  <ul class="nav nav-tabs">
+    <label class="navbar-brand" style="border-right: 1px ridge;"> <%= @project.title %> </label>
+
     <li class="active">
       <a data-toggle="tab" href="#fade1" aria-expanded="true"><span>Progress</span></a>
     </li>
@@ -12,8 +14,18 @@
     <li class="">
       <a data-toggle="tab" href="#fade4" aria-expanded="false"><span>Invite</span></a>
     </li>
+    <% @userprojects.each do |user| %>
+        <% if user.user_id == current_user.id && user.project_id == @project.id %>
+            <% if user.admin_user == true %>
+                <li class="">
+                  <a data-toggle="tab" href="#fade5" aria-expanded="false"><span>Setting</span></a>
+                </li>
+            <% end %>
+        <% end %>
+    <% end %>
   </ul>
 </div>
+
 <div class="panel panel-transparent full-height p-t-50">
   <!-- Nav tabs -->
   <!-- Tab panes -->
@@ -60,7 +72,13 @@
     <div class="tab-pane fade full-height" id="fade2" scroll=auto style="overflow-x:hidden">
       <div class="row full-height">
         <div class="p-t-20 p-b-10 p-r-20" style="text-align: right">
-          <%= link_to 'Edit', project_calendar_path(@project.id), :class => 'btn btn-lg btn-info' %>
+          <% @userprojects.each do |user| %>
+              <% if user.user_id == current_user.id && user.project_id == @project.id %>
+                  <% if user.admin_user == true %>
+                      <%= link_to 'Edit', project_calendar_path(@project.id), :class => 'btn btn-lg' %>
+                  <% end %>
+              <% end %>
+          <% end %>
         </div>
         <div id="show_team_calendar_month" class="full-height"></div>
         <input type="hidden" id="project_id" value="<%= @project.id %>">
@@ -102,24 +120,15 @@
         </div>
       </div>
     </div>
-    <div class="tab-pane fade" id="fade3">
-      <div class="row" style="margin-left: 50px">
-
+    <div class="tab-pane fade full-height" id="fade3" >
+      <div class="row">
         <!-- BEGIN Conversation View  !-->
-        <div class="view chat-view bg-white clearfix" style="margin-right: 70px">
+        <div class="view chat-view bg-white clearfix" style="margin-left: 20px;">
           <!-- BEGIN Header  !-->
-          <div class="navbar navbar-default">
-            <div class="navbar-inner">
-              <div class="view-heading">
-                <h2 style="text-align: center"><%= @project.title %></h2>
-                <!--<div class="fs-11 hint-text">Online</div>-->
-              </div>
-            </div>
-          </div>
           <!-- END Header  !-->
           <!-- BEGIN Conversation  !-->
-          <div class="chat-inner" id="my-conversation">
-            <div id="messages" data-project=<%=@project.id%> data-user=<%= current_user.id%>>
+          <div class="chat-inner" id="my-conversation" scroll=auto style="overflow-x:hidden;height:780px;min-height: 780px;overflow: auto;background-color: rgba(240, 248, 255, 0.5);" >
+            <div id="messages" data-project=<%=@project.id%> data-user=<%= current_user.id%> >
 
               <%= render partial: "message", collection: @project.messages %>
             </div>
@@ -129,9 +138,9 @@
           <div class="b-t b-grey bg-white clearfix p-l-10 p-r-10">
             <div class="row">
               <div class="col-xs-1 p-t-15">
-                <a href="#" class="link text-master"><i class="fa fa-plus-circle"></i></a>
+                <a href="#" class="link text-master"> <label class="semi-bold"> Chat </label> </a>
               </div>
-              <div class="col-xs-8 no-padding">
+              <div class="col-xs-8 no-padding ">
                 <form>
                   <input type="text" class="form-control chat-input" id="type_message" data-behavior="room_speaker" data-chat-input="" data-chat-conversation="#my-conversation" placeholder="Say something">
                 </form>
@@ -139,11 +148,11 @@
             </div>
           </div>
           <!-- END Chat Input  !-->
-          </div>
         </div>
-        <!-- END Conversation View  !-->
-
       </div>
+      <!-- END Conversation View  !-->
+
+    </div>
     <div class="tab-pane fade" id="fade4">
       <div class="row">
         <div class="container-fluid container-fixed-lg bg-white" style="min-height: 840px;">
@@ -158,7 +167,7 @@
                   <table class="table table-striped dataTable no-footer" id="tableWithExportOptions" role="grid" aria-describedby="tableWithExportOptions_info">
                     <thead>
                     <tr role="row">
-                      <th class="sorting_asc" tabindex="0" aria-controls="tableWithExportOptions" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Project</th>
+                      <th class="sorting_asc" tabindex="0" aria-controls="tableWithExportOptions" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">User Name</th>
                       <th class="sorting" tabindex="0" aria-controls="tableWithExportOptions" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Invite</th>
                     </tr>
                     </thead>
@@ -176,8 +185,63 @@
                             <% end %>
                             <% if chk == true %>
                                 <tr class="gradeA odd" role="row">
-                                  <td class="sorting_1"><%= user1.email %></td>
+                                  <td class="sorting_1"><%= user1.name %></td>
                                   <td><%= link_to 'Invite', user_project_inviteCreate_path(user1.id, @project.id) %></td>
+                                </tr>
+                            <% end %>
+                        <% end %>
+                    <% end %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- END PANEL -->
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="fade5">
+      <div class="row">
+        <div class="container-fluid container-fixed-lg bg-white" style="min-height: 840px;">
+          <!-- START PANEL -->
+          <div class="panel panel-transparent">
+            <div class="panel-heading">
+              <div class="panel-title">All User</div>
+            </div>
+            <div class="panel-body">
+              <div id="tableWithExportOptions_wrapper" class="dataTables_wrapper form-inline no-footer">
+                <div class="table-responsive">
+                  <table class="table table-striped dataTable no-footer" id="tableWithExportOptions" role="grid" aria-describedby="tableWithExportOptions_info">
+                    <thead>
+                    <tr role="row">
+                      <th class="sorting_asc" tabindex="0" aria-controls="tableWithExportOptions" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">User Name</th>
+                      <th class="sorting" tabindex="0" aria-controls="tableWithExportOptions" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% @users.each do |user1| %>
+                        <% if user1.id != current_user.id %>
+                            <% chk = true %>
+                            <% @userprojects.each do |user2| %>
+                                <% if user2.project_id == @project.id %>
+                                    <% if user1.id == user2.user_id %>
+                                        <% if user2.admin_user == true %>
+                                            <% chk = false %>
+                                            <% break %>
+                                        <% end %>
+                                    <% end %>
+                                <% end %>
+                            <% end %>
+                            <% if chk == true %>
+                                <tr class="gradeA odd" role="row">
+                                  <td class="sorting_1"><%= user1.name %></td>
+                                  <td><%= link_to 'Make Admin', user_project_admin_user_add_path(user1.id, @project.id) %></td>
+                                </tr>
+                            <% else %>
+                                <tr class="gradeA odd" role="row">
+                                  <td class="sorting_1"><%= user1.name %></td>
+                                  <td><%= link_to 'Make User', user_project_admin_user_destroy_path(user1.id, @project.id) %></td>
                                 </tr>
                             <% end %>
                         <% end %>
@@ -196,6 +260,12 @@
 </div>
 
 <style>
+  body {
+    overflow: hidden;
+  }
+  .nav-tabs {
+    border-bottom: none;
+  }
   .fixed-navbar {
     position: fixed;
     z-index:100;
@@ -203,6 +273,7 @@
     width:100%;
     top: 60px;
     left: 70px;
+    border-bottom: 1px ridge;
     background-color: #fbfbfb;
   }
   .event-container{

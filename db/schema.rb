@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(version: 20170821105536) do
   create_table "projects_users", force: :cascade do |t|
     t.integer "user_id"
     t.integer "project_id"
+    t.boolean "admin_user"
     t.index ["project_id"], name: "index_projects_users_on_project_id"
     t.index ["user_id"], name: "index_projects_users_on_user_id"
   end

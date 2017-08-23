@@ -22,6 +22,9 @@ class ProjectsController < ApplicationController
     @users = User.all
 
     @userprojects = ProjectsUser.all
+
+    #운영자 check
+    @check_admin = ProjectsUser.where(user: current_user, project: @project)
   end
 
   # GET /projects/new
@@ -44,7 +47,8 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        @user.projects << @project
+        @user.projects_users.create(project: @project, admin_user: true)
+
         format.html { redirect_to project_calendar_path(@project.id) }
         format.json { render :show, status: :created, location: @project }
       else
@@ -110,7 +114,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        @user.projects << @project
+        @user.projects_users.create(project: @project, admin_user: false)
         format.html { redirect_to user_project_path(current_user.id, @project.id)}
         format.json { render :show, status: :created, location: @group }
       else
@@ -167,6 +171,27 @@ class ProjectsController < ApplicationController
 
     @event = TeamEvent.find(params[:id])
     @event.destroy
+  end
+
+  #admin관리
+  def admin_user_add
+    @user = User.find(params[:user_id])
+    @project = Project.find(params[:project_id])
+
+    @admin_user = ProjectsUser.where(user: @user, project: @project)
+    @admin_user.update(admin_user: true)
+
+    redirect_to user_project_path(current_user.id, @project.id)
+  end
+
+  def admin_user_destroy
+    @user = User.find(params[:user_id])
+    @project = Project.find(params[:project_id])
+
+    @admin_user = ProjectsUser.where(user: @user, project: @project)
+    @admin_user.update(admin_user: false)
+
+    redirect_to user_project_path(current_user.id, @project.id)
   end
 
   private

@@ -39,7 +39,6 @@
 //= require pages-plugins/jquery-metrojs/MetroJs.min
 //= require pages-plugins/gallery
 //= require pages-plugins/jquery-ui/jquery-ui.min
-//= require pages-plugins/interactjs/interact.min
 //= require pages-plugins/bootstrap-tabcollapse
 //= require pages-plugins/jquery.timepicker.min
 

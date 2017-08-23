@@ -300,10 +300,8 @@
   <!-- END Overlay Content !-->
 </div>
 <!-- END OVERLAY -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/interact.js/1.2.9/interact.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!-- JS at bottom of page to improve load time, and only loaded once with 'data-turbolinks-eval' == false  -->
-
+<%= javascript_include_tag "application"%>
 <script>
     $(document).ready(function () {
 
@@ -447,7 +445,7 @@
 
 
 </script>
-<%= javascript_include_tag "application", "data-turbolinks-track" => "reload"%>
+
 
 </body>
 </html>

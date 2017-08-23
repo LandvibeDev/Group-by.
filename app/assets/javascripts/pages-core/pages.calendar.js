@@ -258,7 +258,7 @@
                     yearInc = moment(yearInc, Calendar.settings.ui.year.format).add(1, 'year').format(Calendar.settings.ui.year.format);
                     var activeClass = (calendar.year == yearInc) ? 'active' : '';
                     Calendar.content += '<div class="year">';
-                    Calendar.content += '<a href="#" class="year-selector ' + activeClass + '" data-year=' + yearInc + '>' + yearInc + '</a>';
+                    Calendar.content += '<a style="CURSOR: pointer" class="year-selector ' + activeClass + '" data-year=' + yearInc + '>' + yearInc + '</a>';
                     Calendar.content += '</div>';
                 }
 
@@ -297,7 +297,7 @@
                     var formatedMonth = moment(months[i], 'MMMM').format(Calendar.settings.ui.month.format);
                     var activeClass =  currentMonth == formatedMonth ? 'active' : '';
                     Calendar.content += '<div class="month">';
-                    Calendar.content += '<a href="#" class="month-selector ' + activeClass + '" data-month="' + formatedMonth + '">' + formatedMonth + '</a>';
+                    Calendar.content += '<a style="CURSOR: pointer;" class="month-selector ' + activeClass + '" data-month="' + formatedMonth + '">' + formatedMonth + '</a>';
                     Calendar.content += '</div>';
                 }
                 $(this.container).append(Calendar.content);

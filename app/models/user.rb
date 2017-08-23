@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  mount_uploader :userProfile, UserProfileUploader
+
   has_many :events
   has_many :userpop3s
   has_many :usermails

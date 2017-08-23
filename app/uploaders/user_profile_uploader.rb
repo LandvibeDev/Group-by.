@@ -4,7 +4,9 @@ class UserProfileUploader < CarrierWave::Uploader::Base
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
 
-
+  def default_url
+    ActionController::Base.helpers.asset_path("/images/profiles/avatar2x.jpg")
+  end
 
   version :thumb do
     process :resize_to_fill => [69, 69]

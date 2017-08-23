@@ -1719,7 +1719,7 @@
          // Bind events
          // Toggle sub menus
          // In Angular Binding is done using a pg-sidebar directive
-         (typeof angular === 'undefined') && $(document).on('click', '.sidebar-menu a', function(e) {
+         (typeof angular === 'undefined') && $('.sidebar-menu a').on('click', function(e) {
 
              if ($(this).parent().children('.sub-menu') === false) {
                  return;

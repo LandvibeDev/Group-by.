@@ -19,6 +19,7 @@
 //= require pages-plugins/moment/moment.min
 //= require pages-plugins/moment/moment-with-locales.min
 //= require pages-plugins/bootstrapv3/js/bootstrap.min
+//= require pages-plugins/jquery/jquery-3.2.1.min
 //= require pages-plugins/jquery/jquery-easy
 //= require pages-plugins/jquery-unveil/jquery.unveil.min
 //= require pages-plugins/jquery-bez/jquery.bez.min
@@ -41,6 +42,7 @@
 //= require pages-plugins/jquery-ui/jquery-ui.min
 //= require pages-plugins/bootstrap-tabcollapse
 //= require pages-plugins/jquery.timepicker.min
+
 
 
 // BEGIN CORE TEMPLATE JS FOR PAGES

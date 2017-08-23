@@ -2,9 +2,24 @@ class HomeController < ApplicationController
   before_action :authenticate_user!, only: [:index, :eamil]
 
   def index
-    @user_category = UserCategory.find_by_user_id(current_user.id)
 
-    @categorygroup = Category.includes(:group_categories).all
+    # User Joined Groups
+    @user = User.find(current_user.id)
+
+    @userprojects = @user.projects.where(:complete => false)
+    @usergroups = @user.groups.all
+    @categories = Category.all
+    @userteamevents = @user.team_events.all
+
+    @categorygroups = {}
+    @categories.each do |category|
+      @categorygroups[category.id] = category.linked_groups.all
+    end
+
+    @projectevents = {}
+    @userprojects.each do |project|
+      @projectevents[project.id] = @userteamevents.where(:project_id => project.id).order(:created_at).limit(4)
+    end
 
 
   end

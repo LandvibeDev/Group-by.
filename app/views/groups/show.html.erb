@@ -112,7 +112,7 @@
                         <% if user.group_id == @group.id %>
                             <li class="m-r-10">
                               <div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
-                                <%= image_tag('profiles/1x.jpg') %>
+                                <img src="<%= User.find(user.user_id).userProfile.thumb.url %>">
                               </div>
                             </li>
                         <% end %>
@@ -143,31 +143,34 @@
                           <% if user2.group_id == @group.id %>
                               <% if user1.id == user2.user_id %>
                                   <% chk = false %>
+
+                                  <div class="gallery-item " data-width="1" data-height="1" style="float: left;margin: 30px">
+                                    <img class="image-responsive-height" src="<%= user1.userProfile.url %>">
+                                    <!-- START PREVIEW -->
+                                    <!-- END PREVIEW -->
+                                    <!-- START ITEM OVERLAY DESCRIPTION -->
+                                    <div class="overlayer bottom-left full-width">
+                                      <div class="overlayer-wrapper">
+                                        <div class="gradient-grey p-l-20 p-r-20 p-b-5">
+                                          <div class="">
+                                            <p class="pull-left bold text-white fs-14 p-t-10">
+                                              <% if chk == false %>
+                                                  <%= user1.email %>
+                                              <% end %>
+                                            </p>
+                                            <div class="clearfix"></div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!-- END PRODUCT OVERLAY DESCRIPTION -->
+                                  </div>
+
                                   <% break %>
                               <% end %>
                           <% end %>
                       <% end %>
-                      <div class="gallery-item " data-width="1" data-height="1" style="float: left;margin: 30px">
-                        <%= image_tag('gallery/2_1.jpg', :class => 'image-responsive-height') %>
-                        <!-- START PREVIEW -->
-                        <!-- END PREVIEW -->
-                        <!-- START ITEM OVERLAY DESCRIPTION -->
-                        <div class="overlayer bottom-left full-width">
-                          <div class="overlayer-wrapper">
-                            <div class="gradient-grey p-l-20 p-r-20 p-b-5">
-                              <div class="">
-                                <p class="pull-left bold text-white fs-14 p-t-10">
-                                  <% if chk == false %>
-                                      <%= user1.email %>
-                                  <% end %>
-                                </p>
-                                <div class="clearfix"></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- END PRODUCT OVERLAY DESCRIPTION -->
-                      </div>
+
                   <% end %>
                 </div>
               </div>
@@ -175,7 +178,7 @@
           </div>
           <!-- END ITEM -->
           <!-- START ITEM -->
-          <div class="card col2 padding-20" data-social="item">
+          <div style="width: 298px" class="card col2 padding-20" data-social="item">
 
             <%= render 'contents/form', content: @content %>
 
@@ -188,9 +191,9 @@
               <div class="card share  col1" data-social="item">
                 <div class="card-header clearfix">
                   <div class="user-pic">
-                    <%= image_tag('profiles/5x.jpg') %>
+                    <img src="<%= User.find(content.user_id).userProfile.thumb.url %>" >
                   </div>
-                  <span style="font-weight: bold;font-size: 18px;">Person Name</span>
+                  <span style="font-weight: bold;font-size: 18px;"><%= User.find(content.user_id).name %></span>
                   </h6>
                 </div>
                 <div class="card-description">

@@ -7,6 +7,7 @@ class User < ApplicationRecord
   mount_uploader :userProfile, UserProfileUploader
 
   has_many :events
+  has_many :contents
   has_many :userpop3s
   has_many :usermails
   has_many :invites

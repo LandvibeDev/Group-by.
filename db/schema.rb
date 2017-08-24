@@ -29,12 +29,14 @@ ActiveRecord::Schema.define(version: 20170821125524) do
 
   create_table "contents", force: :cascade do |t|
     t.integer "group_id"
+    t.integer "user_id"
     t.string "title"
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "image"
     t.index ["group_id"], name: "index_contents_on_group_id"
+    t.index ["user_id"], name: "index_contents_on_user_id"
   end
 
   create_table "events", force: :cascade do |t|

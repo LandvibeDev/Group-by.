@@ -29,6 +29,7 @@ class ContentsController < ApplicationController
     @content.title = params[:title]
     @content.content = params[:content]
     @content.image = params[:image]
+    @content.user_id = current_user.id
 
     respond_to do |format|
       if @content.save

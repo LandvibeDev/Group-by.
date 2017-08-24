@@ -32,7 +32,7 @@
         FOR DEMO PURPOSES, FIRST GALLERY ITEM (.first) IS HIDDEN
         FOR SCREENS <920px. PLEASE REMOVE THE CLASS 'first' WHEN YOU IMPLEMENT
     --><% @groups.each do |group| %>
-      <%= link_to user_group_path(current_user.id, group.id) do %>
+      <%= link_to group_path(group.id) do %>
           <div class="gallery-item " data-width="2" data-height="2">
             <img src="<%=group.groupProfile.url %>" class="image-responsive-height" alt="Image not found" />
             <!-- START PREVIEW -->

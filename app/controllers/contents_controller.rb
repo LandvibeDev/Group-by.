@@ -28,13 +28,11 @@ class ContentsController < ApplicationController
     @content = @group.contents.new(content_params)
     @content.title = params[:title]
     @content.content = params[:content]
-    @content.start_date = params[:start_date]
-    @content.end_date = params[:end_date]
     @content.image = params[:image]
 
     respond_to do |format|
       if @content.save
-        format.html { redirect_to user_group_path(current_user.id, params[:group_id]) }
+        format.html { redirect_to group_path(params[:group_id]) }
         format.json { render :show, status: :created, location: @content }
       else
         format.html { render :new }

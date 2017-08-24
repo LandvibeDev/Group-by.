@@ -44,7 +44,7 @@ class UsermailsController < ApplicationController
                        :enable_ssl => true
     end
 
-    mail = Mail.find(:what => :first, :count => 2)
+    mail = Mail.find(:what => :first, :count => 10)
 
     mail.each do |m|
       @usermail = @userpop.usermails.new(usermail_params)

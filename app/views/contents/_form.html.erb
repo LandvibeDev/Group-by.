@@ -1,35 +1,18 @@
-<%= form_with(url: group_contents_path(@group.id), local: true) do |form| %>
+<%= form_with(url: group_contents_path(@group.id), local: true, class: 'simform no-margin', autocomplete: 'off') do |form| %>
     <div class="form-group form-group-default">
       <%= form.label :title %>
-      <%= form.text_field :title, id: :content_title, :class => 'form-control' %>
+      <%= form.text_field :title, id: :content_title ,  :class => 'form-control' %>
     </div>
-
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="form-group form-group-default">
-          <%= form.label 'Start Date' %>
-          <%= form.datetime_field :start_date, id: :content_start_date, :class => 'form-control'%>
-        </div>
-      </div>
-
-      <div class="col-sm-6">
-        <div class="form-group form-group-default">
-          <%= form.label 'End Date' %>
-          <%= form.datetime_field :end_date, id: :content_end_date, :class => 'form-control'%>
-        </div>
-      </div>
-    </div>
-
     <div class="form-group form-group-default">
-      <%= form.label :content %>
-      <%= form.text_area :content, id: :content_content, :class => 'form-control' %>
-    </div>
 
-    <div>
-      <%= form.file_field :image %>
+      <%= form.label :content %>
+      <%= form.text_area :content, id: :content_jd,  :class => 'form-control' %>
+    </div>
+    <div class="form-group form-group-default">
+    <%= form.file_field :image %>
     </div>
 
     <div class="actions">
-      <%= form.submit 'Save Changes', :class => 'btn btn-primary' %>
+    <%= form.submit 'Save Changes', :class => 'btn btn-primary' %>
     </div>
 <% end %>

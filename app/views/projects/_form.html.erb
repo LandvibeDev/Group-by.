@@ -1,6 +1,6 @@
 <div style="width: 600px;margin: 0 auto;display: table;height: 100%;">
   <div style="display: table-cell;vertical-align: middle; ">
-    <%= form_with(url: user_projects_path, local: true) do |form| %>
+    <%= form_with(url: projects_path, local: true) do |form| %>
         <% if project.errors.any? %>
             <div id="error_explanation">
               <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>

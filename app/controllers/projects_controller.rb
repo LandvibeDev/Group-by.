@@ -17,12 +17,18 @@ class ProjectsController < ApplicationController
   # GET /projects/1.json
   def show
     @project = Project.find(params[:id])
-    @team_events = @project.team_events.order('start_date')
 
-    @users = User.all
+    # 프로젝트의 가입된 유저 check
+    @check_project_user = ProjectsUser.where(user: current_user, project: @project)
+    if(@check_project_user.empty?)
+      redirect_to notfind_projects_path
+    else
+      @team_events = @project.team_events.order('start_date')
 
-    @userprojects = ProjectsUser.all
+      @users = User.all
 
+      @userprojects = ProjectsUser.all
+    end
     #운영자 check
     @check_admin = ProjectsUser.where(user: current_user, project: @project)
   end
@@ -197,13 +203,13 @@ class ProjectsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_project
-      # @project = Project.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_project
+    # @project = Project.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def project_params
-      # params.require(:project).permit(:title)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def project_params
+    # params.require(:project).permit(:title)
+  end
 end

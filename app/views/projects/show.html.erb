@@ -127,7 +127,7 @@
           <!-- BEGIN Header  !-->
           <!-- END Header  !-->
           <!-- BEGIN Conversation  !-->
-          <div class="chat-inner" id="my-conversation" scroll=auto style="overflow-x:hidden;height: 750px;min-height: 750px;overflow: auto;background-color: rgba(240, 248, 255, 0.5);" >
+          <div class="chat-inner" id="my-conversation" scroll=auto style="overflow-x:hidden;height: 500px;min-height: 500px;overflow: auto;background-color: rgba(240, 248, 255, 0.5);" >
             <div id="messages" data-project=<%=@project.id%> data-user=<%= current_user.id%> >
 
               <%= render partial: "message", collection: @project.messages %>

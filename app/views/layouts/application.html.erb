@@ -280,11 +280,14 @@
       <div class="m-t-40">
         <p class="bold">Pages Search Results</p>
         <div class="row">
-          <div class="col-md-4" id="search-results-users" >
+
+          <div class="col-md-12" id="search-results-mygroups">
           </div>
-          <div class="col-md-4" id="search-results-mygroups">
-          </div>
-          <div class="col-md-4" id="search-results-groups">
+
+        </div>
+        <div class="row">
+
+          <div class="col-md-12" id="search-results-groups">
           </div>
         </div>
       </div>
@@ -353,48 +356,22 @@
             dataType: "json",
             success:function (result) {
 
-                var users = result.users;
                 var mygroups = result.mygroups;
                 var groups = result.groups;
 
-                var users_html = '';
                 var mygroups_html = '';
                 var groups_html = '';
 
-                $("#search-results-users").children().remove();
                 $("#search-results-mygroups").children().remove();
                 $("#search-results-groups").children().remove();
-
-                $.each(users, function (index, entry) {
-
-                    users_html =
-                        '<div>' +
-                        '<div class="thumbnail-wrapper d48 circular bg-success text-white inline m-t-10">' +
-                        '<div>' +
-                        '<%= image_tag('profiles/avatar.jpg') %>' +
-                        '</div>'  +
-                        '</div>'  +
-                        '<div class="p-l-10 inline p-t-5">' +
-                        '<h5 class="m-b-5">' +
-                        entry.email+
-                        '</h5>' +
-                        '<p class="hint-text">' +
-                        entry.email+
-                        '</p>'+
-                        '</div>'  +
-                        '</div>';
-
-                    $("#search-results-users").append(users_html);
-
-                });
 
 
                 $.each(mygroups, function (index, entry) {
                     mygroups_html =
-                        '<div>' +
+                        '<div class="col-md-4">' +
                         '<div class="thumbnail-wrapper d48 circular bg-success text-white inline m-t-10">' +
                         '<div>' +
-                        '<%= image_tag('profiles/avatar.jpg') %>' +
+                        '<img src=' + entry.groupProfile.thumb.url + '>' +
                         '</div>'  +
                         '</div>'  +
                         '<div class="p-l-10 inline p-t-5">' +
@@ -411,10 +388,10 @@
 
                 $.each(groups, function (index, entry) {
                     groups_html =
-                        '<div>' +
+                        '<div class="col-md-4">' +
                         '<div class="thumbnail-wrapper d48 circular bg-success text-white inline m-t-10">' +
                         '<div>' +
-                        '<%= image_tag('profiles/avatar.jpg') %>' +
+
                         '</div>'  +
                         '</div>'  +
                         '<div class="p-l-10 inline p-t-5">' +

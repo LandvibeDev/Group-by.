@@ -3,13 +3,13 @@
   <div class="notification-item  clearfix">
     <div class="heading">
       <% if push.isGroup %>
-          <a href="/users/<%=current_user.id%>/groups/<%= push.pusher_id %>" class="text-warning pull-left">
+          <a href="/groups/<%= push.pusher_id %>" class="text-warning pull-left">
             <i class="fa fa-users m-r-10"></i>
             <span class="bold"><%= push.message %></span>
             <span class="fs-12 m-l-10"> - <%= Group.find(push.pusher_id).title %></span>
           </a>
       <% else %>
-          <a href="/users/<%=current_user.id%>/inviteShow" class="text-complete pull-left">
+          <a href="/projects/<%= push.pusher_id %>" class="text-complete pull-left">
             <i class="fa fa-tablet m-r-10"></i>
             <span class="bold"><%= push.message %></span>
             <span class="fs-12 m-l-10"> - <%= Project.find(push.pusher_id).title %></span>

@@ -71,7 +71,6 @@
             $('#show_team_calendar-event').removeClass('open');
         });
 
-        $('.bg-success-lighter').addStyle.cursor = 'pointer';
     });
 })(window.jQuery);
 

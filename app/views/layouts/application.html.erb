@@ -272,24 +272,20 @@
     </div>
     <!-- BEGIN Overlay Search Results, This part is for demo purpose, you can add anything you like !-->
     <div class="container-fluid">
-          <span>
-                <strong>suggestions :</strong>
-            </span>
-      <span id="overlay-suggestions"></span>
       <br>
-      <div class="m-t-40">
-        <p class="bold">Pages Search Results</p>
-        <div class="row">
-
-          <div class="col-md-12" id="search-results-mygroups">
+      <div class="m-t-10">
+            <span>
+                <strong>My Groups </strong>
+            </span>
+          <div class="col-md-12 m-t-10" id="search-results-mygroups">
           </div>
-
-        </div>
-        <div class="row">
-
+          <hr/>
+            <span>
+                <strong>All Groups </strong>
+            </span>
           <div class="col-md-12" id="search-results-groups">
           </div>
-        </div>
+
       </div>
     </div>
     <!-- END Overlay Search Results !-->
@@ -369,10 +365,9 @@
                 $.each(mygroups, function (index, entry) {
                     mygroups_html =
                         '<div class="col-md-4">' +
+                        '<a href=/groups/'+entry.id+'>' +
                         '<div class="thumbnail-wrapper d48 circular bg-success text-white inline m-t-10">' +
-                        '<div>' +
-                        '<img src=' + entry.groupProfile.thumb.url + '>' +
-                        '</div>'  +
+                        '<img src=' + entry.groupProfile.url + '>' +
                         '</div>'  +
                         '<div class="p-l-10 inline p-t-5">' +
                         '<h5 class="m-b-5">' +
@@ -382,6 +377,7 @@
                         entry.description+
                         '</p>'  +
                         '</div>'  +
+                        '</a>'
                         '</div>';
                     $("#search-results-mygroups").append(mygroups_html);
                 });
@@ -389,10 +385,9 @@
                 $.each(groups, function (index, entry) {
                     groups_html =
                         '<div class="col-md-4">' +
+                        '<a href=/groups/'+entry.id+'>' +
                         '<div class="thumbnail-wrapper d48 circular bg-success text-white inline m-t-10">' +
-                        '<div>' +
-
-                        '</div>'  +
+                        '<img src=' + entry.groupProfile.url + '>' +
                         '</div>'  +
                         '<div class="p-l-10 inline p-t-5">' +
                         '<h5 class="m-b-5">' +
@@ -402,7 +397,8 @@
                         entry.description+
                         '</p>'  +
                         '</div>'  +
-                        '</div>';
+                        '</a>'
+                    '</div>';
                     $("#search-results-groups").append(groups_html);
                 });
 

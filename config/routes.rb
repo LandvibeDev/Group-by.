@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   resources :projects do
     get 'calendar'
+    get 'notfind', on: :collection
     post 'create_teamEvent'
     post 'new_load_teamEvent'
     resource :users
@@ -16,7 +17,7 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  resources :groups, only: [:index, :edit, :update] do
+  resources :groups do
     resource :users
     resource :contents
   end
@@ -26,8 +27,8 @@ Rails.application.routes.draw do
   end
 
   resources :users do
-    get 'inviteShow'
-    get 'all'
+    get 'inviteShow', on: :collection
+    get 'all', on: :collection
     get 'search' => 'users#search'
     get 'search/:word' => 'users#search'
 

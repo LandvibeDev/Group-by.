@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   # GET /groups
   def inviteShow
-    @user = User.find(params[:user_id])
-    @invites = Invite.where(:invite_user => params[:user_id])
+    @user = User.find(current_user.id)
+    @invites = Invite.where(:invite_user => @user.id)
   end
 
   # GET /groups

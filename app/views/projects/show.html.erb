@@ -123,30 +123,28 @@
     <div class="tab-pane fade full-height" id="fade3" >
       <div class="row full-height">
         <!-- BEGIN Conversation View  !-->
-        <div class="view chat-view bg-white clearfix full-height" style="margin-left: 20px">
+        <div class="view chat-view bg-white clearfix full-height">
           <!-- BEGIN Header  !-->
           <!-- END Header  !-->
           <!-- BEGIN Conversation  !-->
-          <div class="row full-height">
-            <div class="col-sm-12 full-height">
-              <div class="chat-inner ar-2" id="my-conversation" scroll=auto style="overflow-x:hidden;height: 93.3333% !important;overflow: auto;background-color: rgba(240, 248, 255, 0.5);" >
-                <div id="messages" data-project=<%=@project.id%> data-user=<%= current_user.id%> >
+          <div class="col-sm-12 full-height">
+            <div class="chat-inner" id="my-conversation" scroll=auto style="overflow-x:hidden;height: 93.3333% !important;overflow: auto;background-color: rgba(240, 248, 255, 0.5);" >
+              <div id="messages" data-project=<%=@project.id%> data-user=<%= current_user.id%> >
 
-                  <%= render partial: "message", collection: @project.messages %>
-                </div>
+                <%= render partial: "message", collection: @project.messages %>
               </div>
-              <!-- BEGIN Conversation  !-->
-              <!-- BEGIN Chat Input  !-->
-              <div class="b-t b-grey bg-white clearfix p-l-10 p-r-10">
-                <div class="row">
-                  <div class="col-xs-1 p-t-15">
-                    <a href="#" class="link text-master"> <label class="semi-bold"> Chat </label> </a>
-                  </div>
-                  <div class="col-xs-8 no-padding ">
-                    <form>
-                      <input type="text" class="form-control chat-input" id="type_message" data-behavior="room_speaker" data-chat-input="" data-chat-conversation="#my-conversation" placeholder="Say something">
-                    </form>
-                  </div>
+            </div>
+            <!-- BEGIN Conversation  !-->
+            <!-- BEGIN Chat Input  !-->
+            <div class="b-t b-grey bg-white clearfix p-l-10 p-r-10">
+              <div class="row">
+                <div class="col-xs-1 p-t-15">
+                  <a href="#" class="link text-master"> <label class="semi-bold"> Chat </label> </a>
+                </div>
+                <div class="col-xs-8 no-padding ">
+                  <form>
+                    <input type="text" class="form-control chat-input" id="type_message" data-behavior="room_speaker" data-chat-input="" data-chat-conversation="#my-conversation" placeholder="Say something">
+                  </form>
                 </div>
               </div>
             </div>

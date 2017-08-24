@@ -1,8 +1,21 @@
+// 채팅창 아래로 내리기
+var scrollToBottom = function() {var chat_inner =$('#my-conversation')
+    chat_inner[0].scrollTop = chat_inner[0].scrollHeight;}
+
+$('.nav-tabs a').on('shown.bs.tab', function () {
+    if ($(this).attr('href') == '#fade3') {
+        scrollToBottom();
+    }
+});
+
+//채팅 메세지 전송
 $(document).on('turbolinks:load', function() {
     submitNewMessage();
 });
 
-var p_id = $("[data-project]").data().project;
+if($("[data-project]").data() ) {
+    var p_id = $("[data-project]").data().project;
+}
 
 App['room' + p_id] = App.cable.subscriptions.create({channel: 'RoomChannel', room: p_id}, {
     connected: function() {
@@ -26,6 +39,7 @@ App['room' + p_id] = App.cable.subscriptions.create({channel: 'RoomChannel', roo
                 '</div>' +
                 '</div>');
         }
+        scrollToBottom();
         return console.log('recevied');
     },
     setProjectId: function(projectId) {

@@ -7,9 +7,10 @@
 <% else%>
     <div class="message clearfix">
       <!--message.user_id 이용하여 사진 삽입-->
-      <!--<div class="profile-img-wrapper m-t-5 inline">-->
-        <!--<img class="col-top" width="30" height="30" src="assets/img/profiles/avatar_small.jpg" alt="" data-src="assets/img/profiles/avatar_small.jpg" data-src-retina="assets/img/profiles/avatar_small2x.jpg">-->
-      <!--</div>-->
+      <div class="fs-11 hint-text" style="height: 20px"><%= User.find(message.user_id).name %></div>
+      <div class="profile-img-wrapper m-t-5 inline">
+        <img class="col-top" width="30" height="30" src=<%= User.find(message.user_id).userProfile.thumb.url %> alt="" >
+      </div>
       <div class="chat-bubble from-them">
         <%= message.content %>
       </div>

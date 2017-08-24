@@ -15,7 +15,7 @@
 
             <div class="row">
               <div class="col-sm-12">
-                <div class="form-group form-group-default">
+                <div class="form-group form-group-default" readonly="true">
                   <%= f.label :email %>
                   <%= f.email_field :email, autofocus: true, placeholder: "User email", class: "form-control" %>
                 </div>
@@ -34,26 +34,6 @@
               </div>
             </div>
 
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="form-group form-group-default">
-                  <%= f.label :password %>
-                  <% if @minimum_password_length %>
-                      <em>(<%= @minimum_password_length %> characters minimum)</em>
-                  <% end %>
-                  <%= f.password_field :password, autocomplete: "off", placeholder: "Minimum of 6 Charactors", class: "form-control"%>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="form-group form-group-default">
-                  <%= f.label :password_confirmation %>
-                  <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Minimum of 6 Charactors", class: "form-control" %>
-                </div>
-              </div>
-            </div>
 
 
 

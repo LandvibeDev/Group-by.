@@ -6,14 +6,14 @@ class HomeController < ApplicationController
     # User Joined Groups
     @user = User.find(current_user.id)
 
-    @userprojects = @user.projects.where(:complete => false)
-    @usergroups = @user.groups.all
+    @userprojects = @user.projects.where(:complete => false).order(:updated_at).limit(8)
+    @usergroups = @user.groups.select("* , count(users.id) as cnt").joins(:users).group("groups.id").order("count(users.id) desc").limit(8)
     @categories = Category.all
     @userteamevents = @user.team_events.all
 
     @categorygroups = {}
     @categories.each do |category|
-      @categorygroups[category.id] = category.linked_groups.all
+      @categorygroups[category.id] = category.linked_groups.select("* , count(users.id) as cnt").joins(:users).group("groups.id").order("count(users.id) desc").limit(8)
     end
 
     @projectevents = {}

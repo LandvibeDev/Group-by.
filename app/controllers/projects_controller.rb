@@ -159,6 +159,7 @@ class ProjectsController < ApplicationController
       @user.team_events << @event
       format.json {render json: @event}
     end
+
   end
 
   def edit_teamEvent

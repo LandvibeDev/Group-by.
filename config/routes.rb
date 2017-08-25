@@ -67,7 +67,7 @@ Rails.application.routes.draw do
   end
 
   get 'home/calendar_month'
-  get 'groups/comments_create/:content_id/:group_id' => 'groups#comments_create'
+  post 'groups/comments_create/:content_id/:group_id' => 'groups#comments_create'
 
   post 'home/current_load_event/:id' => 'home#current_load_event'
   post 'home/new_load_event' => 'home#new_load_event'

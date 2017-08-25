@@ -185,8 +185,8 @@
             </div>
           <% end %>
           <!-- END ITEM -->
-          <!-- START ITEM -->
-          <!-- START ITEM -->
+          <!-- START Contents -->
+
           <% @contents.each do |content| %>
               <div class="card share  col1" data-social="item">
                 <div class="card-header clearfix">
@@ -211,27 +211,25 @@
                       text-overflow: ellipsis;
                       -webkit-box-orient: vertical;"><%= content.content %></p>
                 </div>
-                <div class="card-footer clearfix">
+                <div class="card-footer clearfix" id="content_modal" data-toggle="modal" data-target="#contentModal<%= content.id %>">
                   <div class="time">few seconds ago</div>
-                  <ul class="reactions" id="content_modal" data-toggle="modal" data-target="#contentModal<%= content.id %>">
-                    <li><a href="#"><i class="fa fa-commenting-o"></i></a>
+                  <ul class="reactions">
+                    <li><i class="fa fa-commenting-o"></i>
                     </li>
-                    <li><a href="#"><i class="fa fa-trash-o"></i></a>
-                    </li>
-                    <li><a href="#"><l class="fa fa-pencil"></l></a> </li>
                   </ul>
                 </div>
               </div>
 
+              <!-- data-target contentModal -->
               <div class="modal fade fill-in" id="contentModal<%= content.id %>" tabindex="-1" role="dialog" aria-labelledby="modalFillInLabel" aria-hidden="true">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                  <i class="pg-close"></i>
+                  <i class="close-icon-light overlay-close text-black fs-16 fa fa-times"></i>
                 </button>
                 <div class="modal-dialog " style="min-width: 880px;">
                   <div class="modal-content" style="background: rgba(255, 255, 255, 0.53);">
                     <div class="modal-header" style="border-bottom: 1px solid;border-bottom-color: darkgrey;">
                       <div class="user-pic" style="float: left">
-                        <%= image_tag('profiles/5x.jpg', :style => 'width: 40px;border-radius: 100%;' ) %>
+                        <img src="<%= User.find(content.user_id).userProfile.thumb.url %>" style ='width: 40px;border-radius: 100%;' )>
                       </div>
                       <div style="float: left;">
                         <h3 class="text-left p-l-20" ><%= content.title %></h3>
@@ -245,9 +243,7 @@
                         <h3><%= content.content %></h3>
                       </div>
                     </div>
-                    <input type="hidden" class="content-id" value="<%= content.id %>">
-
-                    <div class="modal-footer" id="<%= content.id %>" style="min-height: 300px;">
+                    <div class="modal-footer" id="modal-footer-<%= content.id %>" style="min-height: 300px;">
                       <div>
                         <div style="float: left;">
                           <i class="fa fa-commenting fa-2x" aria-hidden="true" style="line-height: 53.64px;">
@@ -258,15 +254,15 @@
                           <h3>Group by.</h3>
                         </div>
                       </div>
-                      <form id="comment-input<%= content.id %>" class="form-group form-group-default input-group" style="float: left;">
+                      <div id="comment-input" class="form-group form-group-default input-group" style="float: left;">
                         <label class="text-left">Comments</label>
-                        <input type="text" class="form-control" id="comment-text" name="comment">
-                        <a type="submit" id="comment-enter<%= content.id %>" class="input-group-addon">Enter</a>
-                      </form>
+                        <input type="text" class="form-control  comments-input" id="<%= content.id %> // <%= @group.id %> //  <%= current_user.email %> //  <%= current_user.id %> //  <%= User.find(current_user.id).userProfile.thumb.url %>" name="comment">
+                        <a  class="input-group-addon comments-enter" >Enter</a>
+                      </div>
                       <% content.comments.each do |com| %>
                           <div id="comment-div" class="p-b-10 p-t-10" style="float: left;width: 100%;text-align: left;">
                             <div class="user-pic p-r-15" style="float: left">
-                              <%= image_tag('profiles/5x.jpg', :style => 'width: 50px;border-radius: 100%;' ) %>
+                              <img src="<%= User.find_by_email(com.user_name).userProfile.thumb.url %>" style ='width: 50px;border-radius: 100%;' )>
                             </div>
                             <span class="semi-bold"><%= com.user_name %></span>
                             <h4 style="line-height: 10px;"><%= com.comment %></h4>
@@ -279,7 +275,7 @@
                 <!-- /.modal-dialog -->
               </div>
           <% end %>
-          <!-- END ITEM -->
+          <!-- END Contents -->
         </div>
         <!-- END DAY -->
       </div>
@@ -290,75 +286,7 @@
   <!-- /container -->
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<script>
-
-    $(document).ready(function() {
-
-        var content_id = $('.content-id').val();
-        for(var i=0;i<content_id.size();i++) {
-
-            var comment_input = '#comment-input' + content_id[i];
-            var comment_enter = '#comment-enter' + content_id[i];
-
-
-            $(comment_input).on('submit', function (e) {
-                e.preventDefault();
-                var content = $('#comment-text').val();
-                var modal_footer = '#' + content_id;
-                $.ajax({
-                    url: '/groups/comments_create/' + content_id[i] + '/<%= @group.id %>',
-                    type: "GET",
-                    data: $(comment_input).serialize(),
-                    success: function (data) {
-                        $('#comment-text').val('');
-                        $(modal_footer).append('<div id="comment-div" class="p-b-10 p-t-10" style="float: left;width: 100%;text-align: left;">' +
-                            '<div class="user-pic p-r-15" style="float: left">' +
-                            '<%= image_tag('profiles/5x.jpg', :style => 'width: 50px;border-radius: 100%;' ) %>' +
-                            '</div>' + '<span class="semi-bold">' + '<%= current_user.email %>' + '</span>' + '<h4 style="line-height: 10px;">' + content + '</h4>' + '</div>');
-                        return false;
-                    }
-                });
-            });
-
-            $(comment_enter).on('click', function (e) {
-                e.preventDefault();
-                var content = $('#comment-text').val();
-                var modal_footer = '#' + content_id[i];
-                $.ajax({
-                    url: '/groups/comments_create/' + content_id[i] + '/<%= @group.id %>',
-                    type: "GET",
-                    data: $(comment_enter).serialize(),
-                    success: function (data) {
-                        $('#comment-text').val('');
-                        $(modal_footer).append('<div id="comment-div" class="p-b-10 p-t-10" style="float: left;width: 100%;text-align: left;">' +
-                            '<div class="user-pic p-r-15" style="float: left">' +
-                            '<%= image_tag('profiles/5x.jpg', :style => 'width: 50px;border-radius: 100%;' ) %>' +
-                            '</div>' + '<span class="semi-bold">' + '<%= current_user.email %>' + '</span>' + '<h4 style="line-height: 10px;">' + content + '</h4>' + '</div>');
-                        return false;
-                    }
-                });
-            });
-        }
-
-        document.getElementById("status-q1").readOnly = true;
-
-        $('#startDatepicker').datepicker({
-            minDate: 0
-        });
-        $('#startDatepicker').datepicker("option", "maxDate", $("#endDatepicker").val());
-        $('#startDatepicker').datepicker("option", "onClose", function ( selectedDate ) {
-            $("#endDatepicker").datepicker( "option", "minDate", selectedDate );
-        });
-
-        $('#endDatepicker').datepicker();
-        $('#endDatepicker').datepicker("option", "minDate", $("#startDatepicker").val());
-        $('#endDatepicker').datepicker("option", "onClose", function ( selectedDate ) {
-            $("#startDatepicker").datepicker( "option", "maxDate", selectedDate );
-        });
-    });
-</script>
 
 <style>
   .semi-bold {
@@ -366,5 +294,11 @@
   }
   .card-content-list {
     display: inline;
+  }
+  .comments-input{
+    ;
+  }
+  .comments-enter{
+    ;
   }
 </style>

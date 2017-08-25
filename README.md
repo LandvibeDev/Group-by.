@@ -29,9 +29,9 @@
     
 ## Link
 
-> [License](https://github.com/LandvibeDev/Group-by./blob/master/package.json)
+> [License](https://github.com/LandvibeDev/Group-by./blob/master/LICENSE)
 
-> [PPT](https://github.com/LandvibeDev/Group-by./blob/master/package.json)
+> [PPT](https://landvibedev.github.io/Group-by./)
 
 > [Service](http://13.124.130.15:3000)
 

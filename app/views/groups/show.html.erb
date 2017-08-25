@@ -178,12 +178,12 @@
           </div>
           <!-- END ITEM -->
           <!-- START ITEM -->
-          <div style="width: 298px" class="card col2 padding-20" data-social="item">
-
-            <%= render 'contents/form', content: @content %>
-
-            <!-- /simform -->
-          </div>
+          <% if @usergroups.where("group_id = ? and user_id = ?" ,  @group.id , current_user.id).exists? %>
+            <div style="width: 298px" class="card col2 padding-20" data-social="item">
+                <%= render 'contents/form', content: @content %>
+              <!-- /simform -->
+            </div>
+          <% end %>
           <!-- END ITEM -->
           <!-- START ITEM -->
           <!-- START ITEM -->

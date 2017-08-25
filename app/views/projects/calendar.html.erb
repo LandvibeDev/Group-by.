@@ -1,5 +1,5 @@
 <div class="p-t-20 p-b-10 p-r-20" style="text-align: right">
-  <%= link_to 'Save Project', project_path(@project.id), :class => 'btn btn-lg' %>
+  <%= link_to 'Save Project', project_save_path(@project.id) ,method: :post, :class => 'btn btn-lg' %>
 </div>
 
 <!-- START CALENDAR -->

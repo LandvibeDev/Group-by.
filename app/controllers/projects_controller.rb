@@ -88,6 +88,22 @@ class ProjectsController < ApplicationController
     end
   end
 
+  # POST /projects/:project_id/save
+  def save
+    @project = Project.find(params[:project_id])
+
+    #push
+    @project.users.each do |user|
+      if user.id != current_user.id
+        user.pushs.create(message: @project.title, pusher_id: @project.id, push_num: 3)
+      end
+    end
+
+    path = '/projects/' + @project.id.to_s
+
+    redirect_to path
+  end
+
   # 초대 기능
   # GET /groups
   def inviteCreate
@@ -99,7 +115,8 @@ class ProjectsController < ApplicationController
     @invite = @currentuser.invites.new(invite_user: params[:user_id], invite_project: params[:project_id], invite_user_email: @user.email, invite_project_title: @project.title)
     @invite.save
 
-    @user.pushs.create(message: @project.title, pusher_id: params[:project_id], isGroup: false)
+    #push
+    @user.pushs.create(message: @project.title, pusher_id: params[:project_id], push_num: 2)
 
     redirect_to user_project_path(current_user.id, @project.id)
   end

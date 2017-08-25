@@ -35,7 +35,7 @@
 
       var delete_push = function (id) {
           $.ajax({
-              url: 'delete_push/'+id,
+              url: '/delete_push/'+id,
               success: function(count){
                   if(count == 0){
                       $('.bubble').removeClass('bubble');

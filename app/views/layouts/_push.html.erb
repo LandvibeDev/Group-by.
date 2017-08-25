@@ -2,18 +2,30 @@
   <!-- START Notification Item-->
   <div class="notification-item  clearfix">
     <div class="heading">
-      <% if push.isGroup %>
-          <a href="/groups/<%= push.pusher_id %>" class="text-warning pull-left">
+      <!--created new group content-->
+      <% if push.push_num == 1 %>
+          <a href="/groups/<%= push.pusher_id %>" class="text-danger pull-left">
             <i class="fa fa-users m-r-10"></i>
             <span class="bold"><%= push.message %></span>
             <span class="fs-12 m-l-10"> - <%= Group.find(push.pusher_id).title %></span>
           </a>
-      <% else %>
-          <a href="/projects/<%= push.pusher_id %>" class="text-complete pull-left">
+
+      <!--invited in project-->
+      <% elsif push.push_num == 2%>
+          <a href="/users/inviteShow" class="text-complete pull-left">
             <i class="fa fa-tablet m-r-10"></i>
             <span class="bold"><%= push.message %></span>
-            <span class="fs-12 m-l-10"> - <%= Project.find(push.pusher_id).title %></span>
+            <span class="fs-12 m-l-10"> - invite</span>
           </a>
+
+      <!--edited project event-->
+      <% elsif push.push_num == 3%>
+          <a href="/projects/<%= push.pusher_id %>" class="text-warning-dark pull-left">
+             <i class="fa fa-pencil-square-o m-r-10"></i>
+             <span class="bold"><%= push.message %></span>
+             <span class="fs-12 m-l-10"> - edited</span>
+          </a>
+      <% else %>
       <% end %>
 
       <span class="pull-right time">

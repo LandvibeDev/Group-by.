@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   resources :projects do
     get 'calendar'
+    post 'save'
     get 'notfind', on: :collection
     post 'create_teamEvent'
     post 'new_load_teamEvent'

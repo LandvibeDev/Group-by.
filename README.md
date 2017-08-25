@@ -1,24 +1,37 @@
-# README
+# _GROUP BY_
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+대학생들을 위한 프로젝트 통합 관리 및 개인 일정 관리, 오픈 그룹방 제공.
 
-Things you may want to cover:
+## Features
+    * 대학생들을 위한 프로젝트 관리
+    
+    * 오픈 그룹방을 통한 관심사 공유
+    
+    * 개인 일정 관리
+    
+    * 통합 메일 서비스
+    
+    
+## Configuration
 
-* Ruby version
+    * Database creation
+    
+    * Database initialization
+    
+## Deployment instructions
 
-* System dependencies
+## System dependencies
 
-* Configuration
+    * Ruby version 2.3.1
+    * rails version 5.1.2
+    * sqlite3 version 3.16.0
+    
+    
+## Link
 
-* Database creation
+> [License](https://github.com/LandvibeDev/Group-by./blob/master/package.json)
 
-* Database initialization
+> [PPT](https://github.com/LandvibeDev/Group-by./blob/master/package.json)
 
-* How to run the test suite
+> [Service](http://13.124.130.15:3000)
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

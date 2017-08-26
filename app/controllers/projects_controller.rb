@@ -199,6 +199,16 @@ class ProjectsController < ApplicationController
     @event.destroy
   end
 
+  def image_teamEvent
+    @project = Project.find(params[:id])
+    @event = TeamEvent.find(params[:event_id])
+    @event.teamEventImage = params[:teamEventImage]
+    @event.teamEventFile = params[:teamEventFile]
+    @event.save
+
+    redirect_to project_path(@project.id)
+  end
+
   #admin관리
   def admin_user_add
     @user = User.find(params[:user_id])

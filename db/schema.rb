@@ -128,6 +128,8 @@ ActiveRecord::Schema.define(version: 20170821125524) do
     t.datetime "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "teamEventImage"
+    t.string "teamEventFile"
     t.index ["project_id"], name: "index_team_events_on_project_id"
   end
 

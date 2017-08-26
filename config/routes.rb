@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     get 'notfind', on: :collection
     post 'create_teamEvent'
     post 'new_load_teamEvent'
+    post 'image_teamEvent'
     resource :users
     resource :events
   end

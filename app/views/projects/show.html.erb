@@ -50,9 +50,46 @@
                             <span class="location semi-bold"><i class="fa fa-map-marker"></i> SF, California</span>
                           </h6>
                         </div>
+                        <% if events.teamEventImage? %>
+                            <img src="<%= events.teamEventImage.url %>" >
+                        <% end %>
                         <div class="card-description">
                           <p><%= events.content %> </p>
                         </div>
+                        <ul class="list-inline text-right">
+                          <li>
+                            <button class="btn btn-tag-light" data-toggle="modal" data-target="#myModal">Finish</button>
+                          </li>
+                        </ul>
+                        <div class="modal fade stick-up" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Finish</h4>
+                              </div>
+                              <div class="modal-body">
+                                여기다가 form 써서 teamEventImage, teamEventFile을 수정하고 싶다
+                                <%= form_with(url: project_image_teamEvent_path(events.id), multipart: true, class: 'simform no-margin') do |form| %>
+                                    <%= hidden_field_tag(:id, events.project_id) %>
+                                    <%= hidden_field_tag(:event_id, events.id) %>
+                                    <div class="form-group form-group-default">
+                                      <%= form.label :image %>
+                                      <%= form.file_field :teamEventImage,  :class => 'form-control' %>
+                                    </div>
+                                    <div class="form-group form-group-default">
+                                      <%= form.label :file %>
+                                      <%= form.file_field :teamEventFile,  :class => 'form-control'%>
+                                    </div>
+                                    <div class="actions">
+                                      <%= form.submit 'Finish', :class => 'btn btn-primary' %>
+                                    </div>
+                                <% end %>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
                       </div>
                       <div class="event-date">
                         <h6 class="font-montserrat all-caps hint-text m-t-0">Apple Inc</h6>

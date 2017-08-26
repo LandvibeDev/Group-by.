@@ -54,6 +54,8 @@
 //= require js/team_calendar.js
 //= require js/show_team_calendar.js
 //= require js/comments.js
+//= require js/emails.js
+
 
 // APPLICATION
 //= require js/timeline

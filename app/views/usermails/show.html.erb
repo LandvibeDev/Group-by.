@@ -19,9 +19,9 @@
     <% end %>
   </ul>
 
-  <a href="#" class="menu-title" id="popBtn">
+  <div class="menu-title" id="popBtn" data-toggle="modal" data-target="#popModal">
     POP Setting
-  </a>
+  </div>
 </nav>
 <!-- END SECONDARY SIDEBAR MENU -->
 <div class="inner-content full-height">
@@ -89,6 +89,7 @@
       </div>
     </div>
   </div>
+
   <div class="split-view">
     <!-- START SPLIT LIST VIEW -->
     <div class="split-list">
@@ -103,19 +104,16 @@
                   <%= form.submit '메일 불러오기',:class => 'list-refresh bold', :style => 'background-color: transparent;text-decoration: underline;border: none;' %>
               <% end %>
             </div>
-            <ul class="no-padding">
+            <ul class="no-padding ">
               <% @usermails.each do |m| %>
-                  <li class="item padding-15 active" data-email-id=<%= m.id %> >
-                    <div class="checkbox  no-margin p-l-10">
-                      <input type="checkbox" value="1" id="emailcheckbox-0-0">
-                      <label for="emailcheckbox-0-0"></label>
-                    </div>
-                    <div class="inline m-l-15">
-                      <p class="recipients no-margin hint-text small">From : <%= m.from %></p>
-                      <p class="subject no-margin" style="padding: 20px;display: block;white-space: inherit;">TITLE : <%= m.subject %></p>
-                    </div>
-                    <div class="bottom-right datetime"><%= m.date %></div>
-                    <div class="clearfix"></div>
+                  <li class="email-view item padding-15 email-view" id='<%= m.id %> /@@/ <%= m.from %> /@@/ <%= m.to %> /@@/ <%= m.content %> /@@/ <%= m.subject %> /@@/ <%= m.date %>' >
+
+                    From : <%= m.from %>
+                    <br/>
+                    TITLE : <%= m.subject %>
+                    <br/>
+                    DATE : <%= m.date %>
+
                   </li>
               <% end %>
             </ul>
@@ -178,61 +176,7 @@
     right: 10px;
     top: 80%;
   }
+  .email-view{
+    ;
+  }
 </style>
-
-<script>
-    var emailOpened = $('[data-email="opened"]');
-
-    $('.split-view').on('click', '.item .checkbox', function(e) {
-        e.stopPropagation();
-    });
-
-    $('.split-view').on('click', '.item', function(e) {
-        e.stopPropagation();
-
-        var id = $(this).attr('data-email-id');
-        var email = null;
-        <% @usermails.each do |mail| %>
-        var mail_id = <%= raw mail.id.to_json %>;
-
-        if ( mail_id == id )
-        {
-            var email_from = <%= raw mail.from.to_json %>;
-            var email_date = <%= raw mail.date.to_json %>;
-            var email_subject = <%= raw mail.subject.to_json %>;
-            var email_content = <%= raw mail.content.to_json %>;
-            var email_to = <%= raw mail.to.to_json %>
-        }
-        <% end %>
-        var thumbnailWrapper = $(this).find('.thumbnail-wrapper');
-
-        emailOpened.find('.sender .name').text(email_from);
-        emailOpened.find('.sender .datetime').text(email_date);
-        emailOpened.find('.subject').text(email_subject);
-        emailOpened.find('.email-content-body').html(email_content);
-        emailOpened.find('.inline #to').text(email_to);
-
-        // Initialize email action menu
-        $('.menuclipper').menuclipper({
-            bufferWidth: 20
-        });
-
-        $('.no-result').hide();
-        $('.actions-dropdown').toggle();
-        $('.actions, .email-content-wrapper').show();
-
-        if ($.Pages.isVisibleSm() || $.Pages.isVisibleXs()) {
-            $('.split-list').toggleClass('slideLeft');
-        }
-
-        $(".email-content-wrapper").scrollTop(0);
-
-        $('.item').removeClass('active');
-        $(this).addClass('active');
-
-    });
-
-    $('#popBtn').click(function () {
-        $('#popModal').modal();
-    })
-</script>

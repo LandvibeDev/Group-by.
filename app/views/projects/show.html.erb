@@ -336,8 +336,11 @@
                     <div class="col-md-9">
                       <input type="text" placeholder="Your Project name here" class="form-control" id="project-delete" name="icon-filter">
                     </div>
-                    <div class="col-md-3 text-center" id="project-delete-btn" hidden="hidden">
-                      <%= link_to 'Delete this Project', project_path, method: :delete, :class => 'btn btn-danger btn-cons' %>
+                    <div class="col-md-3 text-center" id="project-delete-btn1">
+                      <a class="btn btn-danger btn-cons" disabled="true">Delete this Project</a>
+                    </div>
+                    <div class="col-md-3 text-center" id="project-delete-btn2" hidden="hidden">
+                      <%= link_to 'Delete this Project', project_path, method: :delete, :class => 'btn btn-danger btn-cons'%>
                     </div>
                   </div>
                   <p class="text-center hinted-text p-t-10">한 번 프로젝트를 삭제하면 되돌릴 수 없습니다.</p>

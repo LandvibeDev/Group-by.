@@ -68,6 +68,7 @@ $('#project-delete').keypress(function () {
     var delete_title = $('#project-delete').val();
 
     if(project_title === delete_title) {
-        $('#project-delete-btn').removeAttr('hidden');
+        $('#project-delete-btn1').attr('hidden', 'hidden')
+        $('#project-delete-btn2').removeAttr('hidden');
     }
 });

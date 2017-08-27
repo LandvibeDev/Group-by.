@@ -11,16 +11,11 @@
       <% @userprojects.each do |userproject| %>
           <div class="col-md-4 col-lg-3 hidden-xlg m-b-10">
             <!-- START WIDGET widget_imageWidgetBasic-->
-            <div class="widget-2 panel no-border bg-info widget widget-loader-circle-lg no-margin">
-              <div class="panel-heading">
-                <div class="panel-controls pull-left">
-                  <%= link_to project_path( userproject.project_id) do %>
-                      <h3 class="text-white ">
-                        <%= userproject.title %></h3>
-                  <% end %>
-                  <% if Date.today().to_date - userproject.created_at.to_date <= 1  %>
-                      <span class="label label-warning font-montserrat fs-11">NEWS</span>
-                  <% end %>
+            <div class="widget-11-2 panel panel-condensed no-margin widget-loader-circle">
+              <div class="padding-25">
+                <div class="pull-left">
+                  <h3 class="text-success no-margin ">
+                    <%= userproject.title %></h3>
                 </div>
                 <% if Date.today().to_date - userproject.created_at.to_date <= 1  %>
                     <span class="label label-warning font-montserrat fs-11 pull-right">NEW EVENTS</span>
@@ -42,7 +37,7 @@
               </div>
               <div class="padding-25">
                 <p class="small no-margin">
-                  <%= link_to user_project_path(current_user.id, userproject.id) do %>
+                  <%= link_to project_path(userproject.id) do %>
                       <i class="fa fs-16 fa-arrow-circle-o-down text-success m-r-10"></i>
                   <% end %>
                   <span class="hint-text ">Show more details of PROJECT</span>
@@ -67,7 +62,7 @@
       <% @usergroups.each do |usergroup| %>
 
           <div class="gallery-item " data-width="1" data-height="1" href="user_group_path(current_user.id, usergroup.id)">
-            <%= link_to group_path( usergroup.group_id) do %>
+            <%= link_to group_path(usergroup.id) do %>
                 <img src="<%= usergroup.groupProfile.url %>" class="image-responsive-height" alt="Image Not Found">
                 <!-- START PREVIEW -->
                 <!-- END PREVIEW -->
@@ -107,9 +102,9 @@
 
   </div>
 
-  <!-- Categories -->
+  <!— Categories —>
   <% @categories.each do |category| %>
-      <!-- Category 1 Group ROW -->
+      <!— Category 1 Group ROW —>
       <div class="row" style = "margin-top:70px">
         <div class="alert" role="alert">
           <h4 class="alert-heading p-l-30" ><%= category.name %> <span class="semi-bold"> <a href="#" class="p-l-10" style="color: #51646b;font-size: small;">모두보기</a> </span> </h4>
@@ -119,11 +114,11 @@
           <% @categorygroups[category.id].each do |categorygroup| %>
 
               <div class="gallery-item " data-width="1" data-height="1" href="user_group_path(current_user.id, usergroup.id)">
-                <%= link_to group_path( categorygroup.group_id) do %>
+                <%= link_to group_path(categorygroup.id) do %>
                     <img src="<%= categorygroup.groupProfile.url %>" class="image-responsive-height" alt="Image Not Found">
-                    <!-- START PREVIEW -->
-                    <!-- END PREVIEW -->
-                    <!-- START ITEM OVERLAY DESCRIPTION -->
+                    <!— START PREVIEW —>
+                    <!— END PREVIEW —>
+                    <!— START ITEM OVERLAY DESCRIPTION —>
                     <div class="overlayer bottom-left full-width">
                       <div class="overlayer-wrapper">
                         <div class="gradient-grey p-l-20 p-r-20 p-b-5">
@@ -151,7 +146,7 @@
                         </div>
                       </div>
                     </div>
-                    <!-- END PRODUCT OVERLAY DESCRIPTION -->
+                    <!— END PRODUCT OVERLAY DESCRIPTION —>
                     </div>
                 <% end %>
           <% end %>

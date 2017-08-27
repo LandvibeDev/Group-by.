@@ -59,5 +59,4 @@
 
 // APPLICATION
 //= require js/timeline
-
 // require_tree .

@@ -41,6 +41,7 @@
  *
  * BEGIN PAGES ASSET PIPELINE OVERRIDE
  *= require ./pages-asset-pipeline
+ *= require viewerjs_rails.css
  * BEGIN SITE STYLES
 
  * I prefer to list stylesheets in a specific order, so I comment out require_tree

@@ -119,14 +119,15 @@
                         <div class="card-description">
                           <p><%= events.content %> </p>
                         </div>
+
                         <% if events.teamEventFile? %>
                             <div>
-                              <%= link_to "File", events.teamEventFile.url %>
+                              <iframe class="clearfix" src = "http://localhost:3000/viewer/index#..<%= events.teamEventFile.url %>" style="width: 100%" height='389' allowfullscreen webkitallowfullscreen></iframe>
                             </div>
                         <% end %>
                         <ul class="list-inline text-right">
                           <li>
-                            <button class="btn btn-tag-light" data-toggle="modal" data-target="#eventModal<%= events.id %>">Finish</button>
+                            <button class="btn btn-tag-light" data-toggle="modal" data-target="#eventModal<%= events.id %>">Upload</button>
                           </li>
                         </ul>
                         <div class="modal fade stick-up" id="eventModal<%= events.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -147,6 +148,7 @@
                                     <div class="form-group form-group-default">
                                       <%= form.label :file %>
                                       <%= form.file_field :teamEventFile,  :class => 'form-control'%>
+                                      <p>(미리보기를 이용하려면 PDF 또는 ODF로 변환해주시기 바랍니다.)</p>
                                     </div>
                                     <div class="actions">
                                       <%= form.submit 'Finish', :class => 'btn btn-primary' %>

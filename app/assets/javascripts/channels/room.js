@@ -39,7 +39,7 @@ App['room' + p_id] = App.cable.subscriptions.create({channel: 'RoomChannel', roo
                 '</div>' +
                 '</div>');
         }
-        scrollToBottom();
+
         return console.log('recevied');
     },
     setProjectId: function(projectId) {

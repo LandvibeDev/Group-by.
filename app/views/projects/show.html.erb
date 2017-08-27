@@ -51,17 +51,24 @@
                           </h6>
                         </div>
                         <% if events.teamEventImage? %>
-                            <img src="<%= events.teamEventImage.url %>" >
+                            <div class="user-pic">
+                              <img src="<%= events.teamEventImage.url %>" class="image-responsive-width" >
+                            </div>
                         <% end %>
                         <div class="card-description">
                           <p><%= events.content %> </p>
                         </div>
+                        <% if events.teamEventFile? %>
+                            <div>
+                              <%= link_to "File", events.teamEventFile.url %>
+                            </div>
+                        <% end %>
                         <ul class="list-inline text-right">
                           <li>
-                            <button class="btn btn-tag-light" data-toggle="modal" data-target="#myModal">Finish</button>
+                            <button class="btn btn-tag-light" data-toggle="modal" data-target="#eventModal<%= events.id %>">Finish</button>
                           </li>
                         </ul>
-                        <div class="modal fade stick-up" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal fade stick-up" id="eventModal<%= events.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">
                               <div class="modal-header">
@@ -69,7 +76,6 @@
                                 <h4 class="modal-title" id="myModalLabel">Finish</h4>
                               </div>
                               <div class="modal-body">
-                                여기다가 form 써서 teamEventImage, teamEventFile을 수정하고 싶다
                                 <%= form_with(url: project_image_teamEvent_path(events.id), multipart: true, class: 'simform no-margin') do |form| %>
                                     <%= hidden_field_tag(:id, events.project_id) %>
                                     <%= hidden_field_tag(:event_id, events.id) %>

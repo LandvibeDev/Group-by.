@@ -10,7 +10,15 @@ https://github.com/rails/rails/blob/master/activerecord/MIT-LICENSE
 3. sqlite
 https://sqlite.org/copyright.html
 
-2. jquery
+4. jquery
 The MIT License (MIT)
 https://tldrlegal.com/license/mit-license
 
+5. carrierwave
+https://github.com/carrierwaveuploader/carrierwave#license
+
+6. minimagick
+https://github.com/minimagick/minimagick/blob/master/MIT-LICENSE
+
+7. imagemagick
+https://www.imagemagick.org/script/license.php

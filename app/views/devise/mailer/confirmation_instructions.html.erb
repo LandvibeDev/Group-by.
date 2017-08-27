@@ -1,5 +1,17 @@
-<p>Welcome <%= @email %>!</p>
+<div style="text-align: center">
+  <%= image_tag "http://13.124.130.15:3000/assets/groupby_logo_2x.png" %>
 
-<p>You can confirm your account email through the link below:</p>
+  <h2><%= @email %>님 Group by.에 가입을 환영합니다!</h2>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+  <h3 class="semi-bold">아래 버튼을 클릭하여 Group by.를 계속해서 즐겨주시기 바랍니다!</h3>
+
+  <%= link_to '회원가입 완료하기', confirmation_url(@resource, confirmation_token: @token), :flash => { :error => "가입이 완료되었습니다." }, class: 'btn btn-tag-light' %>
+</div>
+
+<style>
+  btn-tag-light {
+    background: #fafdff;
+    color: #5b8ca5;
+    border: 1px solid #cbe4f0;
+  }
+</style>

@@ -126,7 +126,7 @@
                         <% end %>
                         <ul class="list-inline text-right">
                           <li>
-                            <button class="btn btn-tag-light" data-toggle="modal" data-target="#eventModal<%= events.id %>">Finish</button>
+                            <button class="btn btn-tag-light btn-sm" data-toggle="modal" data-target="#eventModal<%= events.id %>">File Upload</button>
                           </li>
                         </ul>
                         <div class="modal fade stick-up" id="eventModal<%= events.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -134,9 +134,9 @@
                             <div class="modal-content">
                               <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Finish</h4>
+                                <h4 class="modal-title" id="myModalLabel">Upload</h4>
                               </div>
-                              <div class="modal-body">
+                              <div class="modal-body p-t-20">
                                 <%= form_with(url: project_image_teamEvent_path(events.id), multipart: true, class: 'simform no-margin') do |form| %>
                                     <%= hidden_field_tag(:id, events.project_id) %>
                                     <%= hidden_field_tag(:event_id, events.id) %>
@@ -148,8 +148,8 @@
                                       <%= form.label :file %>
                                       <%= form.file_field :teamEventFile,  :class => 'form-control'%>
                                     </div>
-                                    <div class="actions">
-                                      <%= form.submit 'Finish', :class => 'btn btn-primary' %>
+                                    <div class="actions text-right">
+                                      <%= form.submit 'Upload', :class => 'btn btn-light' %>
                                     </div>
                                 <% end %>
                               </div>
@@ -159,8 +159,8 @@
 
                       </div>
                       <div class="event-date">
-                        <h6 class="font-montserrat all-caps hint-text m-t-0">Apple Inc</h6>
-                        <small class="fs-12 hint-text"><%= events.start_date %> - <%= events.end_date %></small>
+                        <h6 class="font-montserrat all-caps hint-text" style="margin: 0"><label class="semi-bold">START : </label> <%= events.start_date %> </h6>
+                        <h6 class="font-montserrat all-caps hint-text" style="margin: 0"><label class="semi-bold">END : </label> <%= events.end_date %> </h6>
                       </div>
                     </div>
                     <!-- timeline-content -->

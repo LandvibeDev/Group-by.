@@ -1,14 +1,16 @@
 <div class="p-t-20 p-b-10 p-r-20">
-  <div class="p-l-30" style="float: left;">
-    <h3>새 이벤트를 입력 하여 Project를 완성하세요.</h3>
-  </div>
-  <div style="float: right;">
-    <%= link_to 'Save Project', project_save_path(@project.id) ,method: :post, :class => 'btn btn-lg' %>
+  <div class="row">
+    <div class="col-md-8 p-l-30" >
+      <h3>새 이벤트를 입력 하여 Project를 완성하세요.</h3>
+    </div>
+    <div class="col-md-4 text-right">
+      <%= link_to 'Save Project', project_save_path(@project.id) ,method: :post, :class => 'btn btn-lg' %>
+    </div>
   </div>
 </div>
 
 <!-- START CALENDAR -->
-<div id="teamCalendar_month" class="full-height" style="float: left;"></div>
+<div id="teamCalendar_month" class="full-height"></div>
 
 <input type="hidden" id="project_id" value="<%= @project.id %>">
 <!-- END CALENDAR -->

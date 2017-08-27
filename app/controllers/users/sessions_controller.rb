@@ -7,9 +7,22 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+  def create
+    user = User.find_by(email: params[:user][:email])
+    if user
+      if user.confirmed_at.blank?
+        redirect_to new_user_session_path, :flash => { :error => "Please Confirm the mail authentication." }
+      else
+        if user.valid_password?(params[:user][:password])
+          sign_in_and_redirect user
+        else
+          redirect_to new_user_session_path,:flash => { :error => "Please check your password." }
+        end
+      end
+    else
+      redirect_to new_user_session_path,:flash => { :error => "Please check your email." }
+    end
+  end
 
   # DELETE /resource/sign_out
   # def destroy

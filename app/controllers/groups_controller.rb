@@ -117,7 +117,6 @@ class GroupsController < ApplicationController
 
     @comment.save
 
-    redirect_to user_group_path(current_user.id, @group.id)
   end
 
   private

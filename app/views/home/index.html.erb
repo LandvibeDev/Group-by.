@@ -7,7 +7,7 @@
       <h4 class="alert-heading p-l-30" >프로젝트 <span class="semi-bold"> <a href="#" class="p-l-10" style="color: #51646b;font-size: small;">모두보기</a> </span> </h4>
       <hr class="hr-line">
     </div>
-    <div class="row">
+    <div class="row" style="margin: 15px">
       <% @userprojects.each do |userproject| %>
           <div class="col-md-4 col-lg-3 hidden-xlg m-b-10">
             <!-- START WIDGET widget_imageWidgetBasic-->
@@ -58,7 +58,7 @@
       <hr class="hr-line">
     </div>
 
-    <div class="gallery no-margin">
+    <div class="gallery " style="margin: 15px">
       <% @usergroups.each do |usergroup| %>
 
           <div class="gallery-item " data-width="1" data-height="1" href="user_group_path(current_user.id, usergroup.id)">
@@ -75,7 +75,7 @@
                       </div>
                       <%= usergroup.title %>
                       <div class="pull-right m-t-10">
-                        <span class="label label-danger font-montserrat fs-11"><%= usergroup.cnt %></span>
+                        <span class="label label-danger font-montserrat fs-11"><i class="fa fa-user-o" aria-hidden="true"></i> &nbsp;<%= usergroup.cnt %></span>
                       </div>
                       <div class="m-t-10">
 
@@ -110,7 +110,7 @@
           <h4 class="alert-heading p-l-30" ><%= category.name %> <span class="semi-bold"> <a href="#" class="p-l-10" style="color: #51646b;font-size: small;">모두보기</a> </span> </h4>
           <hr class="hr-line">
         </div>
-        <div class="gallery no-margin">
+        <div class="gallery " style="margin: 15px">
           <% @categorygroups[category.id].each do |categorygroup| %>
 
               <div class="gallery-item " data-width="1" data-height="1" href="user_group_path(current_user.id, usergroup.id)">
@@ -127,7 +127,7 @@
                           </div>
                           <%= categorygroup.title %>
                           <div class="pull-right m-t-10">
-                            <span class="label label-danger font-montserrat fs-11"><%= categorygroup.cnt %></span>
+                            <span class="label label-danger font-montserrat fs-11"><i class="fa fa-user-o" aria-hidden="true"></i> &nbsp;<%= categorygroup.cnt %></span>
                           </div>
                           <div class="m-t-10">
 

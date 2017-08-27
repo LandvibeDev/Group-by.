@@ -149,7 +149,11 @@
             <div class="dropdown">
               <a id="notification-center" class="fa fa-globe" data-toggle="dropdown">
                 <% if current_user.pushs.count != 0 %>
-                    <span class="bubble"></span>
+                    <span class="bubble" >
+                      <label class="semi-bold" style="display: flow-root;text-align: center;font-size: smaller;vertical-align: middle;">
+                      N
+                      </label>
+                    </span>
                 <% end %>
               </a>
               <div class="dropdown-menu notification-toggle" role="menu" aria-labelledby="notification-center">
@@ -183,17 +187,13 @@
                 <span class="thumbnail-wrapper d32 circular inline m-t-5">
                   <% if current_user.userProfile %>
                   <img src="<%= current_user.userProfile.thumb.url %>">
-                          <!-- <%= image_tag('profiles/avatar.jpg') %> -->
+                      <!-- <%= image_tag('profiles/avatar.jpg') %> -->
                   <% end %>
             </span>
           </button>
           <ul class="dropdown-menu profile-dropdown" role="menu">
             <li><a href="/users/edit"><i class="fa fa-cog" aria-hidden="true"></i> Settings</a>
-            </li>
-            <li><a><i class="pg-outdent"></i> Feedback</a>
-            </li>
-            <li><a><i class="pg-signals"></i> Help</a>
-            </li>
+
             <li class="bg-master-lighter">
               <a href="/users/sign_out" class="clearfix">
                 <span class="pull-left">Logout</span>
@@ -256,14 +256,14 @@
             <span>
                 <strong>My Groups </strong>
             </span>
-          <div class="col-md-12 m-t-10" id="search-results-mygroups">
-          </div>
-          <hr/>
-            <span>
+        <div class="col-md-12 m-t-10" id="search-results-mygroups">
+        </div>
+        <hr/>
+        <span>
                 <strong>All Groups </strong>
             </span>
-          <div class="col-md-12" id="search-results-groups">
-          </div>
+        <div class="col-md-12" id="search-results-groups">
+        </div>
 
       </div>
     </div>
@@ -357,7 +357,7 @@
                         '</p>'  +
                         '</div>'  +
                         '</a>'
-                        '</div>';
+                    '</div>';
                     $("#search-results-mygroups").append(mygroups_html);
                 });
 

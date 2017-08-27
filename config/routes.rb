@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     get 'notfind', on: :collection
     post 'create_teamEvent'
     post 'new_load_teamEvent'
+    post 'image_teamEvent'
     resource :users
     resource :events
   end
@@ -69,7 +70,7 @@ Rails.application.routes.draw do
   end
 
   get 'home/calendar_month'
-  get 'groups/comments_create/:content_id/:group_id' => 'groups#comments_create'
+  post 'groups/comments_create/:content_id/:group_id' => 'groups#comments_create'
 
   post 'home/current_load_event/:id' => 'home#current_load_event'
   post 'home/new_load_event' => 'home#new_load_event'

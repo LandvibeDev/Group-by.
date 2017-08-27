@@ -14,7 +14,7 @@
             <div class="widget-2 panel no-border bg-info widget widget-loader-circle-lg no-margin">
               <div class="panel-heading">
                 <div class="panel-controls pull-left">
-                  <%= link_to user_project_path(current_user.id, userproject.id) do %>
+                  <%= link_to project_path( userproject.project_id) do %>
                       <h3 class="text-white ">
                         <%= userproject.title %></h3>
                   <% end %>
@@ -75,7 +75,7 @@
       <% @usergroups.each do |usergroup| %>
 
           <div class="gallery-item " data-width="1" data-height="1" href="user_group_path(current_user.id, usergroup.id)">
-            <%= link_to user_group_path(current_user.id, usergroup.id) do %>
+            <%= link_to group_path( usergroup.group_id) do %>
                 <img src="<%= usergroup.groupProfile.url %>" class="image-responsive-height" alt="Image Not Found">
                 <!-- START PREVIEW -->
                 <!-- END PREVIEW -->
@@ -127,7 +127,7 @@
           <% @categorygroups[category.id].each do |categorygroup| %>
 
               <div class="gallery-item " data-width="1" data-height="1" href="user_group_path(current_user.id, usergroup.id)">
-                <%= link_to user_group_path(current_user.id, categorygroup.id) do %>
+                <%= link_to group_path( categorygroup.group_id) do %>
                     <img src="<%= categorygroup.groupProfile.url %>" class="image-responsive-height" alt="Image Not Found">
                     <!-- START PREVIEW -->
                     <!-- END PREVIEW -->

@@ -73,7 +73,6 @@
                     start: timeSlot.date,
                     end: moment(timeSlot.date).add(1, 'hour').format(),
                     allDay: false,
-                    image: "",
                     other: {
                         desc: '',
                         //You can have your custom list of attributes here
@@ -148,8 +147,6 @@
 
             selectedTeamEvent.start = $('#teamEventStartDate').val();
             selectedTeamEvent.end = $('#teamEventEndDate').val();
-
-            selectedTeamEvent.image = $('#teamEventImage').val();
 
             teamcal.pagescalendar('updateEvent', selectedTeamEvent);
 

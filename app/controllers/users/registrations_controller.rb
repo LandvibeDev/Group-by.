@@ -8,9 +8,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    build_resource(sign_up_params)
+
+    resource.save
+
+    redirect_to new_user_session_path, :flash => { :error => "가입하신 이메일로 인증 메일이 보내졌으니 확인해보세요!" }
+  end
 
   # GET /resource/edit
   # def edit

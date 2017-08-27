@@ -42,9 +42,4 @@ class UsersController < ApplicationController
     render json: current_user.pushs.count
   end
 
-
-
-
-
-
 end

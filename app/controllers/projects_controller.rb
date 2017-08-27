@@ -192,7 +192,7 @@ class ProjectsController < ApplicationController
   def create_teamEvent
     @user = User.find(current_user.id)
     @project = Project.find(params[:project_id])
-    @event = TeamEvent.create(project: @project, title: params[:title],content: params[:other][:desc], start_date: params[:start],end_date: params[:end], image: params[:image])
+    @event = TeamEvent.create(project: @project, title: params[:title],content: params[:other][:desc], start_date: params[:start],end_date: params[:end])
 
     @project.update(updated_at: Time.now)
 
@@ -210,7 +210,6 @@ class ProjectsController < ApplicationController
     @event.content = params[:other][:desc]
     @event.start_date = params[:start]
     @event.end_date = params[:end]
-    @event.image = params[:image]
     @event.save
   end
 

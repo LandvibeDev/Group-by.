@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   post 'projects/:project_id/edit_teamEvent/:id' => 'projects#edit_teamEvent'
   delete 'projects/:project_id/delete_teamEvent/:id' => 'projects#delete_teamEvent'
 
-  devise_for :users
+  devise_for :users, :controllers => { sessions: 'users/sessions', registrations: 'users/registrations' }
 
   resources :groups do
     resource :users

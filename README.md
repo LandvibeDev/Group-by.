@@ -6,8 +6,6 @@
 
 
 ## Features
-![Ruby](https://github.com/LandvibeDev/Group-by./tree/master/dependency_images/ruby.jpeg)   ![Rails](https://github.com/LandvibeDev/Group-by./tree/master/dependency_images/rails.jpeg) ![Jquery](https://github.com/LandvibeDev/Group-by./tree/master/dependency_images/ruby.jpeg)
-
 
     * 팀 프로젝트 관리
     

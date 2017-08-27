@@ -79,7 +79,7 @@
                             <% @check_user_event_complete = TeamEventsUser.where(user: current_user, team_event: events) %>
                             <% @check_user_event_complete.each do |check_event| %>
                                 <% if check_event.complete == false %>
-                                    <div class="circle event-user-notcomplete" id="event-user-notcomplete<%= events.id %>" value="<%= events.id %>" style="border: 1px solid #ffffff; background: rgba(255, 255, 255, 0);">
+                                    <div class="circle event-user-notcomplete" id="event-user-notcomplete<%= events.id %>" value="<%= events.id %>" style="border: 0px solid #ffffff; background: rgba(255, 255, 255, 0);">
                                       <i class="fa fa-circle-thin" id="circle<%= events.id %>" data-toggle="tooltip" data-container="body" data-original-title="이벤트 완료하기"></i>
                                       <input type="hidden" id="user-size" value="<%= @event_users.size %>">
                                       <input type="hidden" id="complete-user-size" value="<%= complete_true_users %>">
@@ -161,8 +161,8 @@
 
                       </div>
                       <div class="event-date">
-                        <h6 class="font-montserrat all-caps hint-text" style="margin: 0"><label class="semi-bold">START : </label> <%= events.start_date %> </h6>
-                        <h6 class="font-montserrat all-caps hint-text" style="margin: 0"><label class="semi-bold">END : </label> <%= events.end_date %> </h6>
+                        <h6 class="font-montserrat all-caps hint-text" style="margin: 0"><label class="semi-bold">START : </label> <%= events.start_date.strftime("%Y-%m-%d %I:%M %p") %> </h6>
+                        <h6 class="font-montserrat all-caps hint-text" style="margin: 0"><label class="semi-bold">END : </label> <%= events.end_date.strftime("%Y-%m-%d %I:%M %p") %> </h6>
                       </div>
                     </div>
                     <!-- timeline-content -->

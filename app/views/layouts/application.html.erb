@@ -39,8 +39,8 @@
   <div class="sidebar-header">
     <%= image_tag('groupby_logo_white.png') %>
     <div class="sidebar-header-controls">
-      <button data-pages-toggle="#appMenu" class="btn btn-xs sidebar-slide-toggle btn-link m-l-20" type="button">
-        <i class="fa fa-angle-down fs-16"></i>
+      <button class="btn btn-xs sidebar-slide-toggle btn-link m-l-20" type="button">
+
       </button>
       <button data-toggle-pin="sidebar" class="btn btn-link visible-lg-inline" type="button"><i class="fa fs-12"></i>
       </button>
@@ -211,7 +211,7 @@
   <!-- START PAGE CONTENT WRAPPER -->
   <div class="page-content-wrapper full-height">
     <!-- START PAGE CONTENT -->
-    <div class="content full-height">
+    <div class="content full-height" style="overflow: auto;">
       <%= yield %>
     </div>
     <!-- END PAGE CONTENT -->

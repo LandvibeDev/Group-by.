@@ -1,4 +1,4 @@
-<div class="home-index full-height" style="padding-left: 16px;background-color: ghostwhite;">
+<div class="home-index full-height" style="padding-left: 16px;background-color: ghostwhite;overflow: auto;">
   <!-- PROJECT ROW -->
   <div class="row">
 
@@ -14,7 +14,7 @@
             <div class="widget-11-2 panel panel-condensed no-margin widget-loader-circle">
               <div class="padding-25">
                 <div class="pull-left">
-                  <h3 class="text-success no-margin ">
+                  <h3 class="text-success no-margin semi-bold" style="color: black !important;">
                     <%= userproject.title %></h3>
                 </div>
                 <% if Date.today().to_date - userproject.created_at.to_date <= 1  %>
@@ -27,9 +27,8 @@
                   <tbody>
                   <% @projectevents[userproject.id].each do |event| %>
                       <tr>
-                        <td class="font-montserrat all-caps fs-12 col-lg-6" colspan="3"><%= event.title %></td>
-
-                        <td class="text-right b-r b-dashed b-grey col-lg-3" colspan="2"><%= event.updated_at.to_date %></td>
+                        <td class="font-montserrat all-caps fs-12 col-lg-5" colspan="2" style="border-right: 1px inset whitesmoke;"><%= event.title %></td>
+                        <td class="text-left b-r b-dashed b-grey col-lg-3" colspan="2" style="border-right: none;"><%= event.updated_at.to_date %></td>
                       </tr>
                   <% end %>
                   </tbody>
@@ -63,7 +62,7 @@
 
           <div class="gallery-item " data-width="1" data-height="1" href="user_group_path(current_user.id, usergroup.id)">
             <%= link_to group_path(usergroup.id) do %>
-                <img src="<%= usergroup.groupProfile.url %>" class="image-responsive-height" alt="Image Not Found">
+                <img src="<%= usergroup.groupProfile.url %>" class="image-responsive-height" alt="Image Not Found" style="height: 100%;">
                 <!-- START PREVIEW -->
                 <!-- END PREVIEW -->
                 <!-- START ITEM OVERLAY DESCRIPTION -->
@@ -73,23 +72,28 @@
                       <div class="">
                         <div class="clearfix"></div>
                       </div>
-                      <%= usergroup.title %>
-                      <div class="pull-right m-t-10">
-                        <span class="label label-danger font-montserrat fs-11"><i class="fa fa-user-o" aria-hidden="true"></i> &nbsp;<%= usergroup.cnt %></span>
-                      </div>
                       <div class="m-t-10">
-
-                        <div class="inline m-l-10">
-                          <p class="no-margin text-white fs-12"><%= usergroup.description %></p>
+                        <div class="pull-right col-md-2">
+                          <span class="label label-danger font-montserrat fs-11"><i class="fa fa-user-o" aria-hidden="true"></i> &nbsp;<%= usergroup.cnt %></span>
                         </div>
-                        <div class="pull-right m-t-10">
+                        <div class="pull-right">
 
                           <% if Date.today().to_date - usergroup.created_at.to_date <= 1  %>
-                              <span class="label label-warning font-montserrat fs-11">NEWS</span>
+                              <span class="label label-warning font-montserrat fs-11">NEW</span>
                           <% end %>
                         </div>
 
                         <div class="clearfix"></div>
+                      </div>
+                      <div class="row">
+                        <div class="group-title pull-left col-md-6 m-t-10" style="color: ivory;">
+                          <p class="semi-bold" style="font-size: x-large;
+                              display: inline-block;
+                              width: 180px;
+                              overflow: hidden;
+                              white-space: nowrap;
+                              text-overflow: ellipsis;"> <%= usergroup.title %> </p>
+                        </div>
                       </div>
                     </div>
                   </div>

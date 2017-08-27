@@ -11,7 +11,6 @@ gem 'viewerjs-rails'
 gem 'mini_magick'
 gem 'carrierwave', '~> 1.0'
 gem 'mail'
-gem 'rails_db'
 gem 'devise'
 gem "font-awesome-rails"
 gem 'momentjs-rails'

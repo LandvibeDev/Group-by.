@@ -101,9 +101,29 @@ class GroupsController < ApplicationController
   # DELETE /groups/1
   # DELETE /groups/1.json
   def destroy
-    @group.destroy
+
+    @content = Content.where("user_id = ? and group_id = ?" , params[:user_id] , params[:id])
+
+    # Delete All Comments Made Contents On User
+    @content.each do |c|
+      Comment.where(content_id:  c.id).destroy_all()
+    end
+
+    # Delete All Contents Made On User
+    Content.where("user_id = ? and group_id = ?" , params[:user_id] , params[:id]).destroy_all
+
+    # Delete All Push In User On Group
+    Push.where("user_id = ? and pusher_id = ? and push_num = 1" ,params[:user_id] , params[:id]).destroy_all
+
+    # Delete Group
+    if GroupsUser.where(:group_id => params[:id]).count() == 1
+      Group.find(params[:id]).destroy
+    else
+      GroupsUser.where("user_id = ? and group_id = ?" , params[:user_id] , params[:id]).delete_all
+    end
+
     respond_to do |format|
-      format.html { redirect_to groups_url, notice: 'Group was successfully destroyed.' }
+      format.html { redirect_to home_index_path, notice: 'Group was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

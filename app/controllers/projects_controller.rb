@@ -28,9 +28,10 @@ class ProjectsController < ApplicationController
       @users = User.all
 
       @userprojects = ProjectsUser.all
+
+      @check_user_event = TeamEventsUser.where(user_id: current_user.id)
+
     end
-    #운영자 check
-    @check_admin = ProjectsUser.where(user: current_user, project: @project)
   end
 
   # GET /projects/new
@@ -81,9 +82,30 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
+    @project = Project.find(params[:id])
+
+    @team_events = TeamEvent.where(project: @project)
+    @team_events.each do |team_event|
+      team_event.destroy
+      @user_team_events = TeamEventsUser.where(team_event: team_event)
+      @user_team_events.each do |user_team_event|
+        user_team_event.destroy
+      end
+    end
+
+    @project_users = ProjectsUser.where(project: @project)
+    @project_users.each do |project_user|
+      project_user.destroy
+    end
+
+    @pushs = Push.where(pusher_id: @project, push_num: 2)
+    @pushs.each do |push|
+      push.destroy
+    end
+
     @project.destroy
     respond_to do |format|
-      format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
+      format.html { redirect_to projects_path, notice: 'Project was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -118,7 +140,7 @@ class ProjectsController < ApplicationController
     #push
     @user.pushs.create(message: @project.title, pusher_id: params[:project_id], push_num: 2)
 
-    redirect_to user_project_path(current_user.id, @project.id)
+    redirect_to project_path(@project.id)
   end
 
   # GET /groups
@@ -140,7 +162,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       if @project.save
         @user.projects_users.create(project: @project, admin_user: false)
-        format.html { redirect_to user_project_path(current_user.id, @project.id)}
+        format.html { redirect_to project_path(@project.id)}
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new }
@@ -170,10 +192,12 @@ class ProjectsController < ApplicationController
   def create_teamEvent
     @user = User.find(current_user.id)
     @project = Project.find(params[:project_id])
-    @event = @project.team_events.create(title: params[:title],content: params[:other][:desc], start_date: params[:start],end_date: params[:end], image: params[:image])
+    @event = TeamEvent.create(project: @project, title: params[:title],content: params[:other][:desc], start_date: params[:start],end_date: params[:end], image: params[:image])
+
+    @project.update(updated_at: Time.now)
 
     respond_to do |format|
-      @user.team_events << @event
+      @user.team_events_users.create(team_event: @event, complete: false)
       format.json {render json: @event}
     end
 
@@ -207,7 +231,7 @@ class ProjectsController < ApplicationController
     @admin_user = ProjectsUser.where(user: @user, project: @project)
     @admin_user.update(admin_user: true)
 
-    redirect_to user_project_path(current_user.id, @project.id)
+    redirect_to project_path(@project.id)
   end
 
   def admin_user_destroy
@@ -217,7 +241,25 @@ class ProjectsController < ApplicationController
     @admin_user = ProjectsUser.where(user: @user, project: @project)
     @admin_user.update(admin_user: false)
 
-    redirect_to user_project_path(current_user.id, @project.id)
+    redirect_to project_path(@project.id)
+  end
+
+  #user -> event 추가
+  def user_event_add
+    @user = User.find(current_user.id)
+    @event = TeamEvent.find(params[:event_id])
+    @user.projects_users.create(project: @project, admin_user: false)
+
+    @user.team_events_users.create(team_event: @event, complete: false)
+
+    @user_event = @user.events.create(title: @event.title,content: @event.content, start_date: @event.start_date ,end_date: @event.end_date)
+  end
+
+  def user_event_complete
+    @user = User.find(current_user.id)
+    @event = TeamEvent.find(params[:event_id])
+    @event_user = TeamEventsUser.where(team_event: @event, user: @user)
+    @event_user.update(complete: true)
   end
 
   private

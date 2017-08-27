@@ -10,7 +10,7 @@
             <span class="fs-12 m-l-10"> - <%= Group.find(push.pusher_id).title %></span>
           </a>
 
-      <!--invited in project-->
+          <!--invited in project-->
       <% elsif push.push_num == 2%>
           <a href="/users/inviteShow" class="text-complete pull-left">
             <i class="fa fa-tablet m-r-10"></i>
@@ -18,23 +18,27 @@
             <span class="fs-12 m-l-10"> - invite</span>
           </a>
 
-      <!--edited project event-->
+          <!--edited project event-->
       <% elsif push.push_num == 3%>
           <a href="/projects/<%= push.pusher_id %>" class="text-warning-dark pull-left">
-             <i class="fa fa-pencil-square-o m-r-10"></i>
-             <span class="bold"><%= push.message %></span>
-             <span class="fs-12 m-l-10"> - edited</span>
+            <i class="fa fa-pencil-square-o m-r-10"></i>
+            <span class="bold"><%= push.message %></span>
+            <span class="fs-12 m-l-10"> - edited</span>
           </a>
       <% else %>
       <% end %>
 
       <span class="pull-right time">
-                              <% t = Time.now - push.created_at  %>
-        <%= (t/3600).to_i %> hour
-        <%= ((t%3600)/60).to_i %> min
-        <%= ((t%3600)%60).to_i %> sec
-                              ago
-                            </span>
+        <% t = Time.now - push.created_at  %>
+        <% if ((t/3600)/24).to_i >= 1 %>
+            <%= ((t/3600)/24).to_i %> day
+        <% else %>
+            <%= (t/3600).to_i %> hour
+            <%= ((t%3600)/60).to_i %> min
+            <%= ((t%3600)%60).to_i %> sec
+        <% end %>
+        ago </td>
+      </span>
     </div>
     <!-- START Notification Item Right Side-->
     <div class="option">

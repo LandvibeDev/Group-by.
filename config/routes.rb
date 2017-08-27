@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   resources :projects do
     get 'calendar'
     post 'save'
@@ -9,6 +8,9 @@ Rails.application.routes.draw do
     resource :users
     resource :events
   end
+
+  post 'projects/:event_id/user_event_add' => 'projects#user_event_add'
+  put 'projects/:event_id/user_event_complete' => 'projects#user_event_complete'
 
   # post 'projects/:project_id/create_teamEvent/:id' => 'projects#create_teamEvent'
   post 'projects/:id/current_load_teamEvent/:event_id' => 'projects#current_load_teamEvent'

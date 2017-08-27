@@ -20,14 +20,23 @@
             <thead>
             <tr role="row">
               <th class="sorting_asc col-md-8" rowspan="1" colspan="1" aria-sort="ascending">Project</th>
-              <th class="sorting col-md-4" rowspan="1" colspan="1">Invite</th>
+              <th class="sorting col-md-4" rowspan="1" colspan="1">Last Update</th>
             </tr>
             </thead>
             <tbody>
             <% @projects.each do |project| %>
                 <tr role="row">
                   <td class="p-t-30 p-b-30 col-md-8" rowspan="1" colspan="1"> <%= link_to project.title, project_path(project.id) %></td>
-                  <td class="p-t-30 p-b-30 col-md-4" rowspan="1" colspan="1"> <%= time_ago_in_words(Time.now) %> </td>
+                  <td class="p-t-30 p-b-30 col-md-4" rowspan="1" colspan="1">
+                    <% t = Time.now - project.updated_at  %>
+                    <% if ((t/3600)/24).to_i >= 1 %>
+                        <%= ((t/3600)/24).to_i %> day
+                    <% else %>
+                        <%= (t/3600).to_i %> hour
+                        <%= ((t%3600)/60).to_i %> min
+                        <%= ((t%3600)%60).to_i %> sec
+                    <% end %>
+                    ago </td>
                 </tr>
             <% end %>
             </tbody>

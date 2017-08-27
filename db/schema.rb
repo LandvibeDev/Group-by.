@@ -134,6 +134,7 @@ ActiveRecord::Schema.define(version: 20170821125524) do
   create_table "team_events_users", force: :cascade do |t|
     t.integer "user_id"
     t.integer "team_event_id"
+    t.boolean "complete"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["team_event_id"], name: "index_team_events_users_on_team_event_id"

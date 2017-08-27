@@ -1,9 +1,14 @@
-<div class="p-t-20 p-b-10 p-r-20" style="text-align: right">
-  <%= link_to 'Save Project', project_save_path(@project.id) ,method: :post, :class => 'btn btn-lg' %>
+<div class="p-t-20 p-b-10 p-r-20">
+  <div class="p-l-30" style="float: left;">
+    <h3>새 이벤트를 입력 하여 Project를 완성하세요.</h3>
+  </div>
+  <div style="float: right;">
+    <%= link_to 'Save Project', project_save_path(@project.id) ,method: :post, :class => 'btn btn-lg' %>
+  </div>
 </div>
 
 <!-- START CALENDAR -->
-<div id="teamCalendar_month" class="full-height"></div>
+<div id="teamCalendar_month" class="full-height" style="float: left;"></div>
 
 <input type="hidden" id="project_id" value="<%= @project.id %>">
 <!-- END CALENDAR -->
@@ -60,13 +65,13 @@
     <div class="view bg-white">
       <div class="navbar navbar-default navbar-sm">
         <div class="navbar-inner">
-          <a href="javascript:;" class="inline action p-l-10 link text-master" data-navigate="view" data-view-port="#eventFormController" data-view-animation="push-parrallax">
+          <a class="inline action p-l-10 link text-master" data-navigate="view" data-view-port="#eventFormController" data-view-animation="push-parrallax">
             <i class="pg-arrow_left"></i>
           </a>
           <div class="view-heading">
             <span class="font-montserrat text-uppercase fs-13">Alerts</span>
           </div>
-          <a href="#" class="inline action p-r-10 pull-right link text-master">
+          <a class="inline action p-r-10 pull-right link text-master">
             <i class="pg-search"></i>
           </a>
         </div>
@@ -81,5 +86,6 @@
   .holder {
     display: inline-block;
     overflow: auto;
+    overflow-x: hidden;
   }
 </style>

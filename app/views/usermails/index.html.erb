@@ -5,7 +5,7 @@
   <ul class="main-menu">
     <li class="active">
       <i class="pg-inbox"></i>
-      <%= link_to ' All Mail',userpop3_usermails_path(1), :class => 'title' %>
+      <%= link_to ' All Mail',userpop3_usermails_path(1), :class => 'title', data: { turbolinks: false } %>
     </li>
   </ul>
   <ul class="sub-menu no-padding">
@@ -13,12 +13,12 @@
         <li>
           <div>
             <a class="pg_folder"></a>
-            <%= link_to pop.title, userpop3_usermail_path(pop.id, 1), :style => 'color: #89929a;' %>
+            <%= link_to pop.title, userpop3_usermail_path(pop.id, 1), :style => 'color: #89929a;', data: { turbolinks: false } %>
           </div>
         </li>
     <% end %>
   </ul>
-  <a href="#" class="menu-title" id="popBtn" data-toggle="modal" data-target="#popModal">
+  <a class="menu-title" id="popBtn" data-toggle="modal" data-target="#popModal">
     POP Setting
   </a>
 </nav>

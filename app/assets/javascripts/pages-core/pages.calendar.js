@@ -41,26 +41,26 @@
          */
         var EventManager = {
             /**
-            * @function getEventByID
-            * @description - Get one event by ID
-            * @param {int} id
-            * @returns {eventObject} event
-            */
+             * @function getEventByID
+             * @description - Get one event by ID
+             * @param {int} id
+             * @returns {eventObject} event
+             */
             getEventByID:function(id){
-             for (var i = 0; i < this.events.length; i++) {
-                if(Calendar.settings.events[i]._id == id){
-                    return setting.events[i];
-                    break;
+                for (var i = 0; i < this.events.length; i++) {
+                    if(Calendar.settings.events[i]._id == id){
+                        return setting.events[i];
+                        break;
+                    }
                 }
-             }
-             return null;
+                return null;
             },
             /**
-            * @function getEventsByDate
-            * @description - Get events by Date
-            * @param {date}
-            * @returns {eventObject} event
-            */
+             * @function getEventsByDate
+             * @description - Get events by Date
+             * @param {date}
+             * @returns {eventObject} event
+             */
             getEventsByDate:function(date){
                 date = moment(date).format("YYYY-MM-DD");
                 for (var i = 0; i < this.events.length; i++) {
@@ -69,35 +69,35 @@
                         return setting.events[i];
                         break;
                     }
-                 }
-                return null;    
+                }
+                return null;
             },
             /**
-            * @function getAllEvents
-            * @description - Get Events in Array
-            * @returns {array} events
-            */
+             * @function getAllEvents
+             * @description - Get Events in Array
+             * @returns {array} events
+             */
             getAllEvents:function(){
                 return this.events;
             },
             /**
-            * @function addEvent
-            * @description - Add New event
-            * @returns {eventObject}
-            */
+             * @function addEvent
+             * @description - Add New event
+             * @returns {eventObject}
+             */
             addEvent:function(){
                 this.events.push(event);
-            },   
+            },
             lazyFetch:function(){
 
             },
             /**
-            * @function byDateRange
-            * @description - Get a list of event indexs by date range
-            * @param {date} startDate
-            * @param {date} endDate
-            * @returns {eventObject}
-            */
+             * @function byDateRange
+             * @description - Get a list of event indexs by date range
+             * @param {date} startDate
+             * @param {date} endDate
+             * @returns {eventObject}
+             */
             byDateRange: function(startDate,endDate){
                 var start = moment(startDate).format("YYYY-MM-DD");
                 var end   = moment(endDate).add(24, 'hours').format("YYYY-MM-DD");
@@ -127,43 +127,43 @@
                             }
                         }
                         if(!disable)
-                        eventIndex.push(i);
+                            eventIndex.push(i);
                     }
                 }
                 return eventIndex;
             },
             /**
-            * @function hasEventByDate
-            * @description - Check if a date has events
-            * @param {date} date
-            * @param {string} format
-            * @returns {boolean}
-            */
+             * @function hasEventByDate
+             * @description - Check if a date has events
+             * @param {date} date
+             * @param {string} format
+             * @returns {boolean}
+             */
             hasEventByDate: function(date, format){
                 date =  moment(date).format(format);
                 for (var i = 0; i < Calendar.settings.events.length; i++) {
-                     var event = moment(Calendar.settings.events.start).format(format);
-                     if (date.localeCompare(event) == 0) {
+                    var event = moment(Calendar.settings.events.start).format(format);
+                    if (date.localeCompare(event) == 0) {
                         return true;
-                     }
+                    }
                 }
                 return false;
             },
             /**
-            * @function eventCountByDate
-            * @description - Count number of Events for a Date
-            * @param {date} date
-            * @param {string} format
-            * @returns {int}
-            */
+             * @function eventCountByDate
+             * @description - Count number of Events for a Date
+             * @param {date} date
+             * @param {string} format
+             * @returns {int}
+             */
             eventCountByDate: function(date, format){
                 date =  moment(date).format(format);
                 var count = 0;
                 for (var i = 0; i < Calendar.settings.events.length; i++) {
-                     var event = moment(Calendar.settings.events.start).format(format);
-                     if (date.localeCompare(event) == 0) {
+                    var event = moment(Calendar.settings.events.start).format(format);
+                    if (date.localeCompare(event) == 0) {
                         count++;
-                     }
+                    }
                 }
                 return count;
             },
@@ -175,20 +175,20 @@
                 for (var i = 0; i < Calendar.settings.disableDates.length; i++) {
                     var when  = moment(Calendar.settings.disableDates[i]);
                     if(when.within(range)){
-                        
+
                         dateIndex.push(moment(Calendar.settings.disableDates[i]).format(returnFormat));
                     }
                 }
-                return dateIndex;                 
+                return dateIndex;
             },
             /**
-            * @function eventCountByDateRange
-            * @description - Count number of Events for a Date Range
-            * @param {date} startDate
-            * @param {date} endDate
-            * @param {string} format
-            * @returns {int}
-            */
+             * @function eventCountByDateRange
+             * @description - Count number of Events for a Date Range
+             * @param {date} startDate
+             * @param {date} endDate
+             * @param {string} format
+             * @returns {int}
+             */
             eventCountByDateRange: function(startDate,endDate, format){
                 var start = moment(startDate).format("YYYY-MM-DD");
                 var end   = moment(endDate).format("YYYY-MM-DD");
@@ -208,30 +208,30 @@
          * @class
          * @description creates a year selector
          */
-        var yearSelector = (function() { 
+        var yearSelector = (function() {
             /**
-            * @constructor
-            * @param {dom} container
-            */           
+             * @constructor
+             * @param {dom} container
+             */
             function yearSelector(container){
                 this.container = container;
                 this.render();
             }
             /**
-            * @function _setActive
-            * @description - Highlight Active Year
-            * @access private
-            */
+             * @function _setActive
+             * @description - Highlight Active Year
+             * @access private
+             */
             var _setActive = function() {
                 var diff = calendar.year - Calendar.settings.ui.year.startYear
                 $('.year a').removeClass('active');
                 $('.year:nth-child(' + diff + ') > a').addClass('active')
             }
             /**
-            * @function _bindEvents
-            * @description - Bind Click Handler
-            * @access private
-            */          
+             * @function _bindEvents
+             * @description - Bind Click Handler
+             * @access private
+             */
             var _bindEvents = function(){
                 var $this = this;
                 $(document).off("click", "body:not(.pending) .year-selector");
@@ -243,10 +243,10 @@
                 });
             }
             /**
-            * @function _bindEvents
-            * @description - Show Year Selector
-            * @access protected
-            */   
+             * @function _bindEvents
+             * @description - Show Year Selector
+             * @access protected
+             */
             yearSelector.prototype.render = function(){
                 $(this.container).html("");
                 Calendar.content = "";
@@ -282,10 +282,10 @@
         }
         monthSelector.prototype = {
             /**
-            * @function render
-            * @description - Show Month Selector
-            * @access protected
-            */
+             * @function render
+             * @description - Show Month Selector
+             * @access protected
+             */
             render : function(){
 
                 $(this.container).html("");
@@ -305,20 +305,20 @@
                 this._bindEvents();
             },
             /**
-            * @function _setActive
-            * @description - Highlight Active Month
-            * @access private
-            */
+             * @function _setActive
+             * @description - Highlight Active Month
+             * @access private
+             */
             _setActive: function() {
-                
+
                 $('.month a').removeClass('active');
                 $('.month:nth-child(' + (parseInt(calendar.month) + 1) + ') > a').addClass('active');
             },
             /**
-            * @function _bindEvents
-            * @description - Bind Click handlers
-            * @access private
-            */
+             * @function _bindEvents
+             * @description - Bind Click handlers
+             * @access private
+             */
             _bindEvents:function(){
                 var $this = this;
                 $(document).off("click", "body:not(.pending) .month-selector")
@@ -348,17 +348,17 @@
         }
         dateSelector.prototype = {
             /**
-            * @function render
-            * @description - Show Date Selector
-            * @access protected
-            */
+             * @function render
+             * @description - Show Date Selector
+             * @access protected
+             */
             render : function(){
                 $(this.container).html("");
                 Calendar.daysOfMonth = moment([calendar.year, calendar.month]).daysInMonth();
                 Calendar.content = "";
                 var weekStart = parseInt(moment(Calendar.settings.ui.week.startOfTheWeek,'d').format('d'));
                 var weekEnd = parseInt(moment(Calendar.settings.ui.week.endOfTheWeek,'d').format('d'));
-                
+
 
                 for (var i = 1; i <= Calendar.daysOfMonth; i++) {
                     var date = moment([calendar.year, calendar.month, i]);
@@ -366,12 +366,12 @@
                     var activeClass = (calendar.date == i) ? 'active current-date' : '';
 
                     (t ==  weekStart || i == 1) ? Calendar.content += '<div class="week ' + activeClass + '">': '';
-                     if(weekStart >= weekEnd){
+                    if(weekStart >= weekEnd){
                         if(t >= weekStart || t==weekEnd){
                             _construcWeekday()
                         }
-                     }
-                     else{
+                    }
+                    else{
                         if(t >= weekStart && t <= weekEnd){
                             _construcWeekday();
                         }
@@ -398,28 +398,28 @@
                 Calendar.dragHandler('weeks-wrapper');
             },
             /**
-            * @function _setActive
-            * @description - Highlight Active Date
-            * @access private
-            */
+             * @function _setActive
+             * @description - Highlight Active Date
+             * @access private
+             */
             _setActive: function() {
                 $('.week').removeClass('active');
                 $(elem).closest('.week').addClass('active');
             },
             /**
-            * @function _bindEvents
-            * @description - Bind Click handlers
-            * @access private
-            */
+             * @function _bindEvents
+             * @description - Bind Click handlers
+             * @access private
+             */
             _bindEvents:function(){
                 var $this = this;
                 $(document).off("click", "body:not(.pending) .date-selector");
                 $(document).on("click", "body:not(.pending) .date-selector",function(e) {
                     $(".week-date").removeClass('active')
                     $(this).children('.week-date').addClass('active');
-                    
+
                     calendar.date = parseInt($(this).children('.week-date').children('.day').children('a').attr('data-date'));
-                    Calendar._onDayChange();                
+                    Calendar._onDayChange();
                 });
             }
         }
@@ -429,7 +429,7 @@
          * @constructor
          * @description Decides which layout to create
          * @param {dom} container
-         */  
+         */
         var gridFractory = function(layout) {
             this.grid = null;
             this.miniCalendar = null;
@@ -452,13 +452,13 @@
                     this.miniCalendar = new dateSelector(".weeks-wrapper");
                     this.grid =  new wView(".calendar-container",this.layout);
                     break;
-            }            
+            }
         }
         /**
          * @function refresh
          * @description Refresh dates and reload events
          * @access protected
-        */        
+         */
         gridFractory.prototype.refresh = function(){
             return this.grid.refresh();
         }
@@ -466,7 +466,7 @@
          * @function rebuild
          * @description Rebuild the entire view
          * @access protected
-        */ 
+         */
         gridFractory.prototype.rebuild = function(){
             this.build();
         }
@@ -474,7 +474,7 @@
          * @function reloadEvents
          * @description Remove and load events.
          * @access protected
-        */ 
+         */
         gridFractory.prototype.reloadEvents = function(){
             this.grid.reloadEvents();
         }
@@ -498,7 +498,7 @@
          * @constructor
          * @description Creates the Week View Grid
          * @param {dom} container
-         */ 
+         */
         var wView = function(container,layout){
             this.layout = layout;
             view.call(this, container);
@@ -511,16 +511,16 @@
          * @function render
          * @description Render Weekview to container
          * @access protected
-        */ 
+         */
         wView.prototype.render = function() {
             this.weekStart = parseInt(moment(Calendar.settings.ui.week.startOfTheWeek,'d').format('d'));
             this.weekEnd = parseInt(moment(Calendar.settings.ui.week.endOfTheWeek,'d').format('d'));
             this.startOfWeek = moment([calendar.year, calendar.month, calendar.date]).startOf('week');
-           
+
             if(this.weekStart >= this.weekEnd)
                 this.endOfWeek = moment([calendar.year, calendar.month, calendar.date]).startOf('week').add("days", 7 + Calendar.settings.ui.week.endOfTheWeek);
             else
-                 this.endOfWeek = moment([calendar.year, calendar.month, calendar.date]).startOf('week').add("days",Calendar.settings.ui.week.endOfTheWeek);
+                this.endOfWeek = moment([calendar.year, calendar.month, calendar.date]).startOf('week').add("days",Calendar.settings.ui.week.endOfTheWeek);
 
             this._buildLayout();
             this._timeslots();
@@ -532,20 +532,20 @@
                 this.scrollToFirstEvent();
         }
         /** Build layout
-         * @function  
+         * @function
          * @description Builds the grid only
          * @access private
-        */ 
+         */
         wView.prototype._buildLayout = function() {
 
             var headerContent= '<div class="thead" >';
             var weekend = this.weekEnd;
             if(this.weekStart >= this.weekEnd ){
-               weekend = 7;
+                weekend = 7;
             }
-            for (var j = this.weekStart; j<=weekend ; j++) {   
+            for (var j = this.weekStart; j<=weekend ; j++) {
                 headerContent+='<div class="tcell"></div>';
-            }     
+            }
             headerContent += '</div>';
 
             $(this.container).html("");
@@ -564,17 +564,17 @@
             Calendar.content += '<div class="tble" id="weekGrid">';
             var slot = parseInt(Calendar.settings.slotDuration);
             var slotCount = (60/Math.round(slot) ) - 1;
-            
+
             //START TABLE Calendar.content
             for (var i = Calendar.settings.minTime; i < Calendar.settings.maxTime; i++) {
                 Calendar.content += '<div class="trow" >';
-                for (var j = this.weekStart; j<=weekend ; j++) { 
+                for (var j = this.weekStart; j<=weekend ; j++) {
                     Calendar.content += '<div class="tcell">';
                     Calendar.content += '<div class="cell-inner" data-time-slot="' + i + ':00" ></div>';
                     var _slot = 0;
                     for(var s = 0; s < slotCount;s++){
                         Calendar.content += '<div class="cell-inner" data-time-slot="' + i + ':'+(_slot =_slot + slot)+'" ></div>';
-                    } 
+                    }
                     Calendar.content += '</div>';
                 }
                 Calendar.content += '</div>';
@@ -592,15 +592,15 @@
             $(".calendar").removeClass("month").addClass("week");
         }
         /** Load Dates
-         * @function  
+         * @function
          * @description Load dates to the build grid
          * @access private
-        */ 
+         */
         wView.prototype._loadDates = function() {
             var column = 1;
             var weekend = this.weekEnd;
             if(this.weekStart >= this.weekEnd ){
-               weekend = 7;
+                weekend = 7;
             }
             for (var i = this.weekStart; i <= weekend; i++) {
                 var date = moment(this.startOfWeek).add(i, 'days');
@@ -629,11 +629,11 @@
         wView.prototype.renderEvent = function(eventStartHours, eventStartMins, eventEndHours, evenEndMins, cellNo, arrayIndex, eventDuration) {
             var minsRemoved = Math.round(moment(eventStartHours+":"+eventStartMins,["H:mm"]).diff(moment("0:00",["H:mm"]),"minutes")/ Calendar.settings.slotDuration)* Calendar.settings.slotDuration;
             var MAXMINS = this.maxMinsPerDay - minsRemoved;
-            
+
             var slotNumber = (Math.round(eventStartMins / Calendar.settings.slotDuration) * Calendar.settings.slotDuration);
             if(slotNumber == 60 ){
-             eventStartHours = parseInt(eventStartHours) + 1;
-             slotNumber = 0;
+                eventStartHours = parseInt(eventStartHours) + 1;
+                slotNumber = 0;
             }
             slotNumber = slotNumber  / Calendar.settings.slotDuration;
             var slotParent = $($(".tble .cell-inner[data-time-slot='"+eventStartHours+":00']")[cellNo]).parent();
@@ -659,48 +659,48 @@
                     height = (remainingMins / Calendar.settings.slotDuration) * this.snapGridHeight;
                     remainingMins = 0;
                     $(slotParent.children()[slotNumber]).append(this._buildEventElement(height,arrayIndex,cellNo,eventStartHours, eventStartMins, eventEndHours, evenEndMins));
-                }   
+                }
                 //$(slotParent.children()[slotNumber]).append(eventContent);
             }
-            
+
             plugin.settings.onEventRender.call(this);
         },
 
-        wView.prototype._buildEventElement = function(h,arrayIndex,cellNo,eventStartHours, eventStartMins, eventEndHours, evenEndMins){
+            wView.prototype._buildEventElement = function(h,arrayIndex,cellNo,eventStartHours, eventStartMins, eventEndHours, evenEndMins){
 
-            h = "height:" + h + "px;";
-            var id = 'ca_' + moment(Calendar.settings.events[arrayIndex].start).unix() + arrayIndex;
-            var readonly = (Calendar.settings.events[arrayIndex].readOnly == true) ? "readonly":"";
-            var eventContent = "<div class='event-container " + Calendar.settings.events[arrayIndex].class+ " "+readonly+"' data-event-duration=" + moment(Calendar.settings.events[arrayIndex].end).diff(Calendar.settings.events[arrayIndex].start, 'minutes')  + " data-index=" + arrayIndex + " data-startTime=" + Calendar.settings.events[arrayIndex].start + " data-endTime=" + Calendar.settings.events[arrayIndex].end + " id=" + id + " data-id=" + id + " data-row=" + (parseInt(eventStartHours)) + " data-cell=" + cellNo + " style=" + h + ">"
-            eventContent += "<div class='event-inner'>";
-            eventContent += "<div class='event-title'>" + Calendar.settings.events[arrayIndex].title + "</div>";
-            eventContent += "<div class='time-wrap'><span class='event-start-time'>" + moment(Calendar.settings.events[arrayIndex].start).format(Calendar.settings.timeFormat) + "</span> - ";
-            eventContent += "<span class='event-end-time'>" + moment(Calendar.settings.events[arrayIndex].end).format(Calendar.settings.timeFormat) + "</span></div>";
-            eventContent += "</div>"
-            if(Calendar.settings.events[arrayIndex].readOnly == false || Calendar.settings.events[arrayIndex].readOnly == undefined){
-                eventContent += "<div class='resizable-handle'></div>"
+                h = "height:" + h + "px;";
+                var id = 'ca_' + moment(Calendar.settings.events[arrayIndex].start).unix() + arrayIndex;
+                var readonly = (Calendar.settings.events[arrayIndex].readOnly == true) ? "readonly":"";
+                var eventContent = "<div class='event-container " + Calendar.settings.events[arrayIndex].class+ " "+readonly+"' data-event-duration=" + moment(Calendar.settings.events[arrayIndex].end).diff(Calendar.settings.events[arrayIndex].start, 'minutes')  + " data-index=" + arrayIndex + " data-startTime=" + Calendar.settings.events[arrayIndex].start + " data-endTime=" + Calendar.settings.events[arrayIndex].end + " id=" + id + " data-id=" + id + " data-row=" + (parseInt(eventStartHours)) + " data-cell=" + cellNo + " style=" + h + ">"
+                eventContent += "<div class='event-inner'>";
+                eventContent += "<div class='event-title'>" + Calendar.settings.events[arrayIndex].title + "</div>";
+                eventContent += "<div class='time-wrap'><span class='event-start-time'>" + moment(Calendar.settings.events[arrayIndex].start).format(Calendar.settings.timeFormat) + "</span> - ";
+                eventContent += "<span class='event-end-time'>" + moment(Calendar.settings.events[arrayIndex].end).format(Calendar.settings.timeFormat) + "</span></div>";
+                eventContent += "</div>"
+                if(Calendar.settings.events[arrayIndex].readOnly == false || Calendar.settings.events[arrayIndex].readOnly == undefined){
+                    eventContent += "<div class='resizable-handle'></div>"
+                }
+                eventContent += "</div>"
+                Calendar.settings.events[arrayIndex].dataID = id;
+                return eventContent;
             }
-            eventContent += "</div>"
-            Calendar.settings.events[arrayIndex].dataID = id;    
-            return eventContent;
-        }
         /** Draw Event
-         * @function  
+         * @function
          * @description Draw an Event
          * @access private
-        */
+         */
         wView.prototype._drawEvent = function() {
-           this.snapGridWidth = parseInt($('.tcell').outerWidth());
-           this.snapGridHeight = parseInt($('.cell-inner').outerHeight());
+            this.snapGridWidth = parseInt($('.tcell').outerWidth());
+            this.snapGridHeight = parseInt($('.cell-inner').outerHeight());
             var weekend = this.weekEnd;
             if(this.weekStart >= this.weekEnd ){
-               weekend = 7;
+                weekend = 7;
             }
-           var _eventIndex = EventManager.byDateRange(this.startOfWeek,this.endOfWeek);
+            var _eventIndex = EventManager.byDateRange(this.startOfWeek,this.endOfWeek);
 
-           $('#weekGrid').find('.event-container').remove();
-           $('.tble > .thead > .tcell').find(".event-bubble").remove();
-           for(var i = 0; i < _eventIndex.length; i++){
+            $('#weekGrid').find('.event-container').remove();
+            $('.tble > .thead > .tcell').find(".event-bubble").remove();
+            for(var i = 0; i < _eventIndex.length; i++){
 
                 var index = _eventIndex[i];
                 var e = moment(Calendar.settings.events[index].start);
@@ -719,27 +719,27 @@
                 }
 
                 var eventDuration = moment(eventEndHours + ":" + evenEndMins, "h:mm").diff(moment(eventStartHours + ":" + eventStartMins, "h:mm"), 'minutes', true);
-                
+
                 if(Calendar.settings.ui.grid.eventBubble){
                     if (Calendar.settings.events[index].class != null) {
                         this._setEventBubble(Calendar.settings.events[index].class,cellNo);
                     }
                 }
 
-                this.renderEvent(eventStartHours, eventStartMins, eventEndHours, evenEndMins, cellNo, index, eventDuration);  
-            
-           }
-           if(Calendar.settings.eventOverlap == false)
-            this.collisionGroups(_eventIndex);
+                this.renderEvent(eventStartHours, eventStartMins, eventEndHours, evenEndMins, cellNo, index, eventDuration);
 
-           this.setEventBubbles(Calendar.settings.events);
+            }
+            if(Calendar.settings.eventOverlap == false)
+                this.collisionGroups(_eventIndex);
+
+            this.setEventBubbles(Calendar.settings.events);
         }
 
         wView.prototype.collisionGroups = function(_eventIndex){
             var collisionGroups = [];
             var tempGroups = [];
             for(var i = 1; i < _eventIndex.length; i++){
-               
+
                 var event1Range = moment.range(Calendar.settings.events[_eventIndex[i]].start,Calendar.settings.events[_eventIndex[i]].end);
                 var j = i - 1;
                 do {
@@ -761,7 +761,7 @@
                 for(var i=0; i<a.length; ++i) {
                     for(var j=i+1; j<a.length; ++j) {
                         if(a[i] === a[j]){
-                           a.splice(j--, 1);
+                            a.splice(j--, 1);
                         }
                     }
                 }
@@ -777,7 +777,7 @@
                         collisionGroups[j] = newArray;
                         collisionGroups.splice(i, 1);
                         j--;
-                    }   
+                    }
                 }
             }
 
@@ -793,35 +793,35 @@
                     left = left + width
                 }
             }
-            
+
         }
 
 
         /** Drag and drop
-         * @function  
+         * @function
          * @description Drag and drop handlers per event drawn
          * @access protected
-        */
+         */
         wView.prototype._bindEventDraggers = function() {
-                var mins = 0;
-                var days = 0;
-                var duration = 0;
-                var parent = $("#weekGrid")[ 0 ];
-                var $snapGridHeight = this.snapGridHeight;          
-                var $snapGridWidth = this.snapGridWidth;  
-                var $this = this;        
-                interact('.event-container:not(.readonly)')
-                  .draggable({
+            var mins = 0;
+            var days = 0;
+            var duration = 0;
+            var parent = $("#weekGrid")[ 0 ];
+            var $snapGridHeight = this.snapGridHeight;
+            var $snapGridWidth = this.snapGridWidth;
+            var $this = this;
+            interact('.event-container:not(.readonly)')
+                .draggable({
                     snap: {
-                      targets: [
-                        interact.createSnapGrid({ x: this.snapGridWidth , y: this.snapGridHeight  })
-                      ]
+                        targets: [
+                            interact.createSnapGrid({ x: this.snapGridWidth , y: this.snapGridHeight  })
+                        ]
                     },
                     inertia: true,
                     restrict: {
-                      restriction: parent,
-                      elementRect: { top: 0, left: 0, bottom: 0, right: 0 },
-                      endOnly: true
+                        restriction: parent,
+                        elementRect: { top: 0, left: 0, bottom: 0, right: 0 },
+                        endOnly: true
                     },
                     autoScroll: true,
                     onmove: function(event) {
@@ -852,16 +852,16 @@
                         $this._drawEvent();
                         plugin.settings.onEventDragComplete(eventO);
                     }
-                  })                
+                })
                 .resizable({
                     edges: { left: false, right: true, bottom: true, top: false },
                     snap: {
-                      targets: [
-                        interact.createSnapGrid({ x:this.snapGridWidth , y: this.snapGridHeight  })
-                      ]
+                        targets: [
+                            interact.createSnapGrid({ x:this.snapGridWidth , y: this.snapGridHeight  })
+                        ]
                     }
                 })
-                  .on('resizemove', function (event) {
+                .on('resizemove', function (event) {
                     var target = event.target
                     var height  = event.rect.height;
                     //Interact JS restric min height now working.
@@ -881,8 +881,8 @@
                     duration = (height / $snapGridHeight) * Calendar.settings.slotDuration;
                     //Update DOM Element
                     target.style.height = height + 'px';
-                  }) 
-                  .on('resizeend', function (event) {
+                })
+                .on('resizeend', function (event) {
                     var target = event.target
                     var elem = $(target);
                     var eventData = $(target).data();
@@ -898,30 +898,30 @@
                     duration = 0;
                     days = 0;
                     Calendar.settings.events[eventData.index] = eventO;
-                    $this._drawEvent();  
-                    plugin.settings.onEventDragComplete(eventO);             
-                  });       
+                    $this._drawEvent();
+                    plugin.settings.onEventDragComplete(eventO);
+                });
         },
 
-        /** Show event bubbles
-         * @function  
-         * @description Draw event bubbles on the header
-         * @param {string} className
-         * @param {int} cellNo
-         * @access private
-        */
-        wView.prototype._setEventBubble =  function(className,cellNo){
+            /** Show event bubbles
+             * @function
+             * @description Draw event bubbles on the header
+             * @param {string} className
+             * @param {int} cellNo
+             * @access private
+             */
+            wView.prototype._setEventBubble =  function(className,cellNo){
                 var $elem = $("#viewTableHead").find(".thead .tcell:nth-child(" + (parseInt(cellNo)+1) + ")");
-                
+
                 if ($elem.children('.' +className).length == 0) {
                     $elem.append('<div class="event-bubble ' + className + '"></div>');
                 }
-        }
+            }
         /** Add Time Slots
-         * @function  
+         * @function
          * @description Add Time Slots
          * @access private
-        */
+         */
         wView.prototype._timeslots =  function(){
             var container = '#time-slots';
             Calendar.content = '';
@@ -931,11 +931,11 @@
             }
             $(container).append(Calendar.content);
         }
-        /** 
-         * @function  
+        /**
+         * @function
          * @description Highlight Active Date
          * @access private
-        */
+         */
         wView.prototype._setActive = function() {
             $('#viewTableHead').find('.thead .tcell').removeClass('active');
             $('#weekGrid').find('.trow .tcell').removeClass('active');
@@ -947,34 +947,34 @@
             $('#weekGrid').find('.trow .tcell:nth-child(' + (index) + ')').addClass('active');
         }
 
-         /** 
-         * @function  
+        /**
+         * @function
          * @description Autoscroll To First Event in Week view grid
          * @access protected
-        */
+         */
         wView.prototype.scrollToFirstEvent = function(){
 
-             var _eventIndex = EventManager.byDateRange(this.startOfWeek,this.endOfWeek);
-             if(_eventIndex.length == 0)
+            var _eventIndex = EventManager.byDateRange(this.startOfWeek,this.endOfWeek);
+            if(_eventIndex.length == 0)
                 return false;
 
-             var el = $(".cell-inner [data-index='"+_eventIndex[0]+"']");
-             var grid = $('.calendar .calendar-container .grid');
-             var parentOffSet = $('.calendar .calendar-container .grid').get(0).getBoundingClientRect();
-             var elRect = el.get(0).getBoundingClientRect();
-            
-             var position = (elRect.top - parentOffSet.top) - Calendar.settings.ui.grid.scrollToGap;
-             var currentPosition = grid.scrollTop();
+            var el = $(".cell-inner [data-index='"+_eventIndex[0]+"']");
+            var grid = $('.calendar .calendar-container .grid');
+            var parentOffSet = $('.calendar .calendar-container .grid').get(0).getBoundingClientRect();
+            var elRect = el.get(0).getBoundingClientRect();
 
-             grid.animate({
+            var position = (elRect.top - parentOffSet.top) - Calendar.settings.ui.grid.scrollToGap;
+            var currentPosition = grid.scrollTop();
+
+            grid.animate({
                 scrollTop:currentPosition+position},Calendar.settings.ui.grid.scrollToAnimationSpeed);
 
-        }   
-        /** 
-         * @function  
+        }
+        /**
+         * @function
          * @description Double Tap Event
          * @access protected
-        */    
+         */
         wView.prototype.doubletap = function(obj){
             var elem = $(obj);
             var date = $('#viewTableHead').find('.thead .tcell:nth-child(' + (elem.parent().index()+1) + ')').attr("data-day");
@@ -983,7 +983,7 @@
             var timeSlot = {
                 date: date,
             }
-            return timeSlot;        
+            return timeSlot;
         }
 
         wView.prototype.showDisableDates= function(){
@@ -991,15 +991,15 @@
             this.disableDates = EventManager.getDisableDateIndexInDateRange(this.startOfWeek,this.endOfWeek,"e");
             for (var i = 0; i < this.disableDates.length; i++) {
                 $(".tble .trow .tcell:nth-child(" + (parseInt(this.disableDates[i]) + 1) + ")")
-                .addClass("disable")
-                .children(".cell-inner").addClass("disable");
+                    .addClass("disable")
+                    .children(".cell-inner").addClass("disable");
             }
         }
-        /** 
-         * @function  
+        /**
+         * @function
          * @description Refresh dates and reload events
          * @access protected
-        */
+         */
         wView.prototype.refresh =function(){
             this.weekStart = parseInt(moment(Calendar.settings.ui.week.startOfTheWeek,'d').format('d'));
             this.weekEnd = parseInt(moment(Calendar.settings.ui.week.endOfTheWeek,'d').format('d'));
@@ -1011,28 +1011,28 @@
             this.setEventBubbles(Calendar.settings.events)
             return dates;
         }
-        /** 
-         * @function  
+        /**
+         * @function
          * @description Reload Events
          * @access protected
-        */
+         */
         wView.prototype.reloadEvents = function(){
             this._drawEvent();
         }
-        /** 
-         * @function  
+        /**
+         * @function
          * @description Redraw View
          * @access protected
-        */
+         */
         wView.prototype.rebuild = function(){
             this.grid._buildLayout();
             this.refresh();
         }
-        /** 
-         * @function  
+        /**
+         * @function
          * @description windowResize
          * @access protected
-        */
+         */
         wView.prototype.windowResize = function(){
             var $this = this;
             $( window ).resize(function() {
@@ -1040,20 +1040,20 @@
                 $this._bindEventDraggers();
             });
         }
-        /** 
-         * @function  
+        /**
+         * @function
          * @description Get current date range on view
          * @access protected
-        */
+         */
         wView.prototype.getCurrentDateRange = function(){
             var dates = [this.startOfWeek,this.endOfWeek];
             return dates;
         }
-        /** 
-         * @function  
+        /**
+         * @function
          * @description Set event bubbles for years, months, and days
          * @access protected
-        */
+         */
         wView.prototype.setEventBubbles = function(eventArray){
             $('.has-event').removeClass('has-event');
             for (var item in Calendar.settings.events) {
@@ -1070,7 +1070,7 @@
                     if (calendar.month + 1 == moment(Calendar.settings.events[item].start).format("M")) {
                         if(Calendar.settings.ui.week.eventBubble)
                             $('.date-selector > .week-date > .day > [data-date="' + eventDate + '"]').addClass('has-event');
-                        
+
                     }
                 }
             }
@@ -1082,7 +1082,7 @@
          * @constructor
          * @description Creates the Month View Grid
          * @param {dom} container
-         */ 
+         */
         var MonthView = function(container){
             this.monthViewStartDate ="";
             this.monthViewEndDate ="";
@@ -1091,11 +1091,11 @@
             this.render();
         }
         MonthView.prototype = Object.create(view.prototype);
-        /** 
-         * @function  
+        /**
+         * @function
          * @description Render View including events and dates
          * @access protected
-        */
+         */
         MonthView.prototype.render = function() {
             this.weekStart = parseInt(moment(Calendar.settings.ui.week.startOfTheWeek,'d').format('d'));
             this.weekEnd = parseInt(moment(Calendar.settings.ui.week.endOfTheWeek,'d').format('d'));
@@ -1106,57 +1106,57 @@
             this._bindEvents();
             this.bindEventDraggers();
         }
-        /** 
-         * @function  
+        /**
+         * @function
          * @description Construct the grid only
          * @access private
-        */
+         */
         MonthView.prototype._buildLayout = function() {
-                var headerContent= '<div class="thead" >';
-                for (var j = this.weekStart; j<=this.weekEnd ; j++) {   
-                    headerContent+='<div class="tcell"></div>';
-                }     
-                headerContent += '</div>';
-                $(this.container).html("");
-                Calendar.content = '';
-                Calendar.content += '<div class="view month-view">';
-                Calendar.content += '<div class="tble" id="viewTableHead">';
-                //START TABLE HEADER
-                Calendar.content += headerContent;
-                Calendar.content += '</div>';
-                Calendar.content += '<div class="grid">';
+            var headerContent= '<div class="thead" >';
+            for (var j = this.weekStart; j<=this.weekEnd ; j++) {
+                headerContent+='<div class="tcell"></div>';
+            }
+            headerContent += '</div>';
+            $(this.container).html("");
+            Calendar.content = '';
+            Calendar.content += '<div class="view month-view">';
+            Calendar.content += '<div class="tble" id="viewTableHead">';
+            //START TABLE HEADER
+            Calendar.content += headerContent;
+            Calendar.content += '</div>';
+            Calendar.content += '<div class="grid">';
 
-                Calendar.content += '<div class="tble" id="monthGrid">';
-                //START TABLE CONTENT
-                for (var i = 0; i < 5; i++) {
-                    Calendar.content += '<div class="trow" >';
-                    for (var j = this.weekStart; j<=this.weekEnd ; j++) { 
-                        Calendar.content += '<div class="tcell">';
-                        Calendar.content += '<div class="month-date"></div>';
-                        Calendar.content += '<div class="cell-inner"><div class="holder"></div></div>';
-                        Calendar.content += '</div>';
-                    }
+            Calendar.content += '<div class="tble" id="monthGrid">';
+            //START TABLE CONTENT
+            for (var i = 0; i < 5; i++) {
+                Calendar.content += '<div class="trow" >';
+                for (var j = this.weekStart; j<=this.weekEnd ; j++) {
+                    Calendar.content += '<div class="tcell">';
+                    Calendar.content += '<div class="month-date"></div>';
+                    Calendar.content += '<div class="cell-inner"><div class="holder"></div></div>';
                     Calendar.content += '</div>';
                 }
-                //END TABLE CONTENT
                 Calendar.content += '</div>';
-                Calendar.content += '</div>';
-                //END TABLE HEADER
-                Calendar.content += '</div>';
-                $(this.container).append(Calendar.content);
-                cellHeight = $('.tcell').innerHeight();
-                calendar.startOfWeekDate = moment([calendar.year, calendar.month, calendar.date]).startOf('week');
-                calendar.endOfWeek = moment([calendar.year, calendar.month, calendar.date]).endOf('week').format('D');
-                this.snapGridWidth = parseInt($('.tcell').outerWidth());
-                this.snapGridHeight = parseInt($('.cell-inner').outerHeight());   
-                this.holderHeight = parseInt($(".holder").outerHeight());
-                $(".calendar").removeClass("week").addClass("month");            
+            }
+            //END TABLE CONTENT
+            Calendar.content += '</div>';
+            Calendar.content += '</div>';
+            //END TABLE HEADER
+            Calendar.content += '</div>';
+            $(this.container).append(Calendar.content);
+            cellHeight = $('.tcell').innerHeight();
+            calendar.startOfWeekDate = moment([calendar.year, calendar.month, calendar.date]).startOf('week');
+            calendar.endOfWeek = moment([calendar.year, calendar.month, calendar.date]).endOf('week').format('D');
+            this.snapGridWidth = parseInt($('.tcell').outerWidth());
+            this.snapGridHeight = parseInt($('.cell-inner').outerHeight());
+            this.holderHeight = parseInt($(".holder").outerHeight());
+            $(".calendar").removeClass("week").addClass("month");
         }
-        /** 
-         * @function  
+        /**
+         * @function
          * @description Load dates to grid
          * @access private
-        */
+         */
         MonthView.prototype._loadDates = function(){
             $(".tcell").removeClass("not active current-date");
             $(".month-date").removeClass("not active current-date");
@@ -1173,7 +1173,7 @@
 
             var startDate  = moment([calendar.year, calendar.month, calendar.date]).startOf('month').startOf('week');
             this.monthViewStartDate = moment([calendar.year, calendar.month, calendar.date]).startOf('month').startOf('week');
-           
+
             var count = 0;
             var extraClass=null;
             this.gridElem = $(this.container).find(".view .grid");
@@ -1194,11 +1194,11 @@
             this._drawEvent();
             this.setEventBubbles();
         }
-        /** 
-         * @function  
+        /**
+         * @function
          * @description bind event handlers
          * @access private
-        */
+         */
         MonthView.prototype._bindEvents= function(){
             var $this = this;
             $(".month-view .tcell").off("click");
@@ -1211,21 +1211,21 @@
             });
         }
         /** Draw Event
-         * @function  
+         * @function
          * @description Draw an Event
          * @access private
-        */
+         */
         MonthView.prototype._drawEvent = function() {
-           var _eventIndex = EventManager.byDateRange(this.monthViewStartDate.format("YYYY-MM-DD"),this.monthViewEndDate.format("YYYY-MM-DD"));
-           $('#monthGrid').find('.event-container').remove();
-           $('#monthGrid').find('.ghost-element').remove();
-           for(var i = 0; i < _eventIndex.length; i++){
+            var _eventIndex = EventManager.byDateRange(this.monthViewStartDate.format("YYYY-MM-DD"),this.monthViewEndDate.format("YYYY-MM-DD"));
+            $('#monthGrid').find('.event-container').remove();
+            $('#monthGrid').find('.ghost-element').remove();
+            for(var i = 0; i < _eventIndex.length; i++){
                 var index = _eventIndex[i];
                 var cell = $(".tble [data-date='"+moment(Calendar.settings.events[index].start).format("YYYY-MM-DD")+"']")
                 var days = moment(moment(Calendar.settings.events[index].end)).diff(moment(Calendar.settings.events[index].start),"days");
                 days = (days === 0) ? days = 1 : days = days ;
                 this.renderEvent(cell,index,days);
-           }
+            }
         }
 
         /**
@@ -1234,10 +1234,11 @@
          * @access protected
          */
         MonthView.prototype.renderEvent = function(elem,arrayIndex,days) {
-            var width = "style='width:"+ (parseInt(days) * 100)+"%'";
+            var events_days = parseInt(days);
+            var width = "style='width:" + (100) + "%'";
             var id = 'ca_' + moment(Calendar.settings.events[arrayIndex].start).unix() + arrayIndex;
-            var readonly = (Calendar.settings.events[arrayIndex].readOnly == true) ? "readonly":"";
-            var eventContent = "<div class='event-container " + Calendar.settings.events[arrayIndex].class + " "+readonly+"' "+width+" data-index=" + arrayIndex + " data-startTime=" + Calendar.settings.events[arrayIndex].start + " data-endTime=" + Calendar.settings.events[arrayIndex].end + " id=" + id + " data-id=" + id + ">"
+            var readonly = (Calendar.settings.events[arrayIndex].readOnly == true) ? "readonly" : "";
+            var eventContent = "<div class='event-container " + Calendar.settings.events[arrayIndex].class + " " + readonly + "' " + width + " data-index=" + arrayIndex + " data-startTime=" + Calendar.settings.events[arrayIndex].start + " data-endTime=" + Calendar.settings.events[arrayIndex].end + " id=" + id + " data-id=" + id + ">"
             eventContent += "<div class='event-inner'>";
             eventContent += "<div class='event-title'>" + Calendar.settings.events[arrayIndex].title + "</div>";
             eventContent += "</div>"
@@ -1247,10 +1248,10 @@
             plugin.settings.onEventRender.call(this);
         }
         /** Double tap
-         * @function  
+         * @function
          * @description Double tap function.
          * @access protected
-        */
+         */
         MonthView.prototype.doubletap = function(obj){
             var el = $(obj).parent();
             var timeSlot = {
@@ -1259,190 +1260,190 @@
             return timeSlot;
         }
         /** Drag and drop
-         * @function  
+         * @function
          * @description Drag and drop handlers per event drawn
          * @access protected
-        */
+         */
         MonthView.prototype.bindEventDraggers = function() {
             var days = 0;
             var duration = 0;
             var parent = $("#monthGrid")[ 0 ];
-            var startPos = null         
+            var startPos = null
             var $this = this;
             interact('.event-container:not(.readonly)')
-              .draggable({
-                inertia: true,
-                restrict: {
-                  restriction: parent,
-                  elementRect: { top: 0, left: 0, bottom: 1, right: 1 },
-                  endOnly: true,
-                  drag: ""
-                },
-                mode: 'anchor',
-                anchors: [],
-                autoScroll: true,
-                onmove: function(event) {
-                    Calendar.dragMoveListener(event);
-                    event.target.classList.add('dragging');
-                },
-                onend:function(event){
-                    event.target.classList.remove('dragging');
-                }
-              })
-            .snap({
-                mode: 'anchor',
-                anchors: [],
-                range: Infinity,
-                elementOrigin: { x: 0.5, y: 0.5 },
-                endOnly: true
-            })
-            .on('dragstart', function (event) {
-                if (!startPos) {
-                  var rect = interact.getElementRect(event.target);
-                  // record center point when starting the very first a drag
-                  startPos = {
-                    x: rect.left + rect.width  / 2,
-                    y: rect.top  + rect.height / 2
-                  }
-                }
+                .draggable({
+                    inertia: true,
+                    restrict: {
+                        restriction: parent,
+                        elementRect: { top: 0, left: 0, bottom: 1, right: 1 },
+                        endOnly: true,
+                        drag: ""
+                    },
+                    mode: 'anchor',
+                    anchors: [],
+                    autoScroll: true,
+                    onmove: function(event) {
+                        Calendar.dragMoveListener(event);
+                        event.target.classList.add('dragging');
+                    },
+                    onend:function(event){
+                        event.target.classList.remove('dragging');
+                    }
+                })
+                .snap({
+                    mode: 'anchor',
+                    anchors: [],
+                    range: Infinity,
+                    elementOrigin: { x: 0.5, y: 0.5 },
+                    endOnly: true
+                })
+                .on('dragstart', function (event) {
+                    if (!startPos) {
+                        var rect = interact.getElementRect(event.target);
+                        // record center point when starting the very first a drag
+                        startPos = {
+                            x: rect.left + rect.width  / 2,
+                            y: rect.top  + rect.height / 2
+                        }
+                    }
 
-                // snap to the start position
-                event.interactable.snap({ anchors: [startPos] });
-            });
+                    // snap to the start position
+                    event.interactable.snap({ anchors: [startPos] });
+                });
             interact('.tcell')
             // enable draggables to be dropped into this
-            .dropzone({ 
-                overlap: 'center',
-                accept:'.event-container'
-            })
-            // listen for drop related events
-            .on('dragenter', function (event) {
+                .dropzone({
+                    overlap: 'center',
+                    accept:'.event-container'
+                })
+                // listen for drop related events
+                .on('dragenter', function (event) {
 
-                var dropRect = interact.getElementRect($(event.target).children(".cell-inner").children(".holder")[0]),
-                    elementRect = interact.getElementRect(event.relatedTarget),
-                    dropCenter = {
-                      x: dropRect.left + elementRect.width/2,
-                      y: dropRect.top + elementRect.height/2
-                    };
-                event.draggable.snap({
-                  anchors: [ dropCenter ]
-                });
+                    var dropRect = interact.getElementRect($(event.target).children(".cell-inner").children(".holder")[0]),
+                        elementRect = interact.getElementRect(event.relatedTarget),
+                        dropCenter = {
+                            x: dropRect.left + elementRect.width/2,
+                            y: dropRect.top + elementRect.height/2
+                        };
+                    event.draggable.snap({
+                        anchors: [ dropCenter ]
+                    });
 
-                var draggableElement = event.relatedTarget,
-                    dropzoneElement = event.target;
+                    var draggableElement = event.relatedTarget,
+                        dropzoneElement = event.target;
 
-                // feedback the possibility of a drop
-                dropzoneElement.classList.add('drop-target');
+                    // feedback the possibility of a drop
+                    dropzoneElement.classList.add('drop-target');
 
-            })
-            .on('dragleave', function (event) {
-                event.draggable.snap(false);
+                })
+                .on('dragleave', function (event) {
+                    event.draggable.snap(false);
 
-                // when leaving a dropzone, snap to the start position
-                event.draggable.snap({ anchors: [startPos] });
+                    // when leaving a dropzone, snap to the start position
+                    event.draggable.snap({ anchors: [startPos] });
 
-                // remove the drop feedback style
-                event.target.classList.remove('drop-target');
-                $(event.target).find(".ghost-element").remove();
-            })
-            .on('dropactivate', function (event) {
-            })
-            .on('dropdeactivate', function (event) {
-                // remove active dropzone feedback
-                event.target.classList.remove('drop-active');
-                event.target.classList.remove('drop-target');
-            })
-            .on('drop', function (event) {
-                var drop = event.target;
-                var draggableElement = event.relatedTarget;
-                drop = $(drop);
-                draggableElement = $(draggableElement);
-                var eventData = draggableElement.data();
+                    // remove the drop feedback style
+                    event.target.classList.remove('drop-target');
+                    $(event.target).find(".ghost-element").remove();
+                })
+                .on('dropactivate', function (event) {
+                })
+                .on('dropdeactivate', function (event) {
+                    // remove active dropzone feedback
+                    event.target.classList.remove('drop-active');
+                    event.target.classList.remove('drop-target');
+                })
+                .on('drop', function (event) {
+                    var drop = event.target;
+                    var draggableElement = event.relatedTarget;
+                    drop = $(drop);
+                    draggableElement = $(draggableElement);
+                    var eventData = draggableElement.data();
 
-                var eventO = Calendar.constructEventForUser(eventData.index);
-                //Fail Safe Readonly
-                if(eventO.readOnly){
+                    var eventO = Calendar.constructEventForUser(eventData.index);
+                    //Fail Safe Readonly
+                    if(eventO.readOnly){
+                        $this._drawEvent();
+                        return;
+                    }
+                    eventO.start = moment(eventO.start).set('month', moment(drop.attr("data-date")).get('month')).format();
+                    eventO.start = moment(eventO.start).set('date', moment(drop.attr("data-date")).get('date')).format();
+                    eventO.end = moment(eventO.end).set('date', moment(drop.attr("data-date")).get('date')).format();
+                    Calendar.settings.events[eventData.index] = eventO;
                     $this._drawEvent();
-                    return;
-                }
-                eventO.start = moment(eventO.start).set('month', moment(drop.attr("data-date")).get('month')).format();
-                eventO.start = moment(eventO.start).set('date', moment(drop.attr("data-date")).get('date')).format();
-                eventO.end = moment(eventO.end).set('date', moment(drop.attr("data-date")).get('date')).format();
-                Calendar.settings.events[eventData.index] = eventO;  
-                $this._drawEvent();    
-                plugin.settings.onEventDragComplete(eventO);      
-            });
+                    plugin.settings.onEventDragComplete(eventO);
+                });
         },
 
-        MonthView.prototype._showDisableDates = function(){
-            $(".tble .trow .tcell").removeClass("disable").children(".cell-inner").removeClass("disable");
-            this.disableDates = EventManager.getDisableDateIndexInDateRange(this.monthViewStartDate.format("YYYY-MM-DD"),this.monthViewEndDate.format("YYYY-MM-DD"),"YYYY-MM-DD");
-            for (var i = 0; i < this.disableDates.length; i++) {
-                $(".tble .trow .tcell[data-date='"+this.disableDates[i]+"']")
-                .addClass("disable")
-                .children(".cell-inner").addClass("disable");
+            MonthView.prototype._showDisableDates = function(){
+                $(".tble .trow .tcell").removeClass("disable").children(".cell-inner").removeClass("disable");
+                this.disableDates = EventManager.getDisableDateIndexInDateRange(this.monthViewStartDate.format("YYYY-MM-DD"),this.monthViewEndDate.format("YYYY-MM-DD"),"YYYY-MM-DD");
+                for (var i = 0; i < this.disableDates.length; i++) {
+                    $(".tble .trow .tcell[data-date='"+this.disableDates[i]+"']")
+                        .addClass("disable")
+                        .children(".cell-inner").addClass("disable");
+                }
             }
-        }
-        /** 
-         * @function  
+        /**
+         * @function
          * @description Highlight the active date
          * @access protected
-        */
+         */
         MonthView.prototype.setActive = function(el){
             $(".month-view .tcell").children(".month-date").removeClass("active");
             el.children(".month-date").addClass("active");
         }
-        /** 
-         * @function  
+        /**
+         * @function
          * @description Refresh dates and reload events
          * @access protected
-        */
+         */
         MonthView.prototype.refresh =function(){
             this._loadDates();
             this._drawEvent();
             var dates = [this.monthViewStartDate,this.monthViewEndDate];
             return dates;
         }
-        /** 
-         * @function  
+        /**
+         * @function
          * @description Reload events
          * @access protected
-        */
+         */
         MonthView.prototype.reloadEvents = function(){
             this._drawEvent();
         }
-        /** 
-         * @function  
+        /**
+         * @function
          * @description Get current date range on view
          * @access protected
-        */
+         */
         MonthView.prototype.getCurrentDateRange = function(){
             var dates = [this.monthViewStartDate,this.monthViewEndDate];
             return dates;
         },
-        /** 
-         * @function  
-         * @description Set event bubbles for years, months, and days
-         * @access protected
-        */
-        MonthView.prototype.setEventBubbles = function(eventArray){
-            $('.has-event').removeClass('has-event');
-            for (var item in Calendar.settings.events) {
-                var eventYear = moment(Calendar.settings.events[item].start).format(Calendar.settings.ui.year.format);
-                var eventMonth = moment(Calendar.settings.events[item].start).format(Calendar.settings.ui.month.format);
-                var eventDate = moment(Calendar.settings.events[item].start).format('D');
-                $('.year > [data-year="' + eventYear + '"]').addClass('has-event');
+            /**
+             * @function
+             * @description Set event bubbles for years, months, and days
+             * @access protected
+             */
+            MonthView.prototype.setEventBubbles = function(eventArray){
+                $('.has-event').removeClass('has-event');
+                for (var item in Calendar.settings.events) {
+                    var eventYear = moment(Calendar.settings.events[item].start).format(Calendar.settings.ui.year.format);
+                    var eventMonth = moment(Calendar.settings.events[item].start).format(Calendar.settings.ui.month.format);
+                    var eventDate = moment(Calendar.settings.events[item].start).format('D');
+                    $('.year > [data-year="' + eventYear + '"]').addClass('has-event');
 
-                if (calendar.year == moment(Calendar.settings.events[item].start).format("YYYY")) {
-                    $('.month > [data-month="' + eventMonth + '"]').addClass('has-event');
+                    if (calendar.year == moment(Calendar.settings.events[item].start).format("YYYY")) {
+                        $('.month > [data-month="' + eventMonth + '"]').addClass('has-event');
 
-                    if (calendar.month + 1 == moment(Calendar.settings.events[item].start).format("M")) {
-                        $('.date-selector > .week-date > .day > [data-date="' + eventDate + '"]').addClass('has-event');
-                        
+                        if (calendar.month + 1 == moment(Calendar.settings.events[item].start).format("M")) {
+                            $('.date-selector > .week-date > .day > [data-date="' + eventDate + '"]').addClass('has-event');
+
+                        }
                     }
                 }
             }
-        }
 
         plugin.Calendar = plugin.Calendar || {};
 
@@ -1456,7 +1457,7 @@
         /**
          * Creates a Calendar
          * @class
-         */ 
+         */
         Calendar = {
             /**
              * @constructor
@@ -1514,12 +1515,12 @@
                 this.scrollToElement('#weeks-wrapper .active');
 
                 //Set Calendar Height
-                var optionsHeight = $(".calendar .options").get(0).getBoundingClientRect().height;              
+                var optionsHeight = $(".calendar .options").get(0).getBoundingClientRect().height;
                 var headerHeight = $(".calendar-header").get(0).getBoundingClientRect().height;
                 var calendarHeight = "calc(100% - "+(optionsHeight+headerHeight)+"px)";
                 $("#calendar").css({
                     height:calendarHeight
-                })            
+                })
             },
 
             rebuild:function(){
@@ -1596,17 +1597,17 @@
                 $('.drager').scrollbar();
                 var lP = parent.scrollLeft();
                 interact('#'+element)
-                  .draggable({
-                    preventDefault:"auto",
-                    onmove: function(event) {
-                        var target = event.target,
-                            x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
-                        // translate the element
-                        inverseX = -(x);
-                        parent.scrollLeft(inverseX);
-                        target.setAttribute('data-x', x);
-                    }
-                  })
+                    .draggable({
+                        preventDefault:"auto",
+                        onmove: function(event) {
+                            var target = event.target,
+                                x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+                            // translate the element
+                            inverseX = -(x);
+                            parent.scrollLeft(inverseX);
+                            target.setAttribute('data-x', x);
+                        }
+                    })
             },
             autoFocusActiveElement: function() {
                 var timer;
@@ -1662,8 +1663,8 @@
 
                 // translate the element
                 target.style.webkitTransform =
-                target.style.transform =
-                  'translate(' + x + 'px, ' + y + 'px)';
+                    target.style.transform =
+                        'translate(' + x + 'px, ' + y + 'px)';
 
                 // update the posiion attributes
                 target.setAttribute('data-x', x);
@@ -1752,7 +1753,7 @@
                             var next = i + 1;
                             $(elem[next]).css('left',width / 2);
                         }
-                        
+
                     }
                     else {
                         elem.width('100%');
@@ -1785,7 +1786,7 @@
                     Calendar.timeSlotDblClick($(event.currentTarget));
                     event.preventDefault();
                 })
-                
+
                 interact('.event-container').on('tap', function (event) {
                     var eventO = Calendar.constructEventForUser($(event.currentTarget).attr('data-index'));
                     plugin.settings.onEventClick(eventO);
@@ -1846,169 +1847,169 @@
         Calendar.Init();
         return this; // enable chaining
     }
-    /** 
-     * @function  
+    /**
+     * @function
      * @description Rebuild the calendar
      * @access public
-    */
+     */
     PagesCalendar.prototype.rebuild = function() {
         Calendar.rebuild();
-     };
-    /** 
-     * @function  
+    };
+    /**
+     * @function
      * @description Change date to today
      * @access public
-    */
+     */
     PagesCalendar.prototype.today = function() {
         Calendar.today();
     };
-    /** 
-     * @function  
+    /**
+     * @function
      * @description Change date to next day
      * @access public
-    */
+     */
     PagesCalendar.prototype.next =function() {
         Calendar.nextMonth();
     };
-    /** 
-     * @function  
+    /**
+     * @function
      * @description Change date to previous day
      * @access public
-    */
+     */
     PagesCalendar.prototype.prev = function() {
         Calendar.previousMonth();
     }
-    /** 
-     * @function  
+    /**
+     * @function
      * @description Set a specific date
      * @param {date}
      * @access public
-    */
+     */
     PagesCalendar.prototype.setDate = function(date) {
         Calendar._setDate(date);
     };
-    /** 
-     * @function  
+    /**
+     * @function
      * @description Get current date
      * @return{date}
      * @access public
-    */
+     */
     PagesCalendar.prototype.getDate =  function(format) {
         return Calendar._getDate(format);
     };
     PagesCalendar.prototype.destroy = function() {
         //TODO
     };
-    /** 
-     * @function  
+    /**
+     * @function
      * @description Change locale / language
      * @param {string}
      * @access public
-    */
+     */
     PagesCalendar.prototype.setLocale = function(lang) {
         Calendar.settings.locale = lang;
         Calendar._setLocale();
         Calendar.rebuild();
     };
-    /** 
-     * @function  
+    /**
+     * @function
      * @description Reload events
      * @access public
-    */
+     */
     PagesCalendar.prototype.reloadEvent = function() {
         Calendar.loadEvents();
     };
-    /** 
-     * @function  
+    /**
+     * @function
      * @description Add Event
      * @param {eventObject}
      * @access public
-    */
+     */
     PagesCalendar.prototype.addEvent = function(event) {
         Calendar._addEvent(event);
     };
-    /** 
-     * @function  
+    /**
+     * @function
      * @description Add Event
      * @param {eventObject}
      * @access public
-    */
+     */
     PagesCalendar.prototype.addEvents = function(eventArray) {
         Calendar._addEvents(eventArray);
     };
-    /** 
-     * @function  
+    /**
+     * @function
      * @description Delete Event
      * @param {int}
      * @access public
-    */
+     */
     PagesCalendar.prototype.removeEvent =  function(index) {
         Calendar._deleteEvent(index)
     };
-    /** 
-     * @function  
+    /**
+     * @function
      * @description Delete Event
      * @param {int}
      * @access public
-    */
+     */
     PagesCalendar.prototype.removeAllEvents =  function() {
         Calendar._removeAllEvents()
     };
-    /** 
-     * @function  
+    /**
+     * @function
      * @description Update Event
      * @param {int}
      * @param {eventObj}
      * @access public
-    */
+     */
     PagesCalendar.prototype.updateEvent = function(eventObj) {
         Calendar._updateEvent(eventObj);
     };
-    /** 
-     * @function  
+    /**
+     * @function
      * @description Get Events by date
      * @return {array}
-    */
+     */
     PagesCalendar.prototype.getEvents = function(option) {
         return Calendar._getEventArray(option);
     };
-    /** 
-     * @function  
+    /**
+     * @function
      * @description Set View
-    */
+     */
     PagesCalendar.prototype.view = function(option) {
         return Calendar._changeView(option);
     };
-    /** 
-     * @function  
+    /**
+     * @function
      * @description Get Current View
      * @return string
-    */
+     */
     PagesCalendar.prototype.getView = function() {
         return Calendar._getView();
     };
-    /** 
-     * @function  
+    /**
+     * @function
      * @description Get Date Range in View
      * @return array
-    */
+     */
     PagesCalendar.prototype.getDateRangeInView = function() {
         return Calendar._getDateRangeInView();
     };
 
-     /** 
-     * @function  
+    /**
+     * @function
      * @description Get Date Range in View
      * @return array
-    */
+     */
     PagesCalendar.prototype.scrollToFirstEvent = function() {
         return Calendar._scrollToFirstEvent();
     };
-    /** 
-     * @function  
+    /**
+     * @function
      * @description Get Current View
      * @return string
-    */
+     */
     PagesCalendar.prototype.setState = function(state) {
         switch(state){
             case "loading":
@@ -2027,10 +2028,10 @@
 
     function Plugin(option, obj) {
         var $this = $(this)
-          , data = $this.data('pagescalendar')
-          , options = typeof option == 'object' && option
+            , data = $this.data('pagescalendar')
+            , options = typeof option == 'object' && option
         if (typeof option == 'string') {
-           return data[option](obj)
+            return data[option](obj)
         }
         return this.each(function () {
             if (!data) {
@@ -2046,80 +2047,80 @@
 
 
     $.fn.pagescalendar.defaults = {
-            ui: {
-                //Year Selector
-                year: {
-                    visible: true,
-                    format: 'YYYY',
-                    startYear: '2000',
-                    endYear: moment().add(10, 'year').format('YYYY'),
-                    eventBubble: true
-                },
-                //Month Selector
-                month: {
-                    visible: true,
-                    format: 'MMM',
-                    eventBubble: true
-                },
-                dateHeader: {
-                    format: 'MMMM YYYY, D dddd',
-                    visible: true,
-                },
-                //Mini Week Day Selector
-                week: {
-                    day: {
-                        format: 'D'
-                    },
-                    header: {
-                        format: 'dd'
-                    },
-                    eventBubble: true,
-                    startOfTheWeek: '0',
-                    endOfTheWeek:'6',
-                    visible:true
-                },
-                //Week view Grid Options
-                grid: {
-                    dateFormat: 'D dddd',
-                    timeFormat: 'h A',
-                    eventBubble: true,
-                    scrollToFirstEvent:false,
-                    scrollToAnimationSpeed:300,
-                    scrollToGap:20
-                }
+        ui: {
+            //Year Selector
+            year: {
+                visible: true,
+                format: 'YYYY',
+                startYear: '2000',
+                endYear: moment().add(10, 'year').format('YYYY'),
+                eventBubble: true
             },
-            eventObj: {
-                editable: true
+            //Month Selector
+            month: {
+                visible: true,
+                format: 'MMM',
+                eventBubble: true
             },
-            view:'week',
-            now: null,
-            locale: 'en',
-            //Event display time format
-            timeFormat: 'h:mm a',
-            minTime:0,
-            maxTime:24,
-            dateFormat: 'MMMM Do YYYY',
-            slotDuration: '30', //In Mins : supports 15, 30 and 60
-            events: [],
-            eventOverlap: false,
-            weekends:true,
-            disableDates:[],
-            //Event CallBacks
-            onViewRenderComplete: function() {},
-            onEventDblClick: function() {},
-            onEventClick: function(event) {},
-            onEventRender: function() {},
-            onEventDragComplete: function(event) {},
-            onEventResizeComplete: function(event) {},
-            onTimeSlotDblClick: function(timeSlot) {},
-            onDateChange:function(range){}
-            /*
-            TO DO 
-            eventDragStart (callback)
-            eventResizeStart (callback)
-            eventMouseover (callback)
-            eventMouseout (callback)
-            */
+            dateHeader: {
+                format: 'MMMM YYYY, D dddd',
+                visible: true,
+            },
+            //Mini Week Day Selector
+            week: {
+                day: {
+                    format: 'D'
+                },
+                header: {
+                    format: 'dd'
+                },
+                eventBubble: true,
+                startOfTheWeek: '0',
+                endOfTheWeek:'6',
+                visible:true
+            },
+            //Week view Grid Options
+            grid: {
+                dateFormat: 'D dddd',
+                timeFormat: 'h A',
+                eventBubble: true,
+                scrollToFirstEvent:false,
+                scrollToAnimationSpeed:300,
+                scrollToGap:20
+            }
+        },
+        eventObj: {
+            editable: true
+        },
+        view:'week',
+        now: null,
+        locale: 'en',
+        //Event display time format
+        timeFormat: 'h:mm a',
+        minTime:0,
+        maxTime:24,
+        dateFormat: 'MMMM Do YYYY',
+        slotDuration: '30', //In Mins : supports 15, 30 and 60
+        events: [],
+        eventOverlap: false,
+        weekends:true,
+        disableDates:[],
+        //Event CallBacks
+        onViewRenderComplete: function() {},
+        onEventDblClick: function() {},
+        onEventClick: function(event) {},
+        onEventRender: function() {},
+        onEventDragComplete: function(event) {},
+        onEventResizeComplete: function(event) {},
+        onTimeSlotDblClick: function(timeSlot) {},
+        onDateChange:function(range){}
+        /*
+         TO DO
+         eventDragStart (callback)
+         eventResizeStart (callback)
+         eventMouseover (callback)
+         eventMouseout (callback)
+         */
     }
 
     // PORTLET NO CONFLICT
@@ -2132,19 +2133,19 @@
 
 })(jQuery);
 (function (root, factory) {
-  if (typeof define === 'function' && define.amd) {
-    // AMD. Register as an anonymous module unless amdModuleId is set
-    define(["moment"], function (a0) {
-      return (root['DateRange'] = factory(a0));
-    });
-  } else if (typeof exports === 'object') {
-    // Node. Does not work with strict CommonJS, but
-    // only CommonJS-like environments that support module.exports,
-    // like Node.
-    module.exports = factory(require("moment"));
-  } else {
-    root['DateRange'] = factory(moment);
-  }
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module unless amdModuleId is set
+        define(["moment"], function (a0) {
+            return (root['DateRange'] = factory(a0));
+        });
+    } else if (typeof exports === 'object') {
+        // Node. Does not work with strict CommonJS, but
+        // only CommonJS-like environments that support module.exports,
+        // like Node.
+        module.exports = factory(require("moment"));
+    } else {
+        root['DateRange'] = factory(moment);
+    }
 }(this, function (moment) {
 
 //-----------------------------------------------------------------------------
@@ -2153,371 +2154,371 @@
 
 
 
-var INTERVALS = {
-  year:   true,
-  month:  true,
-  week:   true,
-  day:    true,
-  hour:   true,
-  minute: true,
-  second: true
-};
+    var INTERVALS = {
+        year:   true,
+        month:  true,
+        week:   true,
+        day:    true,
+        hour:   true,
+        minute: true,
+        second: true
+    };
 
 
 //-----------------------------------------------------------------------------
 // Date Ranges
 //-----------------------------------------------------------------------------
 
-/**
- * DateRange class to store ranges and query dates.
- *
- * @constructor
- * @param {(Moment|Date)} start Start of interval
- * @param {(Moment|Date)} end End of interval
- *//**
- * DateRange class to store ranges and query dates.
- *
- * @constructor
- * @param {!Array} range Array containing start and end dates.
- *//**
- * DateRange class to store ranges and query dates.
- *
- * @constructor
- * @param {!String} range String formatted as an IS0 8601 time interval
- */
-function DateRange(start, end) {
-  var parts;
-  var s = start;
-  var e = end;
+    /**
+     * DateRange class to store ranges and query dates.
+     *
+     * @constructor
+     * @param {(Moment|Date)} start Start of interval
+     * @param {(Moment|Date)} end End of interval
+     *//**
+     * DateRange class to store ranges and query dates.
+     *
+     * @constructor
+     * @param {!Array} range Array containing start and end dates.
+     *//**
+     * DateRange class to store ranges and query dates.
+     *
+     * @constructor
+     * @param {!String} range String formatted as an IS0 8601 time interval
+     */
+    function DateRange(start, end) {
+        var parts;
+        var s = start;
+        var e = end;
 
-  if (arguments.length === 1 || end === undefined) {
-    if (typeof start === 'object' && start.length === 2) {
-      s = start[0];
-      e = start[1];
+        if (arguments.length === 1 || end === undefined) {
+            if (typeof start === 'object' && start.length === 2) {
+                s = start[0];
+                e = start[1];
+            }
+            else if (typeof start === 'string') {
+                parts = start.split('/');
+                s = parts[0];
+                e = parts[1];
+            }
+        }
+
+        this.start = (s === null) ? moment(-8640000000000000) : moment(s);
+        this.end   = (e === null) ? moment(8640000000000000) : moment(e);
     }
-    else if (typeof start === 'string') {
-      parts = start.split('/');
-      s = parts[0];
-      e = parts[1];
+
+    /**
+     * Constructor for prototype.
+     *
+     * @type {DateRange}
+     */
+    DateRange.prototype.constructor = DateRange;
+
+    /**
+     * Deep clone range.
+     *
+     * @return {!DateRange}
+     */
+    DateRange.prototype.clone = function() {
+        return moment().range(this.start, this.end);
+    };
+
+    /**
+     * Determine if the current interval contains a given moment/date/range.
+     *
+     * @param {(Moment|Date|DateRange)} other Date to check
+     * @param {!boolean} exclusive True if the to value is exclusive
+     *
+     * @return {!boolean}
+     */
+    DateRange.prototype.contains = function(other, exclusive) {
+        var start = this.start;
+        var end   = this.end;
+
+        if (other instanceof DateRange) {
+            return start <= other.start && (end > other.end || (end.isSame(other.end) && !exclusive));
+        }
+        else {
+            return start <= other && (end > other || (end.isSame(other) && !exclusive));
+        }
+    };
+
+    /**
+     * Determine if the current date range overlaps a given date range.
+     *
+     * @param {!DateRange} range Date range to check
+     *
+     * @return {!boolean}
+     */
+    DateRange.prototype.overlaps = function(range) {
+        return this.intersect(range) !== null;
+    };
+
+    /**
+     * Determine the intersecting periods from one or more date ranges.
+     *
+     * @param {!DateRange} other A date range to intersect with this one
+     *
+     * @return {DateRange} Returns the intersecting date or `null` if the ranges do
+     *                     not intersect
+     */
+    DateRange.prototype.intersect = function(other) {
+        var start = this.start;
+        var end   = this.end;
+
+        if ((start <= other.start) && (other.start < end) && (end < other.end)) {
+            return new DateRange(other.start, end);
+        }
+        else if ((other.start < start) && (start < other.end) && (other.end <= end)) {
+            return new DateRange(start, other.end);
+        }
+        else if ((other.start < start) && (start <= end) && (end < other.end)) {
+            return this;
+        }
+        else if ((start <= other.start) && (other.start <= other.end) && (other.end <= end)) {
+            return other;
+        }
+
+        return null;
+    };
+
+    /**
+     * Merge date ranges if they intersect.
+     *
+     * @param {!DateRange} other A date range to add to this one
+     *
+     * @return {DateRange} Returns the new `DateRange` or `null` if they do not
+     *                     overlap
+     */
+    DateRange.prototype.add = function(other) {
+        if (this.overlaps(other)) {
+            return new DateRange(moment.min(this.start, other.start), moment.max(this.end, other.end));
+        }
+
+        return null;
+    };
+
+    /**
+     * Subtract one range from another.
+     *
+     * @param {!DateRange} other A date range to substract from this one
+     *
+     * @return {!Array<DateRange>}
+     */
+    DateRange.prototype.subtract = function(other) {
+        var start = this.start;
+        var end   = this.end;
+
+        if (this.intersect(other) === null) {
+            return [this];
+        }
+        else if ((other.start <= start) && (start < end) && (end <= other.end)) {
+            return [];
+        }
+        else if ((other.start <= start) && (start < other.end) && (other.end < end)) {
+            return [new DateRange(other.end, end)];
+        }
+        else if ((start < other.start) && (other.start < end) && (end <= other.end)) {
+            return [new DateRange(start, other.start)];
+        }
+        else if ((start < other.start) && (other.start < other.end) && (other.end < end)) {
+            return [new DateRange(start, other.start), new DateRange(other.end, end)];
+        }
+        else if ((start < other.start) && (other.start < end) && (other.end < end)) {
+            return [new DateRange(start, other.start), new DateRange(other.start, end)];
+        }
+    };
+
+    /**
+     * Build a n array of dates.
+     *
+     * @param {(!DateRange|String)} range Date range to be used for iteration or
+     *                                    shorthand string (shorthands:
+     *                                    http://momentjs.com/docs/#/manipulating/add/)
+     * @param {!boolean} exclusive Indicate that the end of the range should not
+     *                             be included in the iter.
+     *
+     * @return {!Array}
+     */
+    DateRange.prototype.toArray = function(by, exclusive) {
+        var acc = [];
+        this.by(by, function(unit) {
+            acc.push(unit);
+        }, exclusive);
+        return acc;
+    };
+
+    /**
+     * Iterate over the date range by a given date range, executing a function
+     * for each sub-range.
+     *
+     * @param {(!DateRange|String)} range Date range to be used for iteration or
+     *                                    shorthand string (shorthands:
+     *                                    http://momentjs.com/docs/#/manipulating/add/)
+     * @param {!DateRange~by} hollaback Callback
+     * @param {!boolean} exclusive Indicate that the end of the range should not
+     *                             be included in the iter.
+     *
+     * @return {DateRange} `this`
+     */
+    DateRange.prototype.by = function(range, hollaback, exclusive) {
+        if (typeof range === 'string') {
+            _byString.call(this, range, hollaback, exclusive);
+        }
+        else {
+            _byRange.call(this, range, hollaback, exclusive);
+        }
+        return this;
+    };
+
+
+    /**
+     * Callback executed for each sub-range.
+     *
+     * @callback DateRange~by
+     *
+     * @param {!Moment} current Current moment object for iteration
+     */
+
+    /**
+     * @private
+     */
+    function _byString(interval, hollaback, exclusive) {
+        var current = moment(this.start);
+
+        while (this.contains(current, exclusive)) {
+            hollaback.call(this, current.clone());
+            current.add(1, interval);
+        }
     }
-  }
 
-  this.start = (s === null) ? moment(-8640000000000000) : moment(s);
-  this.end   = (e === null) ? moment(8640000000000000) : moment(e);
-}
+    /**
+     * @private
+     */
+    function _byRange(interval, hollaback, exclusive) {
+        var div = this / interval;
+        var l = Math.floor(div);
 
-/**
- * Constructor for prototype.
- *
- * @type {DateRange}
- */
-DateRange.prototype.constructor = DateRange;
+        if (l === Infinity) { return; }
+        if (l === div && exclusive) {
+            l--;
+        }
 
-/**
- * Deep clone range.
- *
- * @return {!DateRange}
- */
-DateRange.prototype.clone = function() {
-  return moment().range(this.start, this.end);
-};
+        for (var i = 0; i <= l; i++) {
+            hollaback.call(this, moment(this.start.valueOf() + interval.valueOf() * i));
+        }
+    }
 
-/**
- * Determine if the current interval contains a given moment/date/range.
- *
- * @param {(Moment|Date|DateRange)} other Date to check
- * @param {!boolean} exclusive True if the to value is exclusive
- *
- * @return {!boolean}
- */
-DateRange.prototype.contains = function(other, exclusive) {
-  var start = this.start;
-  var end   = this.end;
+    /**
+     * Date range formatted as an [ISO8601 Time
+     * Interval](http://en.wikipedia.org/wiki/ISO_8601#Time_intervals).
+     *
+     * @return {!String}
+     */
+    DateRange.prototype.toString = function() {
+        return this.start.format() + '/' + this.end.format();
+    };
 
-  if (other instanceof DateRange) {
-    return start <= other.start && (end > other.end || (end.isSame(other.end) && !exclusive));
-  }
-  else {
-    return start <= other && (end > other || (end.isSame(other) && !exclusive));
-  }
-};
+    /**
+     * Date range in milliseconds. Allows basic coercion math of date ranges.
+     *
+     * @return {!number}
+     */
+    DateRange.prototype.valueOf = function() {
+        return this.end - this.start;
+    };
 
-/**
- * Determine if the current date range overlaps a given date range.
- *
- * @param {!DateRange} range Date range to check
- *
- * @return {!boolean}
- */
-DateRange.prototype.overlaps = function(range) {
-  return this.intersect(range) !== null;
-};
+    /**
+     * Center date of the range.
+     *
+     * @return {!Moment}
+     */
+    DateRange.prototype.center = function() {
+        var center = this.start + this.diff() / 2;
+        return moment(center);
+    };
 
-/**
- * Determine the intersecting periods from one or more date ranges.
- *
- * @param {!DateRange} other A date range to intersect with this one
- *
- * @return {DateRange} Returns the intersecting date or `null` if the ranges do
- *                     not intersect
- */
-DateRange.prototype.intersect = function(other) {
-  var start = this.start;
-  var end   = this.end;
+    /**
+     * Date range toDate
+     *
+     * @return {!Array<Date>}
+     */
+    DateRange.prototype.toDate = function() {
+        return [this.start.toDate(), this.end.toDate()];
+    };
 
-  if ((start <= other.start) && (other.start < end) && (end < other.end)) {
-    return new DateRange(other.start, end);
-  }
-  else if ((other.start < start) && (start < other.end) && (other.end <= end)) {
-    return new DateRange(start, other.end);
-  }
-  else if ((other.start < start) && (start <= end) && (end < other.end)) {
-    return this;
-  }
-  else if ((start <= other.start) && (other.start <= other.end) && (other.end <= end)) {
-    return other;
-  }
+    /**
+     * Determine if this date range is the same as another.
+     *
+     * @param {!DateRange} other Another date range to compare to
+     *
+     * @return {!boolean}
+     */
+    DateRange.prototype.isSame = function(other) {
+        return this.start.isSame(other.start) && this.end.isSame(other.end);
+    };
 
-  return null;
-};
-
-/**
- * Merge date ranges if they intersect.
- *
- * @param {!DateRange} other A date range to add to this one
- *
- * @return {DateRange} Returns the new `DateRange` or `null` if they do not
- *                     overlap
- */
-DateRange.prototype.add = function(other) {
-  if (this.overlaps(other)) {
-    return new DateRange(moment.min(this.start, other.start), moment.max(this.end, other.end));
-  }
-
-  return null;
-};
-
-/**
- * Subtract one range from another.
- *
- * @param {!DateRange} other A date range to substract from this one
- *
- * @return {!Array<DateRange>}
- */
-DateRange.prototype.subtract = function(other) {
-  var start = this.start;
-  var end   = this.end;
-
-  if (this.intersect(other) === null) {
-    return [this];
-  }
-  else if ((other.start <= start) && (start < end) && (end <= other.end)) {
-    return [];
-  }
-  else if ((other.start <= start) && (start < other.end) && (other.end < end)) {
-    return [new DateRange(other.end, end)];
-  }
-  else if ((start < other.start) && (other.start < end) && (end <= other.end)) {
-    return [new DateRange(start, other.start)];
-  }
-  else if ((start < other.start) && (other.start < other.end) && (other.end < end)) {
-    return [new DateRange(start, other.start), new DateRange(other.end, end)];
-  }
-  else if ((start < other.start) && (other.start < end) && (other.end < end)) {
-    return [new DateRange(start, other.start), new DateRange(other.start, end)];
-  }
-};
-
-/**
- * Build a n array of dates.
- *
- * @param {(!DateRange|String)} range Date range to be used for iteration or
- *                                    shorthand string (shorthands:
- *                                    http://momentjs.com/docs/#/manipulating/add/)
- * @param {!boolean} exclusive Indicate that the end of the range should not
- *                             be included in the iter.
- *
- * @return {!Array}
- */
-DateRange.prototype.toArray = function(by, exclusive) {
-  var acc = [];
-  this.by(by, function(unit) {
-    acc.push(unit);
-  }, exclusive);
-  return acc;
-};
-
-/**
- * Iterate over the date range by a given date range, executing a function
- * for each sub-range.
- *
- * @param {(!DateRange|String)} range Date range to be used for iteration or
- *                                    shorthand string (shorthands:
- *                                    http://momentjs.com/docs/#/manipulating/add/)
- * @param {!DateRange~by} hollaback Callback
- * @param {!boolean} exclusive Indicate that the end of the range should not
- *                             be included in the iter.
- *
- * @return {DateRange} `this`
- */
-DateRange.prototype.by = function(range, hollaback, exclusive) {
-  if (typeof range === 'string') {
-    _byString.call(this, range, hollaback, exclusive);
-  }
-  else {
-    _byRange.call(this, range, hollaback, exclusive);
-  }
-  return this;
-};
-
-
-/**
- * Callback executed for each sub-range.
- *
- * @callback DateRange~by
- *
- * @param {!Moment} current Current moment object for iteration
- */
-
-/**
- * @private
- */
-function _byString(interval, hollaback, exclusive) {
-  var current = moment(this.start);
-
-  while (this.contains(current, exclusive)) {
-    hollaback.call(this, current.clone());
-    current.add(1, interval);
-  }
-}
-
-/**
- * @private
- */
-function _byRange(interval, hollaback, exclusive) {
-  var div = this / interval;
-  var l = Math.floor(div);
-
-  if (l === Infinity) { return; }
-  if (l === div && exclusive) {
-    l--;
-  }
-
-  for (var i = 0; i <= l; i++) {
-    hollaback.call(this, moment(this.start.valueOf() + interval.valueOf() * i));
-  }
-}
-
-/**
- * Date range formatted as an [ISO8601 Time
- * Interval](http://en.wikipedia.org/wiki/ISO_8601#Time_intervals).
- *
- * @return {!String}
- */
-DateRange.prototype.toString = function() {
-  return this.start.format() + '/' + this.end.format();
-};
-
-/**
- * Date range in milliseconds. Allows basic coercion math of date ranges.
- *
- * @return {!number}
- */
-DateRange.prototype.valueOf = function() {
-  return this.end - this.start;
-};
-
-/**
- * Center date of the range.
- *
- * @return {!Moment}
- */
-DateRange.prototype.center = function() {
-  var center = this.start + this.diff() / 2;
-  return moment(center);
-};
-
-/**
- * Date range toDate
- *
- * @return {!Array<Date>}
- */
-DateRange.prototype.toDate = function() {
-  return [this.start.toDate(), this.end.toDate()];
-};
-
-/**
- * Determine if this date range is the same as another.
- *
- * @param {!DateRange} other Another date range to compare to
- *
- * @return {!boolean}
- */
-DateRange.prototype.isSame = function(other) {
-  return this.start.isSame(other.start) && this.end.isSame(other.end);
-};
-
-/**
- * The difference of the end vs start.
- *
- * @param {number} unit Unit of difference, if no unit is passed in
- *                      milliseconds are returned. E.g.: `"days"`, `"months"`,
- *                      etc...
- *
- * @return {!number}
- */
-DateRange.prototype.diff = function(unit) {
-  return this.end.diff(this.start, unit);
-};
+    /**
+     * The difference of the end vs start.
+     *
+     * @param {number} unit Unit of difference, if no unit is passed in
+     *                      milliseconds are returned. E.g.: `"days"`, `"months"`,
+     *                      etc...
+     *
+     * @return {!number}
+     */
+    DateRange.prototype.diff = function(unit) {
+        return this.end.diff(this.start, unit);
+    };
 
 
 //-----------------------------------------------------------------------------
 // Moment Extensions
 //-----------------------------------------------------------------------------
 
-/**
- * Build a date range.
- *
- * @param {(Moment|Date)} start Start of range
- * @param {(Moment|Date)} end End of range
- *
- * @this {Moment}
- *
- * @return {!DateRange}
- */
-moment.range = function(start, end) {
-  if (start in INTERVALS) {
-    return new DateRange(moment(this).startOf(start), moment(this).endOf(start));
-  }
-  else {
-    return new DateRange(start, end);
-  }
-};
+    /**
+     * Build a date range.
+     *
+     * @param {(Moment|Date)} start Start of range
+     * @param {(Moment|Date)} end End of range
+     *
+     * @this {Moment}
+     *
+     * @return {!DateRange}
+     */
+    moment.range = function(start, end) {
+        if (start in INTERVALS) {
+            return new DateRange(moment(this).startOf(start), moment(this).endOf(start));
+        }
+        else {
+            return new DateRange(start, end);
+        }
+    };
 
-/**
- * Expose constructor
- *
- * @const
- */
-moment.range.constructor = DateRange;
+    /**
+     * Expose constructor
+     *
+     * @const
+     */
+    moment.range.constructor = DateRange;
 
-/**
- * @deprecated
- */
-moment.fn.range = moment.range;
+    /**
+     * @deprecated
+     */
+    moment.fn.range = moment.range;
 
-/**
- * Check if the current moment is within a given date range.
- *
- * @param {!DateRange} range Date range to check
- *
- * @this {Moment}
- *
- * @return {!boolean}
- */
-moment.fn.within = function(range) {
-  return range.contains(this._d);
-};
+    /**
+     * Check if the current moment is within a given date range.
+     *
+     * @param {!DateRange} range Date range to check
+     *
+     * @this {Moment}
+     *
+     * @return {!boolean}
+     */
+    moment.fn.within = function(range) {
+        return range.contains(this._d);
+    };
 
 
 //-----------------------------------------------------------------------------
@@ -2526,6 +2527,6 @@ moment.fn.within = function(range) {
 
 
 
-return DateRange;
+    return DateRange;
 
 }));

@@ -29,26 +29,87 @@
 <div class="panel panel-transparent full-height p-t-50">
   <!-- Nav tabs -->
   <!-- Tab panes -->
-  <div class="tab-content full-height" style="padding:0px;">
+  <div class="tab-content full-height" style="overflow:auto;padding:0px;">
     <div class="tab-pane fade active in" id="fade1">
       <div class="row">
         <div class="container-fluid sm-p-l-5 bg-master-lighter ">
           <div class="timeline-container top-circle" style="min-height: 840px;">
             <section class="timeline">
               <% @team_events.each do |events|  %>
-                  <div class="timeline-block">
-                    <div class="timeline-point success">
-                    </div>
+                  <input type="hidden" class="add-user-event-username" value="<%= current_user.name %>">
+                  <input type="hidden" class="add-user-event-userprofile" value="<%= current_user.userProfile.thumb.url %>">
+
+                  <div class="timeline-block" id="timeline-block<%= events.id %>">
+                    <!-- 유저가 모두 완료안했고 시간이 지났으면 빨간색 -->
+                    <!-- 유저가 모두 완료안했고 시간이 다 되어 갈 때 주황색 -->
+                    <!-- 유저가 모두 완료했고 시간이 지났으면 초록색 -->
+                    <% @event_users = TeamEventsUser.where(team_event: events) %>
+                    <% check_time_complete = true %>
+                    <% complete_true_users = 0 %>
+                    <% @event_users.each do |check_time| %>
+                        <% complete_true_users = complete_true_users + 1 %>
+                        <% if check_time.complete == false %>
+                            <% check_time_complete = false %>
+                        <% end %>
+                    <% end %>
+                    <% if Time.now > events.end_date && (Time.now - (2 * ( 60 * 60 * 24))) < events.end_date && check_time_complete == false %>
+                        <div class="timeline-point" id="timeline-point<%= events.id %>" style="background-color: orange;"></div>
+                    <% elsif Time.now > events.end_date && check_time_complete == false %>
+                        <div class="timeline-point" id="timeline-point<%= events.id %>" style="background-color: red;"></div>
+                    <% elsif check_time_complete == true %>
+                        <div class="timeline-point" id="timeline-point<%= events.id %>" style="background-color: lawngreen;"></div>
+                    <% else %>
+                        <div class="timeline-point" id="timeline-point<%= events.id %>" style="background-color: floralwhite;"></div>
+                    <% end %>
                     <!-- timeline-point -->
                     <div class="timeline-content">
-                      <div class="card share full-width">
-                        <div class="circle" data-toggle="tooltip" title="Label" data-container="body">
-                        </div>
+                      <div class="card share full-width" id="card-share<%= events.id %>">
+
+                        <% @event_check = false %>
+                        <% @check_user_event.each do |user_event| %>
+                            <% if user_event.team_event_id == events.id %>
+                                <% @event_check = true %>
+                            <% end %>
+                        <% end %>
+                        <% if @event_check == false %>
+                            <div class="circle event-user-add" id="event-user-add<%= events.id %>" value="<%= events.id %>" style="border: 1px solid #ffffff; background: rgba(255, 255, 255, 0);">
+                              <i class="fa fa-plus" id="plus<%= events.id %>" data-toggle="tooltip" data-container="body" data-original-title="내 이벤트로 추가하기"></i>
+                            </div>
+                        <% else %>
+                            <% @check_user_event_complete = TeamEventsUser.where(user: current_user, team_event: events) %>
+                            <% @check_user_event_complete.each do |check_event| %>
+                                <% if check_event.complete == false %>
+                                    <div class="circle event-user-notcomplete" id="event-user-notcomplete<%= events.id %>" value="<%= events.id %>" style="border: 1px solid #ffffff; background: rgba(255, 255, 255, 0);">
+                                      <i class="fa fa-circle-thin" id="circle<%= events.id %>" data-toggle="tooltip" data-container="body" data-original-title="이벤트 완료하기"></i>
+                                      <input type="hidden" id="user-size" value="<%= @event_users.size %>">
+                                      <input type="hidden" id="complete-user-size" value="<%= complete_true_users %>">
+                                    </div>
+                                <% else %>
+                                    <div class="circle event-user-complete" id="event-user-complete<%= events.id %>" value="<%= events.id %>" style="border: 1px solid #ffffff; background: rgba(255, 255, 255, 0);">
+                                      <i class="fa fa-check" id="check<%= events.id %>"></i>
+                                    </div>
+                                <% end %>
+                            <% end %>
+                        <% end %>
                         <div class="card-header clearfix">
                           <h5><%= events.title %></h5>
-                          <h6>Shared a Tweet
-                            <span class="location semi-bold"><i class="fa fa-map-marker"></i> SF, California</span>
-                          </h6>
+                          <div>
+                            <div class="p-t-15 p-r-10" style="float: left;">
+                              <h6> Users : </h6>
+                            </div>
+                            <div class="add-event-user-pic<%= events.id %>">
+                              <% @event_users = TeamEventsUser.where(team_event: events) %>
+                              <% @event_users.each do |users| %>
+                                  <% @users.each do |user| %>
+                                      <% if user.id == users.user_id %>
+                                          <div style="float: left;padding-left: 5px;" data-toggle="tooltip" data-container="body" data-original-title="<%= user.name %>">
+                                            <span class="thumbnail-wrapper d32 circular inline m-t-5"><%= image_tag(user.userProfile.thumb.url) %></span>
+                                          </div>
+                                      <% end %>
+                                  <% end %>
+                              <% end %>
+                            </div>
+                          </div>
                         </div>
                         <div class="card-description">
                           <p><%= events.content %> </p>
@@ -75,7 +136,7 @@
           <% @userprojects.each do |user| %>
               <% if user.user_id == current_user.id && user.project_id == @project.id %>
                   <% if user.admin_user == true %>
-                      <%= link_to 'Edit', project_calendar_path(@project.id), :class => 'btn btn-lg' %>
+                      <%= link_to 'Edit', project_calendar_path(@project.id), :class => 'btn btn-lg', data: { turbolinks: false } %>
                   <% end %>
               <% end %>
           <% end %>
@@ -139,7 +200,7 @@
             <div class="b-t b-grey bg-white clearfix p-l-10 p-r-10">
               <div class="row">
                 <div class="col-xs-1 p-t-15">
-                  <a href="#" class="link text-master"> <label class="semi-bold"> Chat </label> </a>
+                  <a class="link text-master"> <label class="semi-bold"> Chat </label> </a>
                 </div>
                 <div class="col-xs-8 no-padding ">
                   <form>
@@ -176,20 +237,15 @@
                     <tbody>
                     <% @users.each do |user1| %>
                         <% if user1.id != current_user.id %>
-                            <% chk = true %>
                             <% @userprojects.each do |user2| %>
                                 <% if user2.project_id == @project.id %>
-                                    <% if user1.id == user2.user_id %>
-                                        <% chk = false %>
-                                        <% break %>
+                                    <% if user1.id != user2.user_id %>
+                                        <tr class="gradeA odd" role="row">
+                                          <td class="sorting_1"><%= user1.name %></td>
+                                          <td><%= link_to 'Invite', user_project_inviteCreate_path(user1.id, @project.id), data: { turbolinks: false } %></td>
+                                        </tr>
                                     <% end %>
                                 <% end %>
-                            <% end %>
-                            <% if chk == true %>
-                                <tr class="gradeA odd" role="row">
-                                  <td class="sorting_1"><%= user1.name %></td>
-                                  <td><%= link_to 'Invite', user_project_inviteCreate_path(user1.id, @project.id) %></td>
-                                </tr>
                             <% end %>
                         <% end %>
                     <% end %>
@@ -205,11 +261,57 @@
     </div>
     <div class="tab-pane fade" id="fade5">
       <div class="row">
-        <div class="container-fluid container-fixed-lg bg-white" style="min-height: 840px;">
+        <div class="container-fluid container-fixed-lg bg-white" style="min-height: 100px;">
           <!-- START PANEL -->
           <div class="panel panel-transparent">
             <div class="panel-heading">
-              <div class="panel-title">All User</div>
+              <div class="panel-title">Project Setting</div>
+            </div>
+            <div class="panel-body" style="text-align: center">
+              <input type="hidden" id="project-name" value="<%= @project.title %>">
+              <button type="button" class="btn btn-danger btn-cons" data-toggle="modal" data-target="#deleteModal">
+                Delete this Project
+              </button>
+            </div>
+          </div>
+          <!-- END PANEL -->
+        </div>
+        <div class="container-fluid container-fixed-lg bg-white" style="min-height: 740px;">
+
+          <div class="modal fade fill-in" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="modalFillInLabel" aria-hidden="true">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+              <i class="fa fa-close"></i>
+            </button>
+            <div class="modal-dialog ">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="text-center p-b-5"><span class="semi-bold">정말로 프로젝트를 삭제하시겠습니까?</span></h5>
+                  <p class="text-center hinted-text p-t-10">프로젝트 이름을 입력 후 ENTER 입력 시 삭제 버튼이 생성됩니다.</p>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-md-9">
+                      <input type="text" placeholder="Your Project name here" class="form-control" id="project-delete" name="icon-filter">
+                    </div>
+                    <div class="col-md-3 text-center" id="project-delete-btn" hidden="hidden">
+                      <%= link_to 'Delete this Project', project_path, method: :delete, :class => 'btn btn-danger btn-cons' %>
+                    </div>
+                  </div>
+                  <p class="text-center hinted-text p-t-10">한 번 프로젝트를 삭제하면 되돌릴 수 없습니다.</p>
+                </div>
+                <div class="modal-footer">
+
+                </div>
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+          </div>
+
+          <!-- START PANEL -->
+          <div class="panel panel-transparent">
+            <div class="panel-heading">
+              <div class="panel-title">Project User Setting</div>
             </div>
             <div class="panel-body">
               <div id="tableWithExportOptions_wrapper" class="dataTables_wrapper form-inline no-footer">
@@ -224,27 +326,22 @@
                     <tbody>
                     <% @users.each do |user1| %>
                         <% if user1.id != current_user.id %>
-                            <% chk = true %>
                             <% @userprojects.each do |user2| %>
                                 <% if user2.project_id == @project.id %>
                                     <% if user1.id == user2.user_id %>
                                         <% if user2.admin_user == true %>
-                                            <% chk = false %>
-                                            <% break %>
+                                            <tr class="gradeA odd" role="row">
+                                              <td class="sorting_1"><%= user1.name %></td>
+                                              <td><%= link_to 'Make Admin', user_project_admin_user_add_path(user1.id, @project.id) %></td>
+                                            </tr>
+                                        <% else %>
+                                            <tr class="gradeA odd" role="row">
+                                              <td class="sorting_1"><%= user1.name %></td>
+                                              <td><%= link_to 'Make User', user_project_admin_user_destroy_path(user1.id, @project.id) %></td>
+                                            </tr>
                                         <% end %>
                                     <% end %>
                                 <% end %>
-                            <% end %>
-                            <% if chk == true %>
-                                <tr class="gradeA odd" role="row">
-                                  <td class="sorting_1"><%= user1.name %></td>
-                                  <td><%= link_to 'Make Admin', user_project_admin_user_add_path(user1.id, @project.id) %></td>
-                                </tr>
-                            <% else %>
-                                <tr class="gradeA odd" role="row">
-                                  <td class="sorting_1"><%= user1.name %></td>
-                                  <td><%= link_to 'Make User', user_project_admin_user_destroy_path(user1.id, @project.id) %></td>
-                                </tr>
                             <% end %>
                         <% end %>
                     <% end %>
@@ -285,8 +382,9 @@
     margin: 0;
     padding-top: 10px;
   }
-   .holder {
-     display: inline-block;
-     overflow: auto;
-   }
+  .holder {
+    display: inline-block;
+    overflow: auto;
+    overflow-x: hidden;
+  }
 </style>

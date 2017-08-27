@@ -1,4 +1,4 @@
-<div class="home-index" style="padding-left: 16px;background-color: white;">
+<div class="home-index" style="padding-left: 16px;background-color: ghostwhite;">
   <!-- PROJECT ROW -->
   <div class="row">
 
@@ -7,61 +7,48 @@
       <h4 class="alert-heading p-l-30" >프로젝트 <span class="semi-bold"> <a href="#" class="p-l-10" style="color: #51646b;font-size: small;">모두보기</a> </span> </h4>
       <hr class="hr-line">
     </div>
-    <% @userprojects.each do |userproject| %>
-        <div class="col-sm-3 m-b-10 p-l-30">
-          <div class="ar-1-1">
+    <div class="row">
+      <% @userprojects.each do |userproject| %>
+          <div class="col-md-4 col-lg-3 hidden-xlg m-b-10">
             <!-- START WIDGET widget_imageWidgetBasic-->
-            <div class="widget-2 panel no-border bg-info widget widget-loader-circle-lg no-margin">
-              <div class="panel-heading">
-                <div class="panel-controls pull-left">
-                  <%= link_to user_project_path(current_user.id, userproject.id) do %>
-                      <h3 class="text-white ">
-                        <%= userproject.title %></h3>
-                  <% end %>
-                  <% if Date.today().to_date - userproject.created_at.to_date <= 1  %>
-                      <span class="label label-warning font-montserrat fs-11">NEWS</span>
-                  <% end %>
+            <div class="widget-11-2 panel panel-condensed no-margin widget-loader-circle">
+              <div class="padding-25">
+                <div class="pull-left">
+                  <h3 class="text-success no-margin ">
+                    <%= userproject.title %></h3>
                 </div>
+                <% if Date.today().to_date - userproject.created_at.to_date <= 1  %>
+                    <span class="label label-warning font-montserrat fs-11 pull-right">NEW EVENTS</span>
+                <% end %>
+                <div class="clearfix"></div>
               </div>
-              <div class="panel-body">
-                <div class="panel-controls pull-bottom bottom-left bottom-right">
-                  <!-- START PANEL -->
-                  <div class="panel panel-transparent">
-                    <div class="panel-heading">
-                      <div class="tools">
-                        <a class="collapse" href="javascript:;"></a>
-                        <a class="config" data-toggle="modal" href="#grid-config"></a>
-                        <a class="reload" href="javascript:;"></a>
-                        <a class="remove" href="javascript:;"></a>
-                      </div>
-                    </div>
-                    <div class="panel-body">
-                      <div class="table-responsive">
-                        <table class="table table-hover table-condensed" id="condensedTable">
-                          <tbody>
+              <div class="auto-overflow widget-11-2-table" style="height: 200px;">
+                <table class="table table-condensed table-hover" id="condensedTable">
+                  <tbody>
+                  <% @projectevents[userproject.id].each do |event| %>
+                      <tr>
+                        <td class="font-montserrat all-caps fs-12 col-lg-6" colspan="3"><%= event.title %></td>
 
-                          <% @projectevents[userproject.id].each do |event| %>
-                              <tr>
-                                <td class="v-align-middle semi-bold" colspan="3"><%= event.title %></td>
-
-                                <td class="v-align-middle semi-bold" colspan="2"><%= event.updated_at.to_date %></td>
-                              </tr>
-                          <% end %>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- END PANEL -->
-                </div>
+                        <td class="text-right b-r b-dashed b-grey col-lg-3" colspan="2"><%= event.updated_at.to_date %></td>
+                      </tr>
+                  <% end %>
+                  </tbody>
+                </table>
+              </div>
+              <div class="padding-25">
+                <p class="small no-margin">
+                  <%= link_to user_project_path(current_user.id, userproject.id) do %>
+                      <i class="fa fs-16 fa-arrow-circle-o-down text-success m-r-10"></i>
+                  <% end %>
+                  <span class="hint-text ">Show more details of PROJECT</span>
+                </p>
               </div>
             </div>
             <!-- END WIDGET -->
           </div>
-        </div>
 
-    <% end %>
-
+      <% end %>
+    </div>
   </div>
 
   <!-- My Group ROW -->

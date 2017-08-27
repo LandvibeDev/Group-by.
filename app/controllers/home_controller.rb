@@ -18,7 +18,7 @@ class HomeController < ApplicationController
 
     @projectevents = {}
     @userprojects.each do |project|
-      @projectevents[project.id] = @userteamevents.where(:project_id => project.id).order(:created_at).limit(4)
+      @projectevents[project.id] = @userteamevents.where(:project_id => project.id).order(:created_at).all
     end
 
 

@@ -1,20 +1,73 @@
 
-$(document).ready(function($){
-    var $timeline_block = $('.timeline-block');
+$('.event-user-add').on('click', function () {
+    var event_id = $( this ).attr('value');
+    var user_name = $('.add-user-event-username').attr('value');
+    var user_profile = $('.add-user-event-userprofile').attr('value');
 
-    //hide timeline blocks which are outside the viewport
-    $timeline_block.each(function(){
-        if($(this).offset().top > $(window).scrollTop()+$(window).height()*0.8) {
-            $(this).find('.timeline-point, .timeline-content').addClass('is-hidden');
+    var class_name = '.add-event-user-pic' + event_id;
+    var card_share = '#card-share' + event_id;
+    var plus_name = '#event-user-add' + event_id;
+    var circle_name = 'circle' + event_id;
+
+    $.ajax({
+        url: '/projects/' + event_id + '/user_event_add',
+        type: 'post',
+        success : function () {
+            $('.tooltip').remove();
+            $(class_name).append('<div style="float: left;padding-left: 5px;" data-toggle="tooltip" data-container="body"' +
+                'data-original-title="' + user_name + '">' + '<span class="thumbnail-wrapper d32 circular inline m-t-5"><img src="' +
+                user_profile + '"></span></div>');
+            $(plus_name).remove();
+            $(card_share).append(
+                '<div class="circle event-user-notcomplete" id="event-user-notcomplete<%= events.id %>" style="border: 1px solid #ffffff; background: rgba(255, 255, 255, 0);">' +
+                '<i class="fa fa-circle-thin" id="' + circle_name + '"></i>' +
+                '</div>');
+            var complete_users = $('#complete-user-size').val();
+            var users = $('#user-size').val();
+            if( users == complete_users) {
+                $(timeline_point).remove();
+                $(time_line_block).append('<div class="timeline-point" id="timeline-point' + event_id + '" style="background-color: red;"></div>');
+            }
         }
     });
+});
 
-    //on scolling, show/animate timeline blocks when enter the viewport
-    $(window).on('scroll', function(){
-        $timeline_block.each(function(){
-            if( $(this).offset().top <= $(window).scrollTop()+$(window).height()*0.8 && $(this).find('.timeline-point').hasClass('is-hidden') ) {
-                $(this).find('.timeline-point, .timeline-content').removeClass('is-hidden').addClass('bounce-in');
-            }
-        });
+$('.event-user-notcomplete').on('click', function () {
+    var event_id = $( this ).attr('value');
+
+    var complete_name = '#event-user-notcomplete' + event_id;
+    var card_share = '#card-share' + event_id;
+    var check_name = 'check' + event_id;
+
+    var time_line_block = '#timeline-block' + event_id;
+    var timeline_point = '#timeline-point' + event_id;
+    $.ajax({
+        url: '/projects/' + event_id + '/user_event_complete',
+        type: 'put',
+        success : function () {
+            $( complete_name ).fadeOut( 1500, function() {
+                $( complete_name ).remove();
+                $(card_share).append(
+                    '<div class="circle event-user-notcomplete" id="event-user-notcomplete' + event_id + '" style="border: 1px solid #ffffff; background: rgba(255, 255, 255, 0);">' +
+                    '<i class="fa fa-check" id="' + check_name + '"></i>' +
+                    '</div>');
+                var complete_users = $('#complete-user-size').val();
+                var users = $('#user-size').val();
+                if( users == complete_users) {
+                    $(timeline_point).remove();
+                    $(time_line_block).append('<div class="timeline-point" id="timeline-point' + event_id + '" style="background-color: lawngreen;"></div>');
+                }
+            });
+            $('.tooltip').remove();
+        }
     });
+});
+
+$('#project-delete').keypress(function () {
+    var project_title = $('#project-name').attr('value');
+    var delete_title = $('#project-delete').val();
+
+    if(project_title === delete_title) {
+        $('#project-delete-btn').removeAttr('hidden');
+    }
 });

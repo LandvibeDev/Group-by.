@@ -34,12 +34,10 @@
                         e.class = 'bg-success-lighter';
                         e.start = data.start_date;
                         e.end = data.end_date;
-                        e.image = data.image;
                         $('#eventTitle').text(e.title);
                         $('#eventContent').text(e.content);
                         $('#eventStart').text(moment(e.start).format('YYYY-MM-DD hh:mm'));
                         $('#eventEndTime').text(moment(e.end).format('YYYY-MM-DD hh:mm'));
-                        $('#eventImage').empty().append(' <label>Imgae</label> ');
                     }
                 });
             },

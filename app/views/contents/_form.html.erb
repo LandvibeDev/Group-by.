@@ -9,7 +9,8 @@
       <%= form.text_area :content, id: :content_jd,  :class => 'form-control', :style => 'height: 200px'%>
     </div>
     <div class="form-group form-group-default">
-    <%= form.file_field :image %>
+      <%= form.label :image %>
+      <%= form.file_field :image %>
     </div>
 
     <div class="actions">

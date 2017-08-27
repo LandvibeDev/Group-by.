@@ -88,4 +88,17 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+  # devise : 이메일 인증 설정
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.default_url_options = { host: '0.0.0.0:3000' }
+  ActionMailer::Base.smtp_settings = {
+      :address              => 'smtp.gmail.com',
+      :domain               => 'mail.google.com',
+      :port                 => 587,
+      :user_name            => 'jeon9435',
+      :password             => 'aa461554',
+      :authentication       => 'plain',
+      :enable_starttls_auto => true
+  }
 end

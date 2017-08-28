@@ -236,7 +236,7 @@
           <!-- END Header  !-->
           <!-- BEGIN Conversation  !-->
           <div class="col-sm-12 full-height">
-            <div class="chat-inner" id="my-conversation" scroll=auto style="overflow-x:hidden;height: 93.3333% !important;overflow: auto;background-color: rgba(240, 248, 255, 0.5);" >
+            <div class="chat-inner" id="my-conversation" style="height: 93.3333% !important;background-color: rgba(240, 248, 255, 0.5);" >
               <div id="messages" data-project=<%=@project.id%> data-user=<%= current_user.id%> >
 
                 <%= render partial: "message", collection: @project.messages %>
@@ -263,7 +263,7 @@
       <!-- END Conversation View  !-->
 
     </div>
-    <div class="tab-pane fade" id="fade4">
+    <div class="tab-pane fade" id="fade4" style="overflow-y: auto">
       <div class="row">
         <div class="container-fluid container-fixed-lg bg-white" style="min-height: 840px;">
           <!-- START PANEL -->
@@ -306,7 +306,7 @@
         </div>
       </div>
     </div>
-    <div class="tab-pane fade" id="fade5">
+    <div class="tab-pane fade" id="fade5" style="overflow-y: auto">
       <div class="row">
         <div class="container-fluid container-fixed-lg bg-white" style="min-height: 100px;">
           <!-- START PANEL -->

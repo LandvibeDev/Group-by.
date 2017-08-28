@@ -43,6 +43,7 @@ App['room' + p_id] = App.cable.subscriptions.create({channel: 'RoomChannel', roo
                 '</div>' +
                 '</div>');
         }
+        scrollToBottom();
 
         // return console.log('recevied');
     },
@@ -54,13 +55,14 @@ App['room' + p_id] = App.cable.subscriptions.create({channel: 'RoomChannel', roo
 function submitNewMessage(){
     $('#type_message').keydown(function(event) {
         if (event.keyCode == 13) {
-            var msg = event.target.value
+            var msg = event.target.value;
             if(msg != "") {
-                var projectId = $("[data-project]").data().project
-                App['room' + projectId].setProjectId(projectId)
-                App['room' + projectId].send({message: msg, project_id: projectId})
-                event.target.value = ''
-                event.preventDefault()
+                var projectId = $("[data-project]").data().project;
+                App['room' + projectId].setProjectId(projectId);
+                App['room' + projectId].send({message: msg, project_id: projectId});
+                event.target.value = '';
+                event.preventDefault();
+
             }
             return false;
         }

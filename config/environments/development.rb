@@ -65,4 +65,8 @@ Rails.application.configure do
       :authentication       => 'plain',
       :enable_starttls_auto => true
   }
+
+  config.action_dispatch.default_headers = {
+      'X-Frame-Options' => 'ALLOWALL'
+  }
 end

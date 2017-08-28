@@ -111,17 +111,19 @@
                             </div>
                           </div>
                         </div>
+                        <div class="card-description">
+                          <label class="semi-bold semi-bold p-t-10 p-l-20">CONTENT</label>
+                          <p><%= events.content %> </p>
+                        </div>
                         <% if events.teamEventImage? %>
                             <div class="user-pic">
+                              <label class="semi-bold semi-bold p-t-10 p-l-20">IMAGE</label>
                               <img src="<%= events.teamEventImage.url %>" class="image-responsive-width" >
                             </div>
                         <% end %>
-                        <div class="card-description">
-                          <p><%= events.content %> </p>
-                        </div>
-
                         <% if events.teamEventFile? %>
                             <div>
+                              <label class="semi-boldsemi-bold p-t-10 p-l-20">FILE</label>
                               <iframe class="clearfix" src = "http://www.group-by.com:3000/viewer/index#..<%= events.teamEventFile.url %>" style="width: 100%" height='389' allowfullscreen webkitallowfullscreen></iframe>
                             </div>
                         <% end %>
@@ -377,7 +379,7 @@
                             <% @userprojects.each do |user2| %>
                                 <% if user2.project_id == @project.id %>
                                     <% if user1.id == user2.user_id %>
-                                        <% if user2.admin_user == true %>
+                                        <% if user2.admin_user != true %>
                                             <tr class="gradeA odd" role="row">
                                               <td class="sorting_1"><%= user1.name %></td>
                                               <td><%= link_to 'Make Admin', user_project_admin_user_add_path(user1.id, @project.id) %></td>

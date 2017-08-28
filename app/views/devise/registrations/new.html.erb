@@ -8,11 +8,12 @@
             <%= devise_error_messages! %>
 
             <div class="row">
-              <div class="col-sm-12">
+              <div class="col-sm-12 p-b-10">
                 <div class="form-group form-group-default">
                   <%= f.label :email %>
                   <%= f.email_field :email, autofocus: true, placeholder: "User email", class: "form-control" %>
                 </div>
+                <small class="p-l-10">인증을 위해서 살제 사용중인 이메일을 입력해주세요.</small>
               </div>
             </div>
 
@@ -64,7 +65,7 @@
               </div>
             </div>
 
-            <%= f.submit "Sign up", class: "btn btn-primary btn-cons m-t-10" %>
+            <%= f.submit "Sign up", class: "btn btn-primary btn-cons m-t-10", data: { confirm: '본인 이메일에서 인증을 하여 회원 가입을 완료해주세요.' } %>
         <% end %>
       </div>
     </div>

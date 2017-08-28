@@ -19,10 +19,10 @@ if($("[data-project]").data() ) {
 
 App['room' + p_id] = App.cable.subscriptions.create({channel: 'RoomChannel', room: p_id}, {
     connected: function() {
-        return console.log('connected!');
+        // return console.log('connected!');
     },
     disconnected: function() {
-        return console.log('disconnected');
+        // return console.log('disconnected');
     },
     received: function(data) {
         var c_user = $('[data-project=\'' + this.projectId + '\']').attr("data-user");
@@ -40,7 +40,7 @@ App['room' + p_id] = App.cable.subscriptions.create({channel: 'RoomChannel', roo
                 '</div>');
         }
 
-        return console.log('recevied');
+        // return console.log('recevied');
     },
     setProjectId: function(projectId) {
         return this.projectId = projectId;

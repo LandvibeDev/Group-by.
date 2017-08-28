@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 20170825164626) do
     t.integer "project_id"
     t.string "title"
     t.text "content"
+    t.string "image"
     t.datetime "start_date"
     t.datetime "end_date"
     t.datetime "created_at", null: false

@@ -34,6 +34,10 @@ App['room' + p_id] = App.cable.subscriptions.create({channel: 'RoomChannel', roo
                 '</div>');
         }else{
             $('[data-project=\'' + this.projectId + '\']').append('<div class="message clearfix">' +
+                '<div class="fs-11 hint-text" style="height: 20px">' + data.user_name +'</div>' +
+                '<div class="profile-img-wrapper m-t-5 inline">' +
+                '<img class="col-top" width="30" height="30" src='+ data.user_img +' alt="" >' +
+                '</div>' +
                 '<div class="chat-bubble from-them">' +
                 data.message +
                 '</div>' +

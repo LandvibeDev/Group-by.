@@ -379,7 +379,7 @@
                             <% @userprojects.each do |user2| %>
                                 <% if user2.project_id == @project.id %>
                                     <% if user1.id == user2.user_id %>
-                                        <% if user2.admin_user == true %>
+                                        <% if user2.admin_user != true %>
                                             <tr class="gradeA odd" role="row">
                                               <td class="sorting_1"><%= user1.name %></td>
                                               <td><%= link_to 'Make Admin', user_project_admin_user_add_path(user1.id, @project.id) %></td>

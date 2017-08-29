@@ -15,16 +15,16 @@
     <li class="">
       <a data-toggle="tab" href="#fade3" aria-expanded="false"><span>Chat</span></a>
     </li>
-    <% if @team_events.count == 0%>
-        <li class="active">
-    <% else %>
-        <li class="">
-    <% end %>
-    <a data-toggle="tab" href="#fade4" aria-expanded="false"><span>Invite</span></a>
-    </li>
     <% @userprojects.each do |user| %>
         <% if user.user_id == current_user.id && user.project_id == @project.id %>
             <% if user.admin_user == true %>
+                <% if @team_events.count == 0%>
+                    <li class="active">
+                <% else %>
+                    <li class="">
+                <% end %>
+                <a data-toggle="tab" href="#fade4" aria-expanded="false"><span>Invite</span></a>
+                </li>
                 <li class="">
                   <a data-toggle="tab" href="#fade5" aria-expanded="false"><span>Setting</span></a>
                 </li>
@@ -338,13 +338,7 @@
     <div class="tab-pane fade full-height" id="fade2" scroll=auto style="overflow-x:hidden">
       <div class="row full-height">
         <div class="p-t-20 p-b-10 p-r-20" style="text-align: right">
-          <% @userprojects.each do |user| %>
-              <% if user.user_id == current_user.id && user.project_id == @project.id %>
-                  <% if user.admin_user == true %>
-                      <%= link_to 'Edit', project_calendar_path(@project.id), :class => 'btn btn-lg', data: { turbolinks: false } %>
-                  <% end %>
-              <% end %>
-          <% end %>
+          <%= link_to '이벤트 추가하기', project_calendar_path(@project.id), :class => 'btn btn-lg', data: { turbolinks: false } %>
         </div>
         <div id="show_team_calendar_month" class="full-height"></div>
         <input type="hidden" id="project_id" value="<%= @project.id %>">
@@ -447,7 +441,7 @@
                                         <% if user1.id != user2.user_id %>
                                             <tr class="gradeA odd" role="row">
                                               <td class="sorting_1"><%= user1.name %></td>
-                                              <td><%= link_to 'Invite', user_project_inviteCreate_path(user1.id, @project.id), data: { turbolinks: false } %></td>
+                                              <td><%= link_to 'Invite', user_project_inviteCreate_path(user1.id, @project.id), data: { turbolinks: false, confirm: '초대를 하시겠습니까?' } %></td>
                                             </tr>
                                         <% end %>
                                     <% end %>
@@ -465,49 +459,49 @@
           </div>
         </div>
     <% else %>
-    <div class="tab-pane fade" id="fade4" style="overflow-y: auto">
-      <div class="row">
-        <div class="container-fluid container-fixed-lg bg-white" style="min-height: 840px;">
-          <!-- START PANEL -->
-          <div class="panel panel-transparent">
-            <div class="panel-heading">
-              <div class="panel-title">All User</div>
-            </div>
-            <div class="panel-body">
-              <div id="tableWithExportOptions_wrapper" class="dataTables_wrapper form-inline no-footer">
-                <div class="table-responsive">
-                  <table class="table table-striped dataTable no-footer" id="tableWithExportOptions" role="grid" aria-describedby="tableWithExportOptions_info">
-                    <thead>
-                    <tr role="row">
-                      <th class="sorting_asc" tabindex="0" aria-controls="tableWithExportOptions" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">User Name</th>
-                      <th class="sorting" tabindex="0" aria-controls="tableWithExportOptions" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Invite</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <% @users.each do |user1| %>
-                        <% if user1.id != current_user.id %>
-                            <% @userprojects.each do |user2| %>
-                                <% if user2.project_id == @project.id %>
-                                    <% if user1.id != user2.user_id %>
-                                        <tr class="gradeA odd" role="row">
-                                          <td class="sorting_1"><%= user1.name %></td>
-                                          <td><%= link_to 'Invite', user_project_inviteCreate_path(user1.id, @project.id), data: { turbolinks: false } %></td>
-                                        </tr>
+        <div class="tab-pane fade" id="fade4" style="overflow-y: auto">
+          <div class="row">
+            <div class="container-fluid container-fixed-lg bg-white" style="min-height: 840px;">
+              <!-- START PANEL -->
+              <div class="panel panel-transparent">
+                <div class="panel-heading">
+                  <div class="panel-title">All User</div>
+                </div>
+                <div class="panel-body">
+                  <div id="tableWithExportOptions_wrapper" class="dataTables_wrapper form-inline no-footer">
+                    <div class="table-responsive">
+                      <table class="table table-striped dataTable no-footer" id="tableWithExportOptions" role="grid" aria-describedby="tableWithExportOptions_info">
+                        <thead>
+                        <tr role="row">
+                          <th class="sorting_asc" tabindex="0" aria-controls="tableWithExportOptions" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">User Name</th>
+                          <th class="sorting" tabindex="0" aria-controls="tableWithExportOptions" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Invite</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% @users.each do |user1| %>
+                            <% if user1.id != current_user.id %>
+                                <% @userprojects.each do |user2| %>
+                                    <% if user2.project_id == @project.id %>
+                                        <% if user1.id != user2.user_id %>
+                                            <tr class="gradeA odd" role="row">
+                                              <td class="sorting_1"><%= user1.name %></td>
+                                              <td><%= link_to 'Invite', user_project_inviteCreate_path(user1.id, @project.id), data: { turbolinks: false } %></td>
+                                            </tr>
+                                        <% end %>
                                     <% end %>
                                 <% end %>
                             <% end %>
                         <% end %>
-                    <% end %>
-                    </tbody>
-                  </table>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
                 </div>
               </div>
+              <!-- END PANEL -->
             </div>
           </div>
-          <!-- END PANEL -->
         </div>
-      </div>
-    </div>
     <% end %>
     <div class="tab-pane fade" id="fade5" style="overflow-y: auto">
       <div class="row">

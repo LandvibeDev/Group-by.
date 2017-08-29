@@ -49,18 +49,28 @@
     * rails version 5.1.2
     * sqlite3 version 3.16.0
     * jquery version 1.11.0
+    * carrierwave
+    * minimagick
+    * imagemagick
+    * devise
+    * font-awesome
+    * mail
+    * viewerjs-rails
+
     
     
     
 ## Link
 
+> [INTRO](https://landvibedev.github.io/Group-by./)
+
 > [License](https://github.com/LandvibeDev/Group-by./blob/master/LICENSE)
 
 > [Dependencies License](https://github.com/LandvibeDev/Group-by./blob/master/NOTICE)
 
-> [PPT](https://landvibedev.github.io/Group-by./)
+> [PPT](https://www.slideshare.net/koseungbin1/group-by-79211771)
 
-> [DOC](https://landvibedev.github.io/Group-by./)
+> [DOC](https://www.slideshare.net/koseungbin1/2017-79211917)
 
 > [Service](http://13.124.130.15:3000)
 

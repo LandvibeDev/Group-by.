@@ -26,7 +26,7 @@
             <tbody>
             <% @projects.each do |project| %>
                 <tr role="row">
-                  <td class="p-t-30 p-b-30 col-md-8" rowspan="1" colspan="1"> <%= link_to project.title, project_path(project.id) %></td>
+                  <td class="p-t-30 p-b-30 col-md-8" rowspan="1" colspan="1"> <%= link_to project.title, project_path(project.id, anchor: "fade3") %></td>
                   <td class="p-t-30 p-b-30 col-md-4" rowspan="1" colspan="1">
                     <% t = Time.now - project.updated_at  %>
                     <% if ((t/3600)/24).to_i >= 1 %>

@@ -56,7 +56,7 @@ class ProjectsController < ApplicationController
       if @project.save
         @user.projects_users.create(project: @project, admin_user: true)
 
-        format.html { redirect_to project_calendar_path(@project.id) }
+        format.html { redirect_to project_path(@project.id) }
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new }

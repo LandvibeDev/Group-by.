@@ -2,8 +2,12 @@
   <ul class="nav nav-tabs">
     <label class="navbar-brand" style="border-right: 1px ridge;"> <%= @project.title %> </label>
 
-    <li class="active">
-      <a data-toggle="tab" href="#fade1" aria-expanded="true"><span>Progress</span></a>
+    <% if @team_events.count != 0%>
+        <li class="active">
+    <% else %>
+        <li class="">
+    <% end %>
+    <a data-toggle="tab" href="#fade1" aria-expanded="true"><span>Progress</span></a>
     </li>
     <li class="">
       <a data-toggle="tab" href="#fade2" aria-expanded="false"><span>Calendar</span></a>
@@ -11,8 +15,12 @@
     <li class="">
       <a data-toggle="tab" href="#fade3" aria-expanded="false"><span>Chat</span></a>
     </li>
-    <li class="">
-      <a data-toggle="tab" href="#fade4" aria-expanded="false"><span>Invite</span></a>
+    <% if @team_events.count == 0%>
+        <li class="active">
+    <% else %>
+        <li class="">
+    <% end %>
+    <a data-toggle="tab" href="#fade4" aria-expanded="false"><span>Invite</span></a>
     </li>
     <% @userprojects.each do |user| %>
         <% if user.user_id == current_user.id && user.project_id == @project.id %>
@@ -30,153 +38,303 @@
   <!-- Nav tabs -->
   <!-- Tab panes -->
   <div class="tab-content full-height" style="overflow:auto;overflow-x: hidden;padding:0px;">
-    <div class="tab-pane fade active in" id="fade1">
-      <div class="row">
-        <div class="container-fluid sm-p-l-5 bg-master-lighter ">
-          <div class="timeline-container top-circle" style="min-height: 840px;">
-            <section class="timeline">
-              <% @team_events.each do |events|  %>
-                  <input type="hidden" class="add-user-event-username" value="<%= current_user.name %>">
-                  <input type="hidden" class="add-user-event-userprofile" value="<%= current_user.userProfile.thumb.url %>">
+    <% if @team_events.count != 0 %>
+        <div class="tab-pane fade active in" id="fade1">
+          <div class="row">
+            <div class="container-fluid sm-p-l-5 bg-master-lighter ">
+              <div class="timeline-container top-circle" style="min-height: 840px;">
+                <section class="timeline">
+                  <% @team_events.each do |events|  %>
+                      <input type="hidden" class="add-user-event-username" value="<%= current_user.name %>">
+                      <input type="hidden" class="add-user-event-userprofile" value="<%= current_user.userProfile.thumb.url %>">
 
-                  <div class="timeline-block" id="timeline-block<%= events.id %>">
-                    <!-- 유저가 모두 완료안했고 시간이 지났으면 빨간색 -->
-                    <!-- 유저가 모두 완료안했고 시간이 다 되어 갈 때 주황색 -->
-                    <!-- 유저가 모두 완료했고 시간이 지났으면 초록색 -->
-                    <% @event_users = TeamEventsUser.where(team_event: events) %>
-                    <% check_time_complete = true %>
-                    <% complete_true_users = 0 %>
-                    <% @event_users.each do |check_time| %>
-                        <% complete_true_users = complete_true_users + 1 %>
-                        <% if check_time.complete == false %>
-                            <% check_time_complete = false %>
-                        <% end %>
-                    <% end %>
-                    <% if Time.now > events.end_date && (Time.now - (2 * ( 60 * 60 * 24))) < events.end_date && check_time_complete == false %>
-                        <div class="timeline-point" id="timeline-point<%= events.id %>" style="background-color: orange;"></div>
-                    <% elsif Time.now > events.end_date && check_time_complete == false %>
-                        <div class="timeline-point" id="timeline-point<%= events.id %>" style="background-color: red;"></div>
-                    <% elsif check_time_complete == true %>
-                        <div class="timeline-point" id="timeline-point<%= events.id %>" style="background-color: lawngreen;"></div>
-                    <% else %>
-                        <div class="timeline-point" id="timeline-point<%= events.id %>" style="background-color: floralwhite;"></div>
-                    <% end %>
-                    <!-- timeline-point -->
-                    <div class="timeline-content">
-                      <div class="card share full-width" id="card-share<%= events.id %>">
-
-                        <% @event_check = false %>
-                        <% @check_user_event.each do |user_event| %>
-                            <% if user_event.team_event_id == events.id %>
-                                <% @event_check = true %>
+                      <div class="timeline-block" id="timeline-block<%= events.id %>">
+                        <!-- 유저가 모두 완료안했고 시간이 지났으면 빨간색 -->
+                        <!-- 유저가 모두 완료안했고 시간이 다 되어 갈 때 주황색 -->
+                        <!-- 유저가 모두 완료했고 시간이 지났으면 초록색 -->
+                        <% @event_users = TeamEventsUser.where(team_event: events) %>
+                        <% check_time_complete = true %>
+                        <% complete_true_users = 0 %>
+                        <% @event_users.each do |check_time| %>
+                            <% complete_true_users = complete_true_users + 1 %>
+                            <% if check_time.complete == false %>
+                                <% check_time_complete = false %>
                             <% end %>
                         <% end %>
-                        <% if @event_check == false %>
-                            <div class="circle event-user-add" id="event-user-add<%= events.id %>" value="<%= events.id %>" style="border: 1px solid #ffffff; background: rgba(255, 255, 255, 0);">
-                              <i class="fa fa-plus" id="plus<%= events.id %>" data-toggle="tooltip" data-container="body" data-original-title="내 이벤트로 추가하기"></i>
-                            </div>
+                        <% if Time.now > events.end_date && (Time.now - (2 * ( 60 * 60 * 24))) < events.end_date && check_time_complete == false %>
+                            <div class="timeline-point" id="timeline-point<%= events.id %>" style="background-color: orange;"></div>
+                        <% elsif Time.now > events.end_date && check_time_complete == false %>
+                            <div class="timeline-point" id="timeline-point<%= events.id %>" style="background-color: red;"></div>
+                        <% elsif check_time_complete == true %>
+                            <div class="timeline-point" id="timeline-point<%= events.id %>" style="background-color: lawngreen;"></div>
                         <% else %>
-                            <% @check_user_event_complete = TeamEventsUser.where(user: current_user, team_event: events) %>
-                            <% @check_user_event_complete.each do |check_event| %>
-                                <% if check_event.complete == false %>
-                                    <div class="circle event-user-notcomplete" id="event-user-notcomplete<%= events.id %>" value="<%= events.id %>" style="border: 0px solid #ffffff; background: rgba(255, 255, 255, 0);">
-                                      <i class="fa fa-circle-thin" id="circle<%= events.id %>" data-toggle="tooltip" data-container="body" data-original-title="이벤트 완료하기"></i>
-                                      <input type="hidden" id="user-size" value="<%= @event_users.size %>">
-                                      <input type="hidden" id="complete-user-size" value="<%= complete_true_users %>">
-                                    </div>
-                                <% else %>
-                                    <div class="circle event-user-complete" id="event-user-complete<%= events.id %>" value="<%= events.id %>" style="border: 1px solid #ffffff; background: rgba(255, 255, 255, 0);">
-                                      <i class="fa fa-check" id="check<%= events.id %>"></i>
-                                    </div>
+                            <div class="timeline-point" id="timeline-point<%= events.id %>" style="background-color: floralwhite;"></div>
+                        <% end %>
+                        <!-- timeline-point -->
+                        <div class="timeline-content">
+                          <div class="card share full-width" id="card-share<%= events.id %>">
+
+                            <% @event_check = false %>
+                            <% @check_user_event.each do |user_event| %>
+                                <% if user_event.team_event_id == events.id %>
+                                    <% @event_check = true %>
                                 <% end %>
                             <% end %>
-                        <% end %>
-                        <div class="card-header clearfix">
-                          <h5><%= events.title %></h5>
-                          <div>
-                            <div class="p-t-15 p-r-10" style="float: left;">
-                              <h6> Users : </h6>
-                            </div>
-                            <div class="add-event-user-pic<%= events.id %>">
-                              <% @event_users = TeamEventsUser.where(team_event: events) %>
-                              <% @event_users.each do |users| %>
-                                  <% @users.each do |user| %>
-                                      <% if user.id == users.user_id %>
-                                          <div style="float: left;padding-left: 5px;" data-toggle="tooltip" data-container="body" data-original-title="<%= user.name %>">
-                                            <span class="thumbnail-wrapper d32 circular inline m-t-5"><%= image_tag(user.userProfile.thumb.url) %></span>
-                                          </div>
+                            <% if @event_check == false %>
+                                <div class="circle event-user-add" id="event-user-add<%= events.id %>" value="<%= events.id %>" style="border: 1px solid #ffffff; background: rgba(255, 255, 255, 0);">
+                                  <i class="fa fa-plus" id="plus<%= events.id %>" data-toggle="tooltip" data-container="body" data-original-title="내 이벤트로 추가하기"></i>
+                                </div>
+                            <% else %>
+                                <% @check_user_event_complete = TeamEventsUser.where(user: current_user, team_event: events) %>
+                                <% @check_user_event_complete.each do |check_event| %>
+                                    <% if check_event.complete == false %>
+                                        <div class="circle event-user-notcomplete" id="event-user-notcomplete<%= events.id %>" value="<%= events.id %>" style="border: 0px solid #ffffff; background: rgba(255, 255, 255, 0);">
+                                          <i class="fa fa-circle-thin" id="circle<%= events.id %>" data-toggle="tooltip" data-container="body" data-original-title="이벤트 완료하기"></i>
+                                          <input type="hidden" id="user-size" value="<%= @event_users.size %>">
+                                          <input type="hidden" id="complete-user-size" value="<%= complete_true_users %>">
+                                        </div>
+                                    <% else %>
+                                        <div class="circle event-user-complete" id="event-user-complete<%= events.id %>" value="<%= events.id %>" style="border: 1px solid #ffffff; background: rgba(255, 255, 255, 0);">
+                                          <i class="fa fa-check" id="check<%= events.id %>"></i>
+                                        </div>
+                                    <% end %>
+                                <% end %>
+                            <% end %>
+                            <div class="card-header clearfix">
+                              <h5><%= events.title %></h5>
+                              <div>
+                                <div class="p-t-15 p-r-10" style="float: left;">
+                                  <h6> Users : </h6>
+                                </div>
+                                <div class="add-event-user-pic<%= events.id %>">
+                                  <% @event_users = TeamEventsUser.where(team_event: events) %>
+                                  <% @event_users.each do |users| %>
+                                      <% @users.each do |user| %>
+                                          <% if user.id == users.user_id %>
+                                              <div style="float: left;padding-left: 5px;" data-toggle="tooltip" data-container="body" data-original-title="<%= user.name %>">
+                                                <span class="thumbnail-wrapper d32 circular inline m-t-5"><%= image_tag(user.userProfile.thumb.url) %></span>
+                                              </div>
+                                          <% end %>
                                       <% end %>
                                   <% end %>
-                              <% end %>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="card-description">
-                          <label class="semi-bold semi-bold p-t-10 p-l-20">CONTENT</label>
-                          <p><%= events.content %> </p>
-                        </div>
-                        <% if events.teamEventImage? %>
-                            <div class="user-pic">
-                              <label class="semi-bold semi-bold p-t-10 p-l-20">IMAGE</label>
-                              <img src="<%= events.teamEventImage.url %>" class="image-responsive-width" >
-                            </div>
-                        <% end %>
-                        <% if events.teamEventFile? %>
-                            <div>
-                              <label class="semi-boldsemi-bold p-t-10 p-l-20">FILE</label>
-                              <iframe class="clearfix" src = "http://www.group-by.com:3000/viewer/index#..<%= events.teamEventFile.url %>" style="width: 100%" height='389' allowfullscreen webkitallowfullscreen></iframe>
-                            </div>
-                        <% end %>
-                        <ul class="list-inline text-right">
-                          <li>
-                            <button class="btn btn-tag-light btn-sm" data-toggle="modal" data-target="#eventModal<%= events.id %>">File Upload</button>
-                          </li>
-                        </ul>
-                        <div class="modal fade stick-up" id="eventModal<%= events.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                          <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Upload</h4>
-                              </div>
-                              <div class="modal-body p-t-20">
-                                <%= form_with(url: project_image_teamEvent_path(events.id), multipart: true, class: 'simform no-margin') do |form| %>
-                                    <%= hidden_field_tag(:id, events.project_id) %>
-                                    <%= hidden_field_tag(:event_id, events.id) %>
-                                    <div class="form-group form-group-default">
-                                      <%= form.label :image %>
-                                      <%= form.file_field :teamEventImage,  :class => 'form-control' %>
-                                    </div>
-                                    <div class="form-group form-group-default">
-                                      <%= form.label :file %>
-                                      <%= form.file_field :teamEventFile,  :class => 'form-control'%>
-                                      <p>(미리보기를 이용하려면 PDF 또는 ODF로 변환해주시기 바랍니다.)</p>
-                                    </div>
-                                    <div class="actions text-right">
-                                      <%= form.submit 'Upload', :class => 'btn btn-light' %>
-                                    </div>
-                                <% end %>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </div>
+                            <div class="card-description">
+                              <label class="semi-bold semi-bold p-t-10 p-l-20">CONTENT</label>
+                              <p><%= events.content %> </p>
+                            </div>
+                            <% if events.teamEventImage? %>
+                                <div class="user-pic">
+                                  <label class="semi-bold semi-bold p-t-10 p-l-20">IMAGE</label>
+                                  <img src="<%= events.teamEventImage.url %>" class="image-responsive-width" >
+                                </div>
+                            <% end %>
+                            <% if events.teamEventFile? %>
+                                <div>
+                                  <label class="semi-boldsemi-bold p-t-10 p-l-20">FILE</label>
+                                  <iframe class="clearfix" src = "http://www.group-by.com:3000/viewer/index#..<%= events.teamEventFile.url %>" style="width: 100%" height='389' allowfullscreen webkitallowfullscreen></iframe>
+                                </div>
+                            <% end %>
+                            <ul class="list-inline text-right">
+                              <li>
+                                <button class="btn btn-tag-light btn-sm" data-toggle="modal" data-target="#eventModal<%= events.id %>">File Upload</button>
+                              </li>
+                            </ul>
+                            <div class="modal fade stick-up" id="eventModal<%= events.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Upload</h4>
+                                  </div>
+                                  <div class="modal-body p-t-20">
+                                    <%= form_with(url: project_image_teamEvent_path(events.id), multipart: true, class: 'simform no-margin') do |form| %>
+                                        <%= hidden_field_tag(:id, events.project_id) %>
+                                        <%= hidden_field_tag(:event_id, events.id) %>
+                                        <div class="form-group form-group-default">
+                                          <%= form.label :image %>
+                                          <%= form.file_field :teamEventImage,  :class => 'form-control' %>
+                                        </div>
+                                        <div class="form-group form-group-default">
+                                          <%= form.label :file %>
+                                          <%= form.file_field :teamEventFile,  :class => 'form-control'%>
+                                          <p>(미리보기를 이용하려면 PDF 또는 ODF로 변환해주시기 바랍니다.)</p>
+                                        </div>
+                                        <div class="actions text-right">
+                                          <%= form.submit 'Upload', :class => 'btn btn-light' %>
+                                        </div>
+                                    <% end %>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
 
+                          </div>
+                          <div class="event-date">
+                            <h6 class="font-montserrat all-caps hint-text" style="margin: 0"><label class="semi-bold">START : </label> <%= events.start_date.strftime("%Y-%m-%d %I:%M %p") %> </h6>
+                            <h6 class="font-montserrat all-caps hint-text" style="margin: 0"><label class="semi-bold">END : </label> <%= events.end_date.strftime("%Y-%m-%d %I:%M %p") %> </h6>
+                          </div>
+                        </div>
+                        <!-- timeline-content -->
                       </div>
-                      <div class="event-date">
-                        <h6 class="font-montserrat all-caps hint-text" style="margin: 0"><label class="semi-bold">START : </label> <%= events.start_date.strftime("%Y-%m-%d %I:%M %p") %> </h6>
-                        <h6 class="font-montserrat all-caps hint-text" style="margin: 0"><label class="semi-bold">END : </label> <%= events.end_date.strftime("%Y-%m-%d %I:%M %p") %> </h6>
-                      </div>
-                    </div>
-                    <!-- timeline-content -->
-                  </div>
-              <% end  %>
-            </section>
-            <!-- timeline -->
+                  <% end  %>
+                </section>
+                <!-- timeline -->
+              </div>
+              <!-- -->
+            </div>
           </div>
-          <!-- -->
         </div>
-      </div>
-    </div>
+    <% else %>
+        <div class="tab-pane fade full-height" id="fade1">
+          <div class="row">
+            <div class="container-fluid sm-p-l-5 bg-master-lighter ">
+              <div class="timeline-container top-circle" style="min-height: 840px;">
+                <section class="timeline">
+                  <% @team_events.each do |events|  %>
+                      <input type="hidden" class="add-user-event-username" value="<%= current_user.name %>">
+                      <input type="hidden" class="add-user-event-userprofile" value="<%= current_user.userProfile.thumb.url %>">
+
+                      <div class="timeline-block" id="timeline-block<%= events.id %>">
+                        <!-- 유저가 모두 완료안했고 시간이 지났으면 빨간색 -->
+                        <!-- 유저가 모두 완료안했고 시간이 다 되어 갈 때 주황색 -->
+                        <!-- 유저가 모두 완료했고 시간이 지났으면 초록색 -->
+                        <% @event_users = TeamEventsUser.where(team_event: events) %>
+                        <% check_time_complete = true %>
+                        <% complete_true_users = 0 %>
+                        <% @event_users.each do |check_time| %>
+                            <% complete_true_users = complete_true_users + 1 %>
+                            <% if check_time.complete == false %>
+                                <% check_time_complete = false %>
+                            <% end %>
+                        <% end %>
+                        <% if Time.now > events.end_date && (Time.now - (2 * ( 60 * 60 * 24))) < events.end_date && check_time_complete == false %>
+                            <div class="timeline-point" id="timeline-point<%= events.id %>" style="background-color: orange;"></div>
+                        <% elsif Time.now > events.end_date && check_time_complete == false %>
+                            <div class="timeline-point" id="timeline-point<%= events.id %>" style="background-color: red;"></div>
+                        <% elsif check_time_complete == true %>
+                            <div class="timeline-point" id="timeline-point<%= events.id %>" style="background-color: lawngreen;"></div>
+                        <% else %>
+                            <div class="timeline-point" id="timeline-point<%= events.id %>" style="background-color: floralwhite;"></div>
+                        <% end %>
+                        <!-- timeline-point -->
+                        <div class="timeline-content">
+                          <div class="card share full-width" id="card-share<%= events.id %>">
+
+                            <% @event_check = false %>
+                            <% @check_user_event.each do |user_event| %>
+                                <% if user_event.team_event_id == events.id %>
+                                    <% @event_check = true %>
+                                <% end %>
+                            <% end %>
+                            <% if @event_check == false %>
+                                <div class="circle event-user-add" id="event-user-add<%= events.id %>" value="<%= events.id %>" style="border: 1px solid #ffffff; background: rgba(255, 255, 255, 0);">
+                                  <i class="fa fa-plus" id="plus<%= events.id %>" data-toggle="tooltip" data-container="body" data-original-title="내 이벤트로 추가하기"></i>
+                                </div>
+                            <% else %>
+                                <% @check_user_event_complete = TeamEventsUser.where(user: current_user, team_event: events) %>
+                                <% @check_user_event_complete.each do |check_event| %>
+                                    <% if check_event.complete == false %>
+                                        <div class="circle event-user-notcomplete" id="event-user-notcomplete<%= events.id %>" value="<%= events.id %>" style="border: 0px solid #ffffff; background: rgba(255, 255, 255, 0);">
+                                          <i class="fa fa-circle-thin" id="circle<%= events.id %>" data-toggle="tooltip" data-container="body" data-original-title="이벤트 완료하기"></i>
+                                          <input type="hidden" id="user-size" value="<%= @event_users.size %>">
+                                          <input type="hidden" id="complete-user-size" value="<%= complete_true_users %>">
+                                        </div>
+                                    <% else %>
+                                        <div class="circle event-user-complete" id="event-user-complete<%= events.id %>" value="<%= events.id %>" style="border: 1px solid #ffffff; background: rgba(255, 255, 255, 0);">
+                                          <i class="fa fa-check" id="check<%= events.id %>"></i>
+                                        </div>
+                                    <% end %>
+                                <% end %>
+                            <% end %>
+                            <div class="card-header clearfix">
+                              <h5><%= events.title %></h5>
+                              <div>
+                                <div class="p-t-15 p-r-10" style="float: left;">
+                                  <h6> Users : </h6>
+                                </div>
+                                <div class="add-event-user-pic<%= events.id %>">
+                                  <% @event_users = TeamEventsUser.where(team_event: events) %>
+                                  <% @event_users.each do |users| %>
+                                      <% @users.each do |user| %>
+                                          <% if user.id == users.user_id %>
+                                              <div style="float: left;padding-left: 5px;" data-toggle="tooltip" data-container="body" data-original-title="<%= user.name %>">
+                                                <span class="thumbnail-wrapper d32 circular inline m-t-5"><%= image_tag(user.userProfile.thumb.url) %></span>
+                                              </div>
+                                          <% end %>
+                                      <% end %>
+                                  <% end %>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="card-description">
+                              <label class="semi-bold semi-bold p-t-10 p-l-20">CONTENT</label>
+                              <p><%= events.content %> </p>
+                            </div>
+                            <% if events.teamEventImage? %>
+                                <div class="user-pic">
+                                  <label class="semi-bold semi-bold p-t-10 p-l-20">IMAGE</label>
+                                  <img src="<%= events.teamEventImage.url %>" class="image-responsive-width" >
+                                </div>
+                            <% end %>
+                            <% if events.teamEventFile? %>
+                                <div>
+                                  <label class="semi-boldsemi-bold p-t-10 p-l-20">FILE</label>
+                                  <iframe class="clearfix" src = "http://www.group-by.com:3000/viewer/index#..<%= events.teamEventFile.url %>" style="width: 100%" height='389' allowfullscreen webkitallowfullscreen></iframe>
+                                </div>
+                            <% end %>
+                            <ul class="list-inline text-right">
+                              <li>
+                                <button class="btn btn-tag-light btn-sm" data-toggle="modal" data-target="#eventModal<%= events.id %>">File Upload</button>
+                              </li>
+                            </ul>
+                            <div class="modal fade stick-up" id="eventModal<%= events.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Upload</h4>
+                                  </div>
+                                  <div class="modal-body p-t-20">
+                                    <%= form_with(url: project_image_teamEvent_path(events.id), multipart: true, class: 'simform no-margin') do |form| %>
+                                        <%= hidden_field_tag(:id, events.project_id) %>
+                                        <%= hidden_field_tag(:event_id, events.id) %>
+                                        <div class="form-group form-group-default">
+                                          <%= form.label :image %>
+                                          <%= form.file_field :teamEventImage,  :class => 'form-control' %>
+                                        </div>
+                                        <div class="form-group form-group-default">
+                                          <%= form.label :file %>
+                                          <%= form.file_field :teamEventFile,  :class => 'form-control'%>
+                                          <p>(미리보기를 이용하려면 PDF 또는 ODF로 변환해주시기 바랍니다.)</p>
+                                        </div>
+                                        <div class="actions text-right">
+                                          <%= form.submit 'Upload', :class => 'btn btn-light' %>
+                                        </div>
+                                    <% end %>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+                          <div class="event-date">
+                            <h6 class="font-montserrat all-caps hint-text" style="margin: 0"><label class="semi-bold">START : </label> <%= events.start_date.strftime("%Y-%m-%d %I:%M %p") %> </h6>
+                            <h6 class="font-montserrat all-caps hint-text" style="margin: 0"><label class="semi-bold">END : </label> <%= events.end_date.strftime("%Y-%m-%d %I:%M %p") %> </h6>
+                          </div>
+                        </div>
+                        <!-- timeline-content -->
+                      </div>
+                  <% end  %>
+                </section>
+                <!-- timeline -->
+              </div>
+              <!-- -->
+            </div>
+          </div>
+        </div>
+    <% end %>
     <div class="tab-pane fade full-height" id="fade2" scroll=auto style="overflow-x:hidden">
       <div class="row full-height">
         <div class="p-t-20 p-b-10 p-r-20" style="text-align: right">
@@ -261,8 +419,52 @@
         </div>
       </div>
       <!-- END Conversation View  !-->
-
     </div>
+    <% if @team_events.count == 0 %>
+        <div class="tab-pane fade active in" id="fade4" style="overflow-y: auto">
+          <div class="row">
+            <div class="container-fluid container-fixed-lg bg-white" style="min-height: 840px;">
+              <!-- START PANEL -->
+              <div class="panel panel-transparent">
+                <div class="panel-heading">
+                  <div class="panel-title">All User</div>
+                </div>
+                <div class="panel-body">
+                  <div id="tableWithExportOptions_wrapper" class="dataTables_wrapper form-inline no-footer">
+                    <div class="table-responsive">
+                      <table class="table table-striped dataTable no-footer" id="tableWithExportOptions" role="grid" aria-describedby="tableWithExportOptions_info">
+                        <thead>
+                        <tr role="row">
+                          <th class="sorting_asc" tabindex="0" aria-controls="tableWithExportOptions" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">User Name</th>
+                          <th class="sorting" tabindex="0" aria-controls="tableWithExportOptions" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Invite</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% @users.each do |user1| %>
+                            <% if user1.id != current_user.id %>
+                                <% @userprojects.each do |user2| %>
+                                    <% if user2.project_id == @project.id %>
+                                        <% if user1.id != user2.user_id %>
+                                            <tr class="gradeA odd" role="row">
+                                              <td class="sorting_1"><%= user1.name %></td>
+                                              <td><%= link_to 'Invite', user_project_inviteCreate_path(user1.id, @project.id), data: { turbolinks: false } %></td>
+                                            </tr>
+                                        <% end %>
+                                    <% end %>
+                                <% end %>
+                            <% end %>
+                        <% end %>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- END PANEL -->
+            </div>
+          </div>
+        </div>
+    <% else %>
     <div class="tab-pane fade" id="fade4" style="overflow-y: auto">
       <div class="row">
         <div class="container-fluid container-fixed-lg bg-white" style="min-height: 840px;">
@@ -306,6 +508,7 @@
         </div>
       </div>
     </div>
+    <% end %>
     <div class="tab-pane fade" id="fade5" style="overflow-y: auto">
       <div class="row">
         <div class="container-fluid container-fixed-lg bg-white" style="min-height: 100px;">

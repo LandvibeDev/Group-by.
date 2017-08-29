@@ -318,3 +318,5 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/ruby,macos,rails,windows,rubymine,intellij,rubymine+all,rubymine+iml
+# Ignore encrypted secrets key file.
+config/secrets.yml.key
